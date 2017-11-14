@@ -27,6 +27,8 @@ desktop.ini
 *.suo
 .suo
 x64/
+*.db
+*.opendb
 
 # Compiled Static libraries
 *.lai
@@ -52,7 +54,6 @@ x64/
 
 #QT
 # C++ objects and libs
-
 *.slo
 *.lo
 *.o
@@ -64,7 +65,6 @@ x64/
 *.dylib
 
 # Qt-es
-
 object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
@@ -84,11 +84,11 @@ ui_*.h
 Makefile*
 *build-*
 
+
 # Qt unit tests
 target_wrapper.*
 
 # QtCreator
-
 *.autosave
 
 # QtCtreator Qml
