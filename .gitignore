@@ -33,3 +33,11 @@ desktop.ini
 *.exe
 *.out
 *.app
+
+# CUDA
+*.i
+*.ii
+*.gpu
+*.ptx
+*.cubin
+*.fatbin
