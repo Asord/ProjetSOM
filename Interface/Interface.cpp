@@ -1,15 +1,15 @@
-#include "Interfacev0.h"
+#include "Interface.h"
 #include <iostream>
 
 
 
-Interfacev0::Interfacev0(QWidget *parent)
+Interface::Interface(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 }
 
-void Interfacev0::setRows()
+void Interface::setRows()
 {
 	//mettre le valeur du compteur dans la variable
 	nbrRows = ui.LigneValue->value();
@@ -17,7 +17,7 @@ void Interfacev0::setRows()
 		ui.BetaValue->setMaximum(nbrRows);
 }
 
-void Interfacev0::updateValues()
+void Interface::updateValues()
 {
 	//alpha
 	ui.AlphaSlider->setSliderPosition(alpha*1000);
@@ -27,7 +27,7 @@ void Interfacev0::updateValues()
 	ui.BetaValue->setValue(beta);
 }
 
-void Interfacev0::setColumns()
+void Interface::setColumns()
 {
 	//mettre le valeur du compteur dans la variable
 	nbrCols = ui.ColValue->value();
@@ -35,36 +35,36 @@ void Interfacev0::setColumns()
 		ui.BetaValue->setMaximum(nbrCols);
 }
 
-void Interfacev0::setAlphaValueText()
+void Interface::setAlphaValueText()
 {
 	//mettre le valeur du compteur dans la variable
 	ui.AlphaValue->setText(QString::number(ui.AlphaSlider->value()/1000.0 + 0.006));
 }
 
-void Interfacev0::setBeta()
+void Interface::setBeta()
 {
 	//mettre le valeur du compteur dans la variable
 	
 }
 
-void Interfacev0::setEuclidian()
+void Interface::setEuclidian()
 {
 	Euclidian = ui.Distance1->isChecked();
 }
 
-void Interfacev0::alphaRateConstraint()
+void Interface::alphaRateConstraint()
 {
 	if (ui.TauxAlphaValue->value() >= ui.TauxBetaValue->value())
 		ui.TauxAlphaValue->setValue(ui.TauxBetaValue->value() - 0.01);
 }
 
-void Interfacev0::betaRateConstraint()
+void Interface::betaRateConstraint()
 {
 	if (ui.TauxBetaValue->value() <= ui.TauxAlphaValue->value())
 		ui.TauxBetaValue->setValue(ui.TauxAlphaValue->value() + 0.01);
 }
 
-void Interfacev0::start()
+void Interface::start()
 {
 
 	bool ready = true;//check si tout les parametres sont corrects
@@ -135,7 +135,7 @@ void Interfacev0::start()
 	}
 }
 
-void Interfacev0::pause()
+void Interface::pause()
 {
 	isPaused = isPaused ? false : true;
 	if (isPaused)

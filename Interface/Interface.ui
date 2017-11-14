@@ -592,7 +592,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="Interfacev0.qrc"/>
+  <include location="Interface.qrc"/>
  </resources>
  <connections>
   <connection>

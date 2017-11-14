@@ -2,13 +2,13 @@
 
 
 #include <QtWidgets/QWidget>
-#include "ui_Interfacev0.h"
-class Interfacev0 : public QWidget
+#include "ui_Interface.h"
+class Interface : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Interfacev0(QWidget *parent = Q_NULLPTR);
+	Interface(QWidget *parent = Q_NULLPTR);
 
 private:
 	Ui::Window ui;
