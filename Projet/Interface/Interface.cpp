@@ -107,10 +107,10 @@ void Interface::start()
 		ui.NbrIterations->setEnabled(true);
 		
 		//calcul nombre d'itérations
-		double alphaTemp = 1;
-		while (alphaTemp > 0.0001)
+		double alphaStart = alpha;
+		while (alpha > 0.000000001)
 		{
-			alphaTemp = alpha * exp(-currentIteration/alphaRate);
+			alpha = alphaStart * exp(-currentIteration/alphaRate);
 			nbrIterationsMax++;
 			currentIteration++;
 		}
@@ -127,10 +127,10 @@ void Interface::start()
 			ui.ProgressBar->setValue(currentIteration);
 			ui.NbrIterations->setText("Iterations : " + QString::number(currentIteration) + "/" + QString::number(nbrIterationsMax));
 
-			alphaTemp = alpha * exp(-currentIteration / alphaRate);;
+			alpha = alphaStart * exp(-currentIteration / alphaRate);;
 			beta--;
 			updateValues();
-			_sleep(50);
+			_sleep(200);
 		}
 	}
 }
