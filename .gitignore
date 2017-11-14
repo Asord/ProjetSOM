@@ -41,3 +41,6 @@ desktop.ini
 *.ptx
 *.cubin
 *.fatbin
+
+# UML
+*bak_0*
