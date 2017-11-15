@@ -22,10 +22,20 @@ namespace SOM
 		int m_nNbRow;
 
 		// Données utiles au traitement du réseau de neurone lors de l'apprentissage
+		const float m_fInitialAlpha;
+		const float m_fInitialBeta;
+
 		float m_fAlpha;
 		float m_fBeta;
+
+		float m_fAlphaRate;
+		float m_fBetaRate;
+
+		int m_nAlphaPeriod;
+		int m_nBetaPeriod;
+		
 		//ajouter membres
-		//int m_nIteration;
+		int m_nIteration;
 
 		// Tableau dynamique de réseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork; // revoir dim
@@ -34,7 +44,11 @@ namespace SOM
 		// Constructeurs et destructeurs
 		Network(int nbLine, int nbCol, size_t weightVect);
 
+		void UpdateAlpha();
+		void UpdateBeta();
 		//ajouter param
 		void getNeighbour(std::vector<Neuron>& neighbour, Neuron& winner);
+
+		void getWinner();
 	};
 }
