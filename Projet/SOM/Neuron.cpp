@@ -11,11 +11,6 @@ namespace SOM
 		delete[] m_fWeight;
 	}
 
-	float Neuron::getDistance(const double * entryTable, Network::DistanceMetric distanceType) const
-	{
-		return 0.0f;
-	}
-
 	double * Neuron::getWeight()
 	{
 		return nullptr;

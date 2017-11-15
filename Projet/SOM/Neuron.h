@@ -1,6 +1,5 @@
 #pragma once
 #include "Point.h"
-#include "Network.h"
 
 namespace SOM
 {
@@ -10,6 +9,7 @@ namespace SOM
 		int m_nId;
 		Point m_pCoordinate;
 
+		// Tableau de floats de dimention weightDim
 		double* m_fWeight;
 		size_t m_dDimWeight;
 
@@ -21,8 +21,10 @@ namespace SOM
 
 
 		// getActivity
-		float getDistance(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
+		float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
 		
 		double* getWeight();
+		
+		size_t getWeightTab() {return m_dDimWeight;}
 	};
 }
