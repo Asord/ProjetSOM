@@ -2,7 +2,7 @@
 
 namespace SOM
 {
-	Network::Network(int nbLine, int nbCol, size_t weightVect) : m_pCoordinate(2)
+	Network::Network(int nbLine, int nbCol, size_t weightVect, int alpha, int beta): m_fInitialAlpha(alpha), m_fInitialBeta(beta)
 	{
 		m_vvNetwork.resize(nbLine);
 		for (auto v : m_vvNetwork)
@@ -21,7 +21,7 @@ namespace SOM
 			m_fBeta = m_fInitialBeta * exp(-m_nIteration / m_fBetaRate);
 	}
 
-	float Network::getActivity(const double * entryTable, DistanceMetric distanceType) const
+	float Network::getActivity(const double * entryTable, Network::DistanceMetric distanceType) const
 	{
 		return 0.0f;
 	}
@@ -32,15 +32,20 @@ namespace SOM
 	
 	void Network::getWinner()
 	{
+		/*TODO Define a*/
+		auto a = DistanceMetric::EUCL;
+
 		for (int row = 0; row < m_nNbRow; ++row)
 			for (int col = 0; col < m_nNbCol; ++col)
 			{
-				switch(distanceMetric)
+				switch(a)
 				{
 					case EUCL:
-					for(int poids = 0; poids < m_nSizeInputVector; ++poids)
-						act += (v(poids)-vneuron(poids))²;
-					act = sqrt(act);
+						for (int poids = 0; poids < m_nSizeInputVector; ++poids)
+							/*act += (v(poids)-vneuron(poids))²;
+							act = sqrt(act);*/
+							printf("");
+
 				}
 			}
 	}

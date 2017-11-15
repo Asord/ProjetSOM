@@ -4,6 +4,8 @@
 #include "Point.h"
 #include <vector>
 
+typedef unsigned int uint;
+
 namespace SOM
 {
 	class Network
@@ -37,18 +39,22 @@ namespace SOM
 		//ajouter membres
 		int m_nIteration;
 
+		uint m_nSizeInputVector;
+
 		// Tableau dynamique de réseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork; // revoir dim
 
 	public:
 		// Constructeurs et destructeurs
-		Network(int nbLine, int nbCol, size_t weightVect);
+		Network(int nbLine, int nbCol, size_t weightVect, int, int);
 
 		void UpdateAlpha();
 		void UpdateBeta();
+		float getActivity(const double * entryTable, Network::DistanceMetric distanceType) const;
 		//ajouter param
 		void getNeighbour(std::vector<Neuron>& neighbour, Neuron& winner);
 
 		void getWinner();
+		void getDistance();
 	};
 }
