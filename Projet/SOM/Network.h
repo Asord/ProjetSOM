@@ -3,8 +3,7 @@
 #include "Neuron.h"
 #include "Point.h"
 #include <vector>
-
-typedef unsigned int uint;
+#include "Utility.h"
 
 namespace SOM
 {
@@ -46,7 +45,7 @@ namespace SOM
 
 	public:
 		// Constructeurs et destructeurs
-		Network(int nbLine, int nbCol, size_t weightVect, int, int);
+		Network(int nbLine, int nbCol, uint weightVect, int alpha, int beta);
 
 		void UpdateAlpha();
 		void UpdateBeta();

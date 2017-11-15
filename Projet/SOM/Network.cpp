@@ -2,7 +2,7 @@
 
 namespace SOM
 {
-	Network::Network(int nbLine, int nbCol, size_t weightVect, int alpha, int beta): m_fInitialAlpha(alpha), m_fInitialBeta(beta)
+	Network::Network(int nbLine, int nbCol, uint weightVect, int alpha, int beta): m_fInitialAlpha(alpha), m_fInitialBeta(beta)
 	{
 		m_vvNetwork.resize(nbLine);
 		for (auto v : m_vvNetwork)

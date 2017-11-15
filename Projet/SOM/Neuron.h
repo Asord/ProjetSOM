@@ -1,5 +1,7 @@
 #pragma once
 #include "Point.h"
+#include "Utility.h"
+#include "Network.h"
 
 namespace SOM
 {
@@ -11,10 +13,10 @@ namespace SOM
 
 		// Tableau de floats de dimention weightDim
 		double* m_fWeight;
-		size_t m_dDimWeight;
+		uint m_dDimWeight;
 
 	public:
-		Neuron(size_t weightVect);
+		Neuron(uint weightVect);
 		~Neuron();
 
 		void updateWeight(double*);
@@ -25,6 +27,6 @@ namespace SOM
 		
 		double* getWeight();
 		
-		size_t getWeightTab() {return m_dDimWeight;}
+		uint getWeightTab() {return m_dDimWeight;}
 	};
 }

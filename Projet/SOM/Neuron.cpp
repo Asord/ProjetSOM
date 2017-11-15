@@ -1,7 +1,7 @@
 #include "Neuron.h"
 namespace SOM
 {
-	Neuron::Neuron(size_t weightVect): m_pCoordinate(2)
+	Neuron::Neuron(uint weightVect): m_pCoordinate(2)
 	{
 		m_fWeight = new double[weightVect];
 	}

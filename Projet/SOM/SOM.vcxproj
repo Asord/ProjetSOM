@@ -154,6 +154,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Neuron.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
