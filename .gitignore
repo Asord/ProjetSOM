@@ -29,6 +29,7 @@ desktop.ini
 x64/
 *.db
 *.opendb
+.vs/
 
 # Compiled Static libraries
 *.lai
