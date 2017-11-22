@@ -29,7 +29,7 @@ namespace SOM
 				{
 					case EUCL:
 						for (uint idWeight = 0; idWeight < m_nSizeInputVector; ++idWeight)
-							activity += pow((m_nInput[idWeight]- m_vvNetwork[row][col].getWeightTab(idWeight)), 2);
+							activity += pow((m_nInput[idWeight]- m_vvNetwork[row][col].getWeightTab()), 2);
 							activity = sqrt(activity);
 				}
 		return activity;
@@ -51,7 +51,7 @@ namespace SOM
 				//Recherche du winner
 				if (activity < m_fMinAct)
 				{
-					//pas propre je sais je vais modif ça
+					//TODO: editer cette partie là qui n'est pas propre
 					m_fMinAct = activity;
 					m_nIdWinner[0] = row;
 					m_nIdWinner[1] = col;
