@@ -2,6 +2,18 @@
 
 namespace SOM
 {
+	Network* Network::instance = nullptr;
+
+	Network* Network::getInstance(Vector dim, float initialAlpha, float initialBeta, uint size)
+	{
+		if (instance == nullptr)
+			instance = new Network(dim, initialAlpha, initialBeta, size);
+		
+		return instance;
+	}
+
+
+
 	Network::Network(Vector dim, float initialAlpha, float initialBeta, uint size): m_vWinner(size)
 	{
 		m_fInitialAlpha = initialAlpha;

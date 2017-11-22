@@ -15,12 +15,6 @@ namespace SOM
 		// Types de calcules de distance
 		enum DistanceMetric { EUCL };
 
-		static Network& GetInstance(Vector dim, float initialAlpha, float initialBeta, uint size)
-		{
-			static Network instance(Vector dim, float initialAlpha, float initialBeta, uint size);
-			return instance;
-		}
-
 	private:
 		// Vecteur d'entrée : Tableau de uint de taille m_nSizeInputVector
 		double* m_fInput;
@@ -57,11 +51,23 @@ namespace SOM
 		// Tableau dynamique de réseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork;
 
-		// Constructeurs et destructeurs
+
+		// Singloton instance pointer
+		static Network* instance;
+
+		// Constructeurs et destructeurs privé pour singloton
 		Network(Vector dim, float initialAlpha, float initialBeta, uint size);
 
-		Network& operator=(Network const& copy);
-		Network(Network const& copy);
+
+	public:
+		static Network* getInstance(Vector dim, float initialAlpha, float initialBeta, uint size);
+
+
+
+
+
+
+
 	public:
 
 		void UpdateAlpha();
