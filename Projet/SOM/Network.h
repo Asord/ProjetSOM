@@ -15,26 +15,32 @@ namespace SOM
 		// Types de calcules de distance
 		enum DistanceMetric { EUCL };
 
+		static Network& GetInstance(Vector dim, float initialAlpha, float initialBeta, uint size)
+		{
+			static Network instance(Vector dim, float initialAlpha, float initialBeta, uint size);
+			return instance;
+		}
+
 	private:
-		// Tableau de uint (Vecteur d'entrée) de taille m_nSizeInputVector
-		uint* m_nInput;
-		uint m_nSizeInputVector;
+		// Vecteur d'entrée : Tableau de uint de taille m_nSizeInputVector
+		double* m_fInput;
+		uint m_nDimInputVector;
 
 		// Stockage activité minimum
 		float m_fMinAct;
 
 		// Id du winner dans m_vvNetwork
-		uint m_nIdWinner[2];
+		Vector m_vWinner;
 		// Point coordonnée d'un neurone
 		// Point m_pCoordinate;
 
 		// Dimention du tableau de neurones
-		int m_nNbCol;
-		int m_nNbRow;
+		uint m_nNbCol;
+		uint m_nNbRow;
 
 		// Données utiles au traitement du réseau de neurone lors de l'apprentissage
-		const float m_fInitialAlpha;
-		const float m_fInitialBeta;
+		float m_fInitialAlpha;
+		float m_fInitialBeta;
 
 		float m_fAlpha;
 		float m_fBeta;
@@ -42,27 +48,33 @@ namespace SOM
 		float m_fAlphaRate;
 		float m_fBetaRate;
 
-		int m_nAlphaPeriod;
-		int m_nBetaPeriod;
+		uint m_nAlphaPeriod;
+		uint m_nBetaPeriod;
 		
 		//ajouter membres
-		int m_nIteration;
+		uint m_nIteration;
 
 		// Tableau dynamique de réseau de neurones
-		std::vector<std::vector<Neuron>> m_vvNetwork; // revoir dim
+		std::vector<std::vector<Neuron>> m_vvNetwork;
 
-	public:
 		// Constructeurs et destructeurs
-		Network(int nbLine, int nbCol, uint weightVect, int alpha, int beta);
+		Network(Vector dim, float initialAlpha, float initialBeta, uint size);
+
+		Network& operator=(Network const& copy);
+		Network(Network const& copy);
+	public:
 
 		void UpdateAlpha();
 		void UpdateBeta();
-		float getActivity(uint row, uint col);
-		//ajouter param
-		void getNeighbour(std::vector<Neuron>& neighbour, Neuron& winner);
+		float GetActivity(Vector coordinate);
+		//TODO: ajouter param
+		void UpdateNeighbour();
 
-		//
-		void getWinner();
-		void getDistance();
+		//Retourne
+		void SetWinner();
+		float GetActivity(Vector coordinate);
+
+		// Retourne la dimension du tableau de poids
+		uint getInputDim() { return m_nDimInputVector; }
 	};
 }

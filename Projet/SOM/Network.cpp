@@ -2,11 +2,13 @@
 
 namespace SOM
 {
-	Network::Network(int nbLine, int nbCol, uint weightVect, int alpha, int beta): m_fInitialAlpha(alpha), m_fInitialBeta(beta)
+	Network::Network(Vector dim, float initialAlpha, float initialBeta, uint size): m_vWinner(size)
 	{
-		m_vvNetwork.resize(nbLine);
+		m_fInitialAlpha = initialAlpha;
+		m_fInitialBeta = initialBeta;
+		m_vvNetwork.resize(dim[0]);
 		for (auto v : m_vvNetwork)
-			v.resize(nbCol);
+			v.resize(dim[1]);
 	}
 
 	void Network::UpdateAlpha()
@@ -21,46 +23,43 @@ namespace SOM
 			m_fBeta = m_fInitialBeta * exp(-m_nIteration / m_fBetaRate);
 	}
 
-	float Network::getActivity(uint row, uint col)
+	float Network::GetActivity(Vector coordinate)
 	{
+		//TODO: corriger pour les Points
 		auto distanceType = DistanceMetric::EUCL;
 		float activity = 0;
 		switch(distanceType)
 				{
 					case EUCL:
-						for (uint idWeight = 0; idWeight < m_nSizeInputVector; ++idWeight)
-							activity += pow((m_nInput[idWeight]- m_vvNetwork[row][col].getWeightTab()), 2);
+						for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
+							activity += pow((m_fInput[idWeight]- m_vvNetwork[row][col].getDimWeight()), 2);
 							activity = sqrt(activity);
 				}
 		return activity;
 	}
 
-	void Network::getNeighbour(std::vector<Neuron>& neighbour, Neuron & winner)
+	void Network::UpdateNeighbour()
 	{
+		//TODO: completer
 	}
 	
-	void Network::getWinner()
+	void Network::SetWinner()
 	{
+		//TODO: corriger pour les Point
 		m_fMinAct = 66000;
 		float activity;
 		for (uint row = 0; row < m_nNbRow; ++row)
 			for (uint col = 0; col < m_nNbCol; ++col)
 			{
 				//Calcul de l'activité
-				activity = getActivity(row, col); 
+				activity = GetActivity(row, col); 
 				//Recherche du winner
 				if (activity < m_fMinAct)
 				{
-					//TODO: editer cette partie là qui n'est pas propre
 					m_fMinAct = activity;
 					m_nIdWinner[0] = row;
 					m_nIdWinner[1] = col;
 				}
 			}
-	}
-	
-	void Network::getDistance()
-	{
-		
 	}
 }

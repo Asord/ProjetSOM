@@ -3,24 +3,23 @@
 
 namespace SOM
 {
-	class Point
+	struct Vector
 	{
-	private:
-		double* p;
-		uint d;
+		double* pos;
+		uint dim;
 
-	public:
-		Point(uint dim)
+		Vector(uint dim)
 		{
-			p = new double[dim];
-			d = dim;
+			pos = new double[dim];
+			dim = dim;
 		}
 
-		~Point() { delete[] p; }
+		~Vector() { delete[] pos; }
 
-		double& operator[](uint dim) { return p[dim]; }
-		const double& operator[](uint dim) const { return p[dim]; }
-		double& operator()(uint dim) { return p[dim]; }
-		const double& operator()(uint dim) const { return p[dim]; }
+		double& operator[](uint dim) { return pos[dim]; }
+		const double& operator[](uint dim) const { return pos[dim]; }
+		double& operator()(uint dim) { return pos[dim]; }
+		const double& operator()(uint dim) const { return pos[dim]; }
 	};
 }
+

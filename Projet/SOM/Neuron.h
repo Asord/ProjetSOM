@@ -11,25 +11,24 @@ namespace SOM
 	{
 	private:
 		int m_nId;
-		Point m_pCoordinate;
+		Vector m_pCoordinate;
 
-		// Tableau de floats de dimention weightDim
-
+		// Tableau de poids (double)
 		double* m_fWeight;
-		uint m_dDimWeight;
-
+		
 	public:
-		Neuron(uint weightVect);
+		// Constructeur
+		Neuron(uint dimWeight);
+		// Destructeur
 		~Neuron();
 
+		// Modification du tableau de poids
 		void updateWeight(double*);
 
 
 		// getActivity
 		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
 		
-		double* getWeight();
-		
-		uint getWeightTab() {return m_dDimWeight;}
+		double* GetWeight();
 	};
 }
