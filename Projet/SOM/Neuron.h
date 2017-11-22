@@ -2,6 +2,8 @@
 
 #include "Utility.h"
 #include "Point.h"
+#include "Utility.h"
+#include "Network.h"
 
 namespace SOM
 {
@@ -12,11 +14,12 @@ namespace SOM
 		Point m_pCoordinate;
 
 		// Tableau de floats de dimention weightDim
-		uint* m_nWeight;
-		size_t m_dDimWeight;
+
+		double* m_fWeight;
+		uint m_dDimWeight;
 
 	public:
-		Neuron(size_t weightVect);
+		Neuron(uint weightVect);
 		~Neuron();
 
 		void updateWeight(double*);
@@ -27,6 +30,6 @@ namespace SOM
 		
 		double* getWeight();
 		
-		uint& getWeightTab(uint idWeight) { return m_nWeight[idWeight]; }
+		uint getWeightTab() {return m_dDimWeight;}
 	};
 }

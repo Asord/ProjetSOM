@@ -4,6 +4,7 @@
 #include "Neuron.h"
 #include "Point.h"
 #include <vector>
+#include "Utility.h"
 
 namespace SOM
 {

@@ -1,4 +1,5 @@
 #pragma once
+#include "Utility.h"
 
 namespace SOM
 {
@@ -6,10 +7,10 @@ namespace SOM
 	{
 	private:
 		double* p;
-		size_t d;
+		uint d;
 
 	public:
-		Point(size_t dim)
+		Point(uint dim)
 		{
 			p = new double[dim];
 			d = dim;
@@ -17,9 +18,9 @@ namespace SOM
 
 		~Point() { delete[] p; }
 
-		double& operator[](size_t dim) { return p[dim]; }
-		const double& operator[](size_t dim) const { return p[dim]; }
-		double& operator()(size_t dim) { return p[dim]; }
-		const double& operator()(size_t dim) const { return p[dim]; }
+		double& operator[](uint dim) { return p[dim]; }
+		const double& operator[](uint dim) const { return p[dim]; }
+		double& operator()(uint dim) { return p[dim]; }
+		const double& operator()(uint dim) const { return p[dim]; }
 	};
 }
