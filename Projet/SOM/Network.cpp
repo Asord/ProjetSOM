@@ -21,9 +21,18 @@ namespace SOM
 			m_fBeta = m_fInitialBeta * exp(-m_nIteration / m_fBetaRate);
 	}
 
-	float Network::getActivity(const double * entryTable, Network::DistanceMetric distanceType) const
+	float Network::getActivity(uint row, uint col)
 	{
-		return 0.0f;
+		auto distanceType = DistanceMetric::EUCL;
+		float activity = 0;
+		switch(distanceType)
+				{
+					case EUCL:
+						for (uint idWeight = 0; idWeight < m_nSizeInputVector; ++idWeight)
+							activity += pow((m_nInput[idWeight]- m_vvNetwork[row][col].getWeightTab(idWeight)), 2);
+							activity = sqrt(activity);
+				}
+		return activity;
 	}
 
 	void Network::getNeighbour(std::vector<Neuron>& neighbour, Neuron & winner)
@@ -32,20 +41,20 @@ namespace SOM
 	
 	void Network::getWinner()
 	{
-		/*TODO Define a*/
-		auto a = DistanceMetric::EUCL;
-
-		for (int row = 0; row < m_nNbRow; ++row)
-			for (int col = 0; col < m_nNbCol; ++col)
+		m_fMinAct = 66000;
+		float activity;
+		for (uint row = 0; row < m_nNbRow; ++row)
+			for (uint col = 0; col < m_nNbCol; ++col)
 			{
-				switch(a)
+				//Calcul de l'activité
+				activity = getActivity(row, col); 
+				//Recherche du winner
+				if (activity < m_fMinAct)
 				{
-					case EUCL:
-						for (int poids = 0; poids < m_nSizeInputVector; ++poids)
-							/*act += (v(poids)-vneuron(poids))²;
-							act = sqrt(act);*/
-							printf("");
-
+					//pas propre je sais je vais modif ça
+					m_fMinAct = activity;
+					m_nIdWinner[0] = row;
+					m_nIdWinner[1] = col;
 				}
 			}
 	}

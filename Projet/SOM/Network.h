@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Utility.h"
 #include "Neuron.h"
 #include "Point.h"
 #include <vector>
@@ -15,6 +16,15 @@ namespace SOM
 		enum DistanceMetric { EUCL };
 
 	private:
+		// Tableau de uint (Vecteur d'entrée) de taille m_nSizeInputVector
+		uint* m_nInput;
+		uint m_nSizeInputVector;
+
+		// Stockage activité minimum
+		float m_fMinAct;
+
+		// Id du winner dans m_vvNetwork
+		uint m_nIdWinner[2];
 		// Point coordonnée d'un neurone
 		// Point m_pCoordinate;
 
@@ -38,8 +48,6 @@ namespace SOM
 		//ajouter membres
 		int m_nIteration;
 
-		uint m_nSizeInputVector;
-
 		// Tableau dynamique de réseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork; // revoir dim
 
@@ -49,10 +57,11 @@ namespace SOM
 
 		void UpdateAlpha();
 		void UpdateBeta();
-		float getActivity(const double * entryTable, Network::DistanceMetric distanceType) const;
+		float getActivity(uint row, uint col);
 		//ajouter param
 		void getNeighbour(std::vector<Neuron>& neighbour, Neuron& winner);
 
+		//
 		void getWinner();
 		void getDistance();
 	};

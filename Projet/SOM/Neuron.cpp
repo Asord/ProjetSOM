@@ -3,12 +3,12 @@ namespace SOM
 {
 	Neuron::Neuron(uint weightVect): m_pCoordinate(2)
 	{
-		m_fWeight = new double[weightVect];
+		m_nWeight = new uint[weightVect];
 	}
 
 	Neuron::~Neuron()
 	{
-		delete[] m_fWeight;
+		delete[] m_nWeight;
 	}
 
 	double * Neuron::getWeight()
