@@ -10,11 +10,15 @@ namespace SOM
 	class Neuron
 	{
 	private:
+		//TODO: A quoi sert l'id ?
 		int m_nId;
 		Vector m_pCoordinate;
 
 		// Tableau de poids (double)
 		double* m_fWeight;
+
+		//Dimension du vecteur de poids
+		uint m_nWeightDim;
 		
 	public:
 		// Constructeur
@@ -29,6 +33,6 @@ namespace SOM
 		// getActivity
 		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
 		
-		double* GetWeight();
+		double* GetWeight(uint idWeight);
 	};
 }

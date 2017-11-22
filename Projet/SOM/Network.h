@@ -32,7 +32,7 @@ namespace SOM
 		uint m_nNbCol;
 		uint m_nNbRow;
 
-		// Données utiles au traitement du réseau de neurone lors de l'apprentissage
+		// Données utiles au traitement du réseau de neurone lors de l'apprentissage (alpha et beta)
 		float m_fInitialAlpha;
 		float m_fInitialBeta;
 
@@ -44,43 +44,41 @@ namespace SOM
 
 		uint m_nAlphaPeriod;
 		uint m_nBetaPeriod;
-		
-		//ajouter membres
-		uint m_nIteration;
+		//ENDBLOCK
+
+		//Iteration actuelle
+		uint m_nCurrentIteration;
+
+		// Nombre d'itération de l'apprentissage //Utile pour l'interface d'Arthur
+		uint m_nNbIteration; //TODO: Calculer à partir de alpha
 
 		// Tableau dynamique de réseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork;
 
-
-		// Singloton instance pointer
+		// Singleton instance pointer
 		static Network* instance;
 
-		// Constructeurs et destructeurs privé pour singloton
-		Network(Vector dim, float initialAlpha, float initialBeta, uint size);
-
-
+		// Constructeurs privé pour singleton
+		Network(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
+		
 	public:
-		static Network* getInstance(Vector dim, float initialAlpha, float initialBeta, uint size);
+		static Network* getInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
 
-
-
-
-
-
-
-	public:
-
+		//Mise à jour de Alpha
 		void UpdateAlpha();
+		//Mise à jour de Beta
 		void UpdateBeta();
-		float GetActivity(Vector coordinate);
-		//TODO: ajouter param
+
+		//TODO: Faire cette fonction
 		void UpdateNeighbour();
 
-		//Retourne
+		//Retourne le neurone avec l'activité la plus minime
 		void SetWinner();
+
+		//Calcul l'activité d'un neurone
 		float GetActivity(Vector coordinate);
 
 		// Retourne la dimension du tableau de poids
-		uint getInputDim() { return m_nDimInputVector; }
+		uint GetInputDim() { return m_nDimInputVector; } // TODO: pas sûre que ça soit utile
 	};
 }

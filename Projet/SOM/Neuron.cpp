@@ -1,10 +1,12 @@
 #include "Neuron.h"
+#include "Network.h"
+
 namespace SOM
 {
-	Neuron::Neuron(uint weightVect): m_pCoordinate(2)
+	Neuron::Neuron(uint weightDim): m_pCoordinate(2)
 	{
-		m_fWeight = new double[weightVect];
-		m_nDimWeight = weightVect;
+		m_nWeightDim = weightDim;
+		m_fWeight = new double[m_nWeightDim];
 	}
 
 	Neuron::~Neuron()
@@ -12,15 +14,15 @@ namespace SOM
 		delete[] m_fWeight;
 	}
 
-	double * Neuron::GetWeight()
+	double * Neuron::GetWeight(uint idWeight)
 	{
-		return m_fWeight;
+		return m_fWeight(idWeight); //TODO: corriger
 	}
 
 	void Neuron::updateWeight(double* weight)
 	{
-		for (uint i = 0; i < m_nDimWeight; ++i)
+		for (uint i = 0; i < m_nWeightDim; ++i)
 			m_fWeight[i] = weight[i];
-		// TODO: vérifier si cette partie est juste
+		// TODO: vérifier si cette partie est juste (elle n'est pas bonne je la corrigerai)
 	}
 }
