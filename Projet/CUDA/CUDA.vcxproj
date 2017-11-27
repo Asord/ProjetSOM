@@ -85,11 +85,11 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu" />
-    <CudaCompile Include="mulMatv1.cu" />
-    <CudaCompile Include="multVectv2.cu" />
-    <CudaCompile Include="udacitySquare.cu" />
-    <CudaCompile Include="vectDist.cu" />
+    <CudaCompile Include="..\..\CUDA\cuda.cu" />
+    <CudaCompile Include="cudaMain.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\CUDA\cuda.cuh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
