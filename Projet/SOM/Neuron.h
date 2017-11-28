@@ -26,13 +26,15 @@ namespace SOM
 		// Destructeur
 		~Neuron();
 
-		// Modification du tableau de poids
-		void updateWeight(double*);
 
 
 		// getActivity
 		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
 		
-		double* GetWeight(uint idWeight);
+		// Met à jour un poids du vecteur de poids
+		void SetWeight(uint idWeight, float alpha, float phi, double* input);
+		
+		// Récupère un poids du vecteur de poids
+		double GetWeight(uint idWeight);
 	};
 }

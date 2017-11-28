@@ -14,15 +14,13 @@ namespace SOM
 		delete[] m_fWeight;
 	}
 
-	double * Neuron::GetWeight(uint idWeight)
+	double Neuron::GetWeight(uint idWeight)
 	{
-		return m_fWeight(idWeight); //TODO: corriger
+		return m_fWeight[idWeight];
 	}
 
-	void Neuron::updateWeight(double* weight)
+	void Neuron::SetWeight(uint idWeight, float alpha, float phi, double* input)
 	{
-		for (uint i = 0; i < m_nWeightDim; ++i)
-			m_fWeight[i] = weight[i];
-		// TODO: vérifier si cette partie est juste (elle n'est pas bonne je la corrigerai)
+		m_fWeight[idWeight] += alpha*phi*(input[idWeight]-m_fWeight[idWeight]);
 	}
 }
