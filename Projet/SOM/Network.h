@@ -44,9 +44,12 @@ namespace SOM
 
 		uint m_nAlphaPeriod;
 		uint m_nBetaPeriod;
-		//ENDBLOCK
+		//
 
-		//Iteration actuelle
+		// Variable phi qui permet de modifier les neurones proportionnellement
+		float m_fPhi;
+
+		// Iteration actuelle
 		uint m_nCurrentIteration;
 
 		// Nombre d'itération de l'apprentissage //Utile pour l'interface d'Arthur
@@ -80,5 +83,8 @@ namespace SOM
 
 		// Retourne la dimension du tableau de poids
 		uint GetInputDim() { return m_nDimInputVector; } // TODO: pas sûre que ça soit utile
+	
+		// Modification du tableau de poids
+		void updateWeight(double*, Vector coordinate);
 	};
 }
