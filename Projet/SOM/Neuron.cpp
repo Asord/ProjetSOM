@@ -1,5 +1,4 @@
 #include "Neuron.h"
-#include "Network.h"
 
 namespace SOM
 {

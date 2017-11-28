@@ -2,9 +2,8 @@
 
 #include "Utility.h"
 #include "Neuron.h"
-#include "Point.h"
+#include "Vector.h"
 #include <vector>
-#include "Utility.h"
 
 namespace SOM
 {
@@ -21,7 +20,7 @@ namespace SOM
 		uint m_nDimInputVector;
 
 		// Stockage activité minimum
-		float m_fMinAct;
+		double m_fMinAct;
 
 		// Id du winner dans m_vvNetwork
 		Vector m_vWinner;
@@ -79,7 +78,7 @@ namespace SOM
 		void SetWinner();
 
 		//Calcul l'activité d'un neurone
-		float GetActivity(Vector coordinate);
+		double GetActivity(Vector coordinate);
 
 		// Retourne la dimension du tableau de poids
 		uint GetInputDim() { return m_nDimInputVector; } // TODO: pas sûre que ça soit utile

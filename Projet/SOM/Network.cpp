@@ -42,19 +42,19 @@ namespace SOM
 	void Network::UpdateAlpha()
 	{
 		if (m_nCurrentIteration % m_nAlphaPeriod == 0)
-			m_fAlpha = m_fInitialAlpha * exp(-m_nCurrentIteration / m_fAlphaRate);
+			m_fAlpha = m_fInitialAlpha * exp(m_nCurrentIteration / -m_fAlphaRate);
 	}
 
 	void Network::UpdateBeta()
 	{
 		if (m_nCurrentIteration % m_nBetaPeriod == 0)
-			m_fBeta = m_fInitialBeta * exp(-m_nCurrentIteration / m_fBetaRate);
+			m_fBeta = m_fInitialBeta * exp(m_nCurrentIteration / -m_fBetaRate);
 	}
 
-	float Network::GetActivity(Vector coordinate)
+	double Network::GetActivity(Vector coordinate)
 	{
 		auto distanceType = DistanceMetric::EUCL;
-		float activity = 0;
+		double activity = 0;
 		switch(distanceType)
 				{
 					case EUCL:
@@ -73,7 +73,7 @@ namespace SOM
 	void Network::SetWinner()
 	{
 		m_fMinAct = 66000;
-		float activity;
+		double activity;
 		Vector vNeuron(2);
 		for (uint row = 0; row < m_nNbRow; ++row)
 			for (uint col = 0; col < m_nNbCol; ++col)

@@ -1,9 +1,8 @@
 #pragma once
 
 #include "Utility.h"
-#include "Point.h"
+#include "Vector.h"
 #include "Utility.h"
-#include "Network.h"
 
 namespace SOM
 {
@@ -21,12 +20,12 @@ namespace SOM
 		uint m_nWeightDim;
 		
 	public:
+		// Constructeur par défaut
+		Neuron() { m_nWeightDim = 0; }
 		// Constructeur
 		Neuron(uint dimWeight);
 		// Destructeur
 		~Neuron();
-
-
 
 		// getActivity
 		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;

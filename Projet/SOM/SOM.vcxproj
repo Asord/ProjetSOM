@@ -151,7 +151,7 @@
     <ClCompile Include="Network.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Point.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="Neuron.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Utility.h" />
