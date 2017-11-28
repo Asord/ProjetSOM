@@ -4,7 +4,7 @@ namespace SOM
 {
 	Network* Network::instance = nullptr;
 
-	Network* Network::getInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size)
+	Network* Network::GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size)
 	{
 		if (instance == nullptr)
 			instance = new Network(dim, dimInputVector, initialAlpha, initialBeta, size);
@@ -64,10 +64,31 @@ namespace SOM
 				}
 		return activity;
 	}
+	double Network::GetDistance(Vector coordinate)
+	{
+		auto distanceType = DistanceMetric::EUCL;
+		double distance = 0;
+		switch (distanceType)
+		{
+		case EUCL:
+			for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
+				distance += pow((m_vvNetwork[m_vWinner[0]][m_vWinner[1]].GetWeight(idWeight) - m_vvNetwork[coordinate[0]][coordinate[1]].GetWeight(idWeight)), 2);
+			distance = sqrt(distance);
+		}
+		return distance;
+	}
 
+	// TODO: Jamais appelé
 	void Network::UpdateNeighbour()
 	{
-		//TODO: completer (utilisation de la variable m_fPhi)
+		Vector vNeuron(2);
+		for (uint row = 0; row < m_nNbRow; ++row)
+			for (uint col = 0; col < m_nNbCol; ++col)
+			{
+				vNeuron[0] = row;
+				vNeuron[1] = col;
+				m_fPhi = exp(-GetDistance(vNeuron) / 2 * m_fBeta);
+			}
 	}
 	
 	void Network::SetWinner()
@@ -96,7 +117,7 @@ namespace SOM
 	}
 
 	//TODO:Jamais appelée
-	void Network::updateWeight(double* weight, Vector coordinate)
+	void Network::UpdateWeight(double* weight, Vector coordinate)
 	{
 		for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
 			m_vvNetwork[coordinate[0]][coordinate[1]].SetWeight(idWeight, m_fAlpha, m_fPhi, m_fInput);
