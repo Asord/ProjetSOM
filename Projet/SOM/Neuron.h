@@ -10,7 +10,7 @@ namespace SOM
 	{
 	private:
 		//TODO: A quoi sert l'id ?
-		int m_nId;
+		uint m_nId;
 		Vector m_pCoordinate;
 
 		// Tableau de poids (double)
@@ -31,7 +31,7 @@ namespace SOM
 		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
 		
 		// Met à jour un poids du vecteur de poids
-		void SetWeight(uint idWeight, float alpha, float phi, double* input);
+		void SetWeight(uint idWeight, double alpha, double phi, double* input);
 		
 		// Récupère un poids du vecteur de poids
 		double GetWeight(uint idWeight);
