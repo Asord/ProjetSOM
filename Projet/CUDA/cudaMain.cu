@@ -10,7 +10,7 @@ namespace SOM {
 
 	void main()
 	{
-		activiteNeurone(10);
+		launchActiviteNeurone();
 
 	}
 }
