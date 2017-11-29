@@ -13,6 +13,7 @@
   <ItemGroup>
     <CudaCompile Include="cuda.cu" />
     <CudaCompile Include="cudaMain.cu" />
+    <CudaCompile Include="udacitySquare.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cuda.cuh" />

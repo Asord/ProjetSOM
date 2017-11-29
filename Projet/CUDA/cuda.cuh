@@ -7,11 +7,12 @@
 
 
 namespace SOM {
-	class cudaCalc {
-		
+	
 		__global__ 
 		void activiteNeurone(double * d_out, double * d_in, double * d_w, const int ARRAYSIZE);
-		double launchActiviteNeurone(const double*) const;
-	};
+		double launchActiviteNeurone(double*);
+
+
+
 	
 }

@@ -10,8 +10,14 @@ namespace SOM {
 
 	void main()
 	{
-		launchActiviteNeurone();
-
+		double h_weight[10];
+		double eee[10];
+		for (short i = 0; i < 11; ++i) {
+			eee[i] = launchActiviteNeurone(h_weight);
+			cout << *eee;
+		}
+		
+		
 	}
 }
 

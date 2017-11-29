@@ -1,8 +1,8 @@
 #include "cuda.cuh"
 
 namespace SOM {
-	
-	void SOM::cudaCalc::activiteNeurone(double * d_out, double * d_in, double * d_w, const int ARRAYSIZE)
+	__global__
+	void activiteNeurone(double * d_out, double * d_in, double * d_w, const int ARRAYSIZE)
 	{
 		int idx = threadIdx.x + blockIdx.x * blockDim.x;
 		float _act = 0;
@@ -14,19 +14,20 @@ namespace SOM {
 			d_out[idx] = sqrt(_act);
 		}
 	}
-
-	double SOM::cudaCalc::launchActiviteNeurone(const double* h_actIn) const
+	
+	
+	double launchActiviteNeurone(double* h_actIn)
 	{
 		const int ARRAYSIZE = 10; //grid dimension
 		const int ARRAY_BYTES = ARRAYSIZE * sizeof(double); //memoire à allouer par element
 
-		// genere les tableaux sur le host pour le calcul d'activité
+		// tableaux sur le host pour le calcul d'activité
 		double h_weights[ARRAYSIZE], h_actOUT[ARRAYSIZE];
 
 		// déclaration des pointers mémoire sur GPU
-		float * d_actIn;
-		float * d_weights;
-		float * d_actOut;
+		double * d_actIn;
+		double * d_weights;
+		double * d_actOut;
 
 		// alloue la memoire sur GPU pour les pointers
 		cudaMalloc((void**)&d_actIn, ARRAY_BYTES);
@@ -38,16 +39,17 @@ namespace SOM {
 		cudaMemcpy(d_weights, h_weights, ARRAY_BYTES, cudaMemcpyHostToDevice);
 
 		// lance le kernel activiteNeurone
-		activiteNeurone << <ARRAYSIZE, 3 >> > (d_actOut, d_actIn, d_weights);
+		activiteNeurone <<<ARRAYSIZE, 3 >>> (d_actOut, d_actIn, d_weights, ARRAYSIZE);
 
 		// copie le résultat final sur le CPU
 		cudaMemcpy(h_actOUT, d_actOut, ARRAY_BYTES, cudaMemcpyDeviceToHost);
 
+		/*
 		// affiche le tableau de poids final
 		for (int i = 0; i < ARRAYSIZE; i++) {
 			printf("weight:%f", h_actOUT[i]);
 			printf(((i % 4) != 3) ? "\t" : "\n");
-		}
+		}*/
 
 		cudaFree(d_actIn);
 		cudaFree(d_weights);
