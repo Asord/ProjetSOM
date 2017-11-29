@@ -4,7 +4,7 @@ namespace SOM
 {
 	Network* Network::instance = nullptr;
 
-	Network* Network::getInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size)
+	Network* Network::GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size)
 	{
 		if (instance == nullptr)
 			instance = new Network(dim, dimInputVector, initialAlpha, initialBeta, size);
@@ -18,7 +18,7 @@ namespace SOM
 		//Initialisation des valeurs liées à Alpha et Beta
 		m_fInitialAlpha = initialAlpha;
 		m_fInitialBeta = initialBeta;
-		//TODO:compléter
+		//TODO:compléter les initialisations
 		uint m_nCurrentIteration=0;
 		
 		m_nDimInputVector = dimInputVector;
@@ -42,52 +42,84 @@ namespace SOM
 	void Network::UpdateAlpha()
 	{
 		if (m_nCurrentIteration % m_nAlphaPeriod == 0)
-			m_fAlpha = m_fInitialAlpha * exp(-m_nCurrentIteration / m_fAlphaRate);
+			m_fAlpha = m_fInitialAlpha * exp(m_nCurrentIteration / -m_fAlphaRate);
 	}
 
 	void Network::UpdateBeta()
 	{
 		if (m_nCurrentIteration % m_nBetaPeriod == 0)
-			m_fBeta = m_fInitialBeta * exp(-m_nCurrentIteration / m_fBetaRate);
+			m_fBeta = m_fInitialBeta * exp(m_nCurrentIteration / -m_fBetaRate);
 	}
 
-	float Network::GetActivity(Vector coordinate)
+	double Network::GetActivity(Vector coordinate)
 	{
-		//TODO: corriger en adaptant pour la structure Vector
 		auto distanceType = DistanceMetric::EUCL;
-		float activity = 0;
+		double activity = 0;
 		switch(distanceType)
 				{
 					case EUCL:
-						for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
-							activity += pow((m_fInput[idWeight]- m_vvNetwork[coordinate[0]][coordinate[1]].GetWeight(idWeight)), 2);
+						for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight) 
+							activity += pow((m_fInput[idWeight] - m_vvNetwork[coordinate[0]][coordinate[1]].GetWeight(idWeight)), 2);
 						activity = sqrt(activity);
 				}
 		return activity;
 	}
+	double Network::GetDistance(Vector coordinate)
+	{
+		auto distanceType = DistanceMetric::EUCL;
+		double distance = 0;
+		switch (distanceType)
+		{
+		case EUCL:
+			for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
+				distance += pow((m_vvNetwork[m_vWinner[0]][m_vWinner[1]].GetWeight(idWeight) - m_vvNetwork[coordinate[0]][coordinate[1]].GetWeight(idWeight)), 2);
+			distance = sqrt(distance);
+		}
+		return distance;
+	}
 
+	// TODO: Jamais appelé
 	void Network::UpdateNeighbour()
 	{
-		//TODO: completer
+		Vector vNeuron(2);
+		for (uint row = 0; row < m_nNbRow; ++row)
+			for (uint col = 0; col < m_nNbCol; ++col)
+			{
+				vNeuron[0] = row;
+				vNeuron[1] = col;
+				m_fPhi = exp(-GetDistance(vNeuron) / 2 * m_fBeta);
+			}
 	}
 	
 	void Network::SetWinner()
 	{
-		//TODO: corriger en adaptant pour la structure Vector
 		m_fMinAct = 66000;
-		float activity;
+		double activity;
+		Vector vNeuron(2);
 		for (uint row = 0; row < m_nNbRow; ++row)
 			for (uint col = 0; col < m_nNbCol; ++col)
 			{
+				// Neurone pour lequel on calcule l'activité
+				vNeuron[0] = row;
+				vNeuron[1] = col;
+
 				//Calcul de l'activité
-				activity = GetActivity(row, col); 
-				//Recherche du winner
+				activity = GetActivity(vNeuron); 
+
+				// Verification si vNeuron est le neurone vainqueur
 				if (activity < m_fMinAct)
 				{
 					m_fMinAct = activity;
-					m_nIdWinner[0] = row;
-					m_nIdWinner[1] = col;
+					//Modification du neurone vainqueur
+					m_vWinner = vNeuron;
 				}
 			}
+	}
+
+	//TODO:Jamais appelée
+	void Network::UpdateWeight(double* weight, Vector coordinate)
+	{
+		for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
+			m_vvNetwork[coordinate[0]][coordinate[1]].SetWeight(idWeight, m_fAlpha, m_fPhi, m_fInput);
 	}
 }

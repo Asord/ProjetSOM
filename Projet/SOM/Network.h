@@ -2,9 +2,8 @@
 
 #include "Utility.h"
 #include "Neuron.h"
-#include "Point.h"
+#include "Vector.h"
 #include <vector>
-#include "Utility.h"
 
 namespace SOM
 {
@@ -21,7 +20,7 @@ namespace SOM
 		uint m_nDimInputVector;
 
 		// Stockage activité minimum
-		float m_fMinAct;
+		double m_fMinAct;
 
 		// Id du winner dans m_vvNetwork
 		Vector m_vWinner;
@@ -33,20 +32,23 @@ namespace SOM
 		uint m_nNbRow;
 
 		// Données utiles au traitement du réseau de neurone lors de l'apprentissage (alpha et beta)
-		float m_fInitialAlpha;
-		float m_fInitialBeta;
+		double m_fInitialAlpha;
+		double m_fInitialBeta;
 
-		float m_fAlpha;
-		float m_fBeta;
+		double m_fAlpha;
+		double m_fBeta;
 
-		float m_fAlphaRate;
-		float m_fBetaRate;
+		double m_fAlphaRate;
+		double m_fBetaRate;
 
 		uint m_nAlphaPeriod;
 		uint m_nBetaPeriod;
-		//ENDBLOCK
+		//
 
-		//Iteration actuelle
+		// Variable phi qui permet de modifier les neurones proportionnellement
+		double m_fPhi;
+
+		// Iteration actuelle
 		uint m_nCurrentIteration;
 
 		// Nombre d'itération de l'apprentissage //Utile pour l'interface d'Arthur
@@ -62,7 +64,7 @@ namespace SOM
 		Network(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
 		
 	public:
-		static Network* getInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
+		static Network* GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
 
 		//Mise à jour de Alpha
 		void UpdateAlpha();
@@ -76,9 +78,15 @@ namespace SOM
 		void SetWinner();
 
 		//Calcul l'activité d'un neurone
-		float GetActivity(Vector coordinate);
+		double GetActivity(Vector coordinate);
 
 		// Retourne la dimension du tableau de poids
 		uint GetInputDim() { return m_nDimInputVector; } // TODO: pas sûre que ça soit utile
+	
+		// Modification du tableau de poids
+		void UpdateWeight(double*, Vector coordinate);
+
+		// Retourne la distance entre un neurone et le neurone vainqueur
+		double GetDistance(Vector coordinate);
 	};
 }
