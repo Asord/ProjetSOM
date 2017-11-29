@@ -10,6 +10,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="cuda.cu" />
+    <CudaCompile Include="cudaMain.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cuda.cuh" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4EF800C1-B8B2-4A8C-9474-F8B946BEBFCF}</ProjectGuid>
     <RootNamespace>CUDA</RootNamespace>
@@ -84,13 +91,6 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
       <TargetMachinePlatform>64</TargetMachinePlatform>
     </CudaCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <CudaCompile Include="..\..\CUDA\cuda.cu" />
-    <CudaCompile Include="cudaMain.cu" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\CUDA\cuda.cuh" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 8.0.targets" />
