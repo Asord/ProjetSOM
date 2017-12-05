@@ -61,10 +61,10 @@ namespace SOM
 		static Network* instance;
 
 		// Constructeurs privé pour singleton
-		Network(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
+		Network(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
 		
 	public:
-		static Network* GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size);
+		static Network* GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
 
 		//Mise à jour de Alpha
 		void UpdateAlpha();

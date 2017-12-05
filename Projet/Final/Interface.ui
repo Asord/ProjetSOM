@@ -605,7 +605,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="Final.qrc"/>
+  <include location="Interface.qrc"/>
  </resources>
  <connections>
   <connection>

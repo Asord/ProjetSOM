@@ -4,21 +4,27 @@ namespace SOM
 {
 	Network* Network::instance = nullptr;
 
-	Network* Network::GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, uint size)
+	Network* Network::GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size)
 	{
 		if (instance == nullptr)
-			instance = new Network(dim, dimInputVector, initialAlpha, initialBeta, size);
+			instance = new Network(dim, dimInputVector, initialAlpha, initialBeta, alphaRate, betaRate, alphaEpoch, betaEpoch, size);
 		
 		return instance;
 	}
 
 	//Constructeur
-	Network::Network(Vector dimNetwork, uint dimInputVector, float initialAlpha, float initialBeta, uint size): m_vWinner(size)
+	Network::Network(Vector dimNetwork, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaPeriod, uint betaPeriod, uint size): m_vWinner(size)
 	{
 		//Initialisation des valeurs liées à Alpha et Beta
 		m_fInitialAlpha = initialAlpha;
 		m_fInitialBeta = initialBeta;
-		//TODO:compléter les initialisations
+
+		m_fAlphaRate = alphaRate;
+		m_fBetaRate = betaRate;
+
+		m_nAlphaPeriod = alphaPeriod;
+		m_nBetaPeriod = betaPeriod;
+
 		uint m_nCurrentIteration=0;
 		
 		m_nDimInputVector = dimInputVector;

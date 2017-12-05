@@ -29,12 +29,12 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{a609fac4-668c-4335-b4a0-2e38419b3cf8}</UniqueIdentifier>
+      <UniqueIdentifier>{964929ff-730f-4e89-bece-ebbe218d115f}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{649b7f11-a63a-4444-bccc-b87314da71a6}</UniqueIdentifier>
+      <UniqueIdentifier>{0d78c1d0-3553-493f-87ef-6a41376dcffa}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -43,33 +43,51 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Final.cpp">
+    <ClCompile Include="Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Final.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_Interface.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Final.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_Interface.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_Final.cpp">
+    <ClCompile Include="GeneratedFiles\qrc_Interface.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SOM\Network.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SOM\Neuron.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Final.h">
+    <CustomBuild Include="Interface.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Final.ui">
+    <CustomBuild Include="Interface.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Final.qrc">
+    <CustomBuild Include="Interface.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_Final.h">
+    <ClInclude Include="GeneratedFiles\ui_Interface.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SOM\Network.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SOM\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SOM\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SOM\Neuron.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

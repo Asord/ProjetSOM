@@ -1,15 +1,15 @@
-#include "Final.h"
+#include "Interface.h"
 #include <iostream>
 
 
 
-Final::Final(QWidget *parent)
+Interface::Interface(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 }
 
-void Final::setRows()
+void Interface::setRows()
 {
 	//met la valeur du compteur dans la variable m_nNbRows
 	m_nNbRows = ui.LigneValue->value();
@@ -17,7 +17,7 @@ void Final::setRows()
 		ui.BetaValue->setMaximum(m_nNbRows);
 }
 
-void Final::setColumns()
+void Interface::setColumns()
 {
 	//met la valeur du compteur dans la variable m_nNbCols
 	m_nNbCols = ui.ColValue->value();
@@ -25,17 +25,18 @@ void Final::setColumns()
 		ui.BetaValue->setMaximum(m_nNbCols);
 }
 
-void Final::updateValues()
+//TODO: Adapter à SOM
+void Interface::updateValues()
 {
 	//alpha
-	ui.AlphaSlider->setSliderPosition(m_dAlpha * 1000);
+	ui.AlphaSlider->setSliderPosition(m_dAlpha *1000);
 	ui.AlphaValue->setText(QString::number(m_dAlpha + 0.006));
 
 	//beta
 	ui.BetaValue->setValue(m_nBeta);
 }
 
-void Final::updateGraphic()
+void Interface::updateGraphic()
 {
 	m_pScene = new QGraphicsScene(this);
 	ui.graphicsView->setScene(m_pScene);
@@ -45,7 +46,8 @@ void Final::updateGraphic()
 	QPen outlinePen(Qt::black);
 	outlinePen.setWidth(0);
 
-	//desinne chaque neurone du reseau
+	//TODO: Adapter à SOM
+	//dessine chaque neurone du reseau
 	for (int i = 0; i < m_nNbRows; i++)
 		for (int j = 0; j < m_nNbCols; j++) {
 			QBrush brush(QColor(rand() % 255, rand() % 255, rand() % 255, 255));//TODO:mettre poids a la place de rand
@@ -53,48 +55,51 @@ void Final::updateGraphic()
 		}
 }
 
-void Final::setAlphaValueText()
+void Interface::setAlphaValueText()
 {
 	//met la valeur du slider dans la variable m_dAlpha
-	ui.AlphaValue->setText(QString::number(ui.AlphaSlider->value() / 1000.0 + 0.006));
+	ui.AlphaValue->setText(QString::number(ui.AlphaSlider->value()/1000.0 + 0.006));
 }
 
-void Final::setEuclidian()
+void Interface::setEuclidian()
 {
+	//TODO: Adapter à SOM
 	//initialisation de m_bEuclidianen fonction de si la case est cochée ou non
 	m_bEuclidian = ui.Distance1->isChecked();
 }
 
-void Final::alphaRateConstraint()
+void Interface::alphaRateConstraint()
 {
 	//empeche le taux de alpha d'etre supérieur au taux de beta
 	if (ui.TauxAlphaValue->value() >= ui.TauxBetaValue->value())
 		ui.TauxAlphaValue->setValue(ui.TauxBetaValue->value() - 0.01);
 }
 
-void Final::betaRateConstraint()
+void Interface::betaRateConstraint()
 {
 	//empeche le taux de beta d'etre inferieur au taux de alpha
 	if (ui.TauxBetaValue->value() <= ui.TauxAlphaValue->value())
 		ui.TauxBetaValue->setValue(ui.TauxAlphaValue->value() + 0.01);
 }
 
-void Final::initValues() {
+void Interface::initValues() {
+	//TODO: Adapter à SOM
 	//initialisation des parametres
 	m_dAlpha = ui.AlphaSlider->value() / 1000.0;
 	m_dAlphaRate = ui.TauxAlphaValue->value();
-	m_nAlphaEpoch = ui.PeriodeAlphaValue->value();
+	m_nAlphaPeriod = ui.PeriodeAlphaValue->value();
 	m_nBeta = ui.BetaValue->value();
 	m_dBetaRate = ui.TauxBetaValue->value();
-	m_nBetaEpoch = ui.PeriodeBetaValue->value();
+	m_nBetaPeriod = ui.PeriodeBetaValue->value();
 	m_dInitialAlpha = m_dAlpha;
-
+	m_nInitialBeta = m_nBeta;
+	
 	//initialisation des messages d'erreur
 	ui.ErreurLignes->setText("");
 	ui.ErreurColonnes->setText("");
 }
 
-void Final::checkIfReady()
+void Interface::checkIfReady()
 {
 	//verifie que le taux alpha n'est pas egal au taux beta
 	if (m_dAlphaRate == m_dBetaRate)
@@ -114,9 +119,9 @@ void Final::checkIfReady()
 	}
 }
 
-void Final::disabledEverything()
+void Interface::disabledEverything()
 {
-	//desactive les elements de l'Final
+	//desactive les elements de l'interface
 	ui.NouveauRes->setEnabled(false);
 	ui.StartBtn->setEnabled(false);
 	ui.PauseBtn->setEnabled(true);
@@ -124,8 +129,9 @@ void Final::disabledEverything()
 	ui.NbrIterations->setEnabled(true);
 }
 
-void Final::calcNbMaxIterations()
+void Interface::calcNbMaxIterations()
 {
+	//TODO: Adapter à SOM
 	//calcul nombre d'itérations a faire
 	while (m_dAlpha > 0.000000001)
 	{
@@ -134,14 +140,14 @@ void Final::calcNbMaxIterations()
 		m_nCurrentIteration++;
 	}
 	m_nCurrentIteration = 1;
-	m_nNbIterationsMax *= m_nAlphaEpoch;
+	m_nNbIterationsMax *= m_nAlphaPeriod;
 	ui.NbrIterations->setText("Iterations : " + QString::number(m_nCurrentIteration) + "/" + QString::number(m_nNbIterationsMax));
 
 	//initialisation de la progressBar
 	ui.ProgressBar->setMaximum(m_nNbIterationsMax);
 }
 
-void Final::start()
+void Interface::start()
 {
 	initValues();//initialisation des parametres
 	updateGraphic();//initialisation de la visualisation
@@ -149,13 +155,21 @@ void Final::start()
 
 	if (m_bReady)
 	{
-		disabledEverything();//desactive l'Final inutile
+		disabledEverything();//desactive l'interface inutile
 		calcNbMaxIterations();//calcul du nombre maximum d'iterations
 
-							  //TODO: algo SOM
-							  //debut de l'algorithme
+		//TODO: algo SOM	
+		// Creation du réseau
+		SOM::Vector vDimNetwork(2);
+		vDimNetwork[0] = m_nNbRows;
+		vDimNetwork[1] = m_nNbCols;
+		SOM::Network* network =
+			SOM::Network::GetInstance(
+				vDimNetwork, 3, m_dInitialAlpha, m_nInitialBeta,
+				m_dAlphaRate, m_dBetaRate, m_nAlphaPeriod, m_nBetaPeriod, 2);
+		//debut de l'algorithme
 		for (m_nCurrentIteration; m_nCurrentIteration <= m_nNbIterationsMax; m_nCurrentIteration++) {
-
+			
 			ui.ProgressBar->setValue(m_nCurrentIteration);
 			ui.NbrIterations->setText("Iterations : " + QString::number(m_nCurrentIteration) + "/" + QString::number(m_nNbIterationsMax));
 
@@ -167,8 +181,9 @@ void Final::start()
 	}
 }
 
-void Final::pause()
+void Interface::pause()
 {
+	//TODO: Adapter à SOM
 	//changement du texte en fonction de m_bIsPaused
 	m_bIsPaused = m_bIsPaused ? false : true;
 	if (m_bIsPaused)
