@@ -33,8 +33,8 @@ namespace SOM
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_nNbCol);
-		for (auto v : m_vvNetwork)
-			v.resize(m_nNbRow);
+		for (int i = 0; i < m_nNbCol; ++i)
+			m_vvNetwork[i].resize(m_nNbRow);
 
 		//Initialisation du vecteur de neurones
 		for(uint rows=0;rows<m_nNbRow;++rows)
