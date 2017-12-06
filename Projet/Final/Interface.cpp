@@ -165,7 +165,7 @@ void Interface::start()
 		vDimNetwork[1] = m_nNbCols;
 		SOM::Network* network =
 			SOM::Network::GetInstance(
-				vDimNetwork, 3, m_dInitialAlpha, m_nInitialBeta,
+				m_nNbRows, m_nNbCols, 3, m_dInitialAlpha, m_nInitialBeta,
 				m_dAlphaRate, m_dBetaRate, m_nAlphaPeriod, m_nBetaPeriod, 2);
 		//debut de l'algorithme
 		for (m_nCurrentIteration; m_nCurrentIteration <= m_nNbIterationsMax; m_nCurrentIteration++) {

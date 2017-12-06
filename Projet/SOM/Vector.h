@@ -16,10 +16,10 @@ namespace SOM
 		}
 
 		// Constructeur
-		Vector(uint dim)
+		Vector(uint d)
 		{
-			pos = new uint[dim];
-			dim = dim;
+			pos = new uint[d];
+			dim = d;
 		}
 
 		~Vector() { delete[] pos; }

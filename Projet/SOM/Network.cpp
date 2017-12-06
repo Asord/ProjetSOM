@@ -4,16 +4,16 @@ namespace SOM
 {
 	Network* Network::instance = nullptr;
 
-	Network* Network::GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size)
+	Network* Network::GetInstance(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size)
 	{
 		if (instance == nullptr)
-			instance = new Network(dim, dimInputVector, initialAlpha, initialBeta, alphaRate, betaRate, alphaEpoch, betaEpoch, size);
+			instance = new Network(row, col, dimInputVector, initialAlpha, initialBeta, alphaRate, betaRate, alphaEpoch, betaEpoch, size);
 		
 		return instance;
 	}
 
 	//Constructeur
-	Network::Network(Vector dimNetwork, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaPeriod, uint betaPeriod, uint size): m_vWinner(size)
+	Network::Network(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaPeriod, uint betaPeriod, uint size): m_vWinner(size)
 	{
 		//Initialisation des valeurs liées à Alpha et Beta
 		m_fInitialAlpha = initialAlpha;
@@ -28,8 +28,8 @@ namespace SOM
 		uint m_nCurrentIteration=0;
 		
 		m_nDimInputVector = dimInputVector;
-		m_nNbCol = dimNetwork[0];
-		m_nNbRow = dimNetwork[1];
+		m_nNbCol = col;
+		m_nNbRow = row;
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_nNbCol);
@@ -37,11 +37,11 @@ namespace SOM
 			v.resize(m_nNbRow);
 
 		//Initialisation du vecteur de neurones
-		for(uint row=0;row<m_nNbRow;++row)
-			for (uint col = 0; col < m_nNbCol; ++col)
+		for(uint rows=0;rows<m_nNbRow;++rows)
+			for (uint cols = 0; cols < m_nNbCol; ++cols)
 			{
 				Neuron m_NNeuron(dimInputVector);
-				m_vvNetwork[row][col] = m_NNeuron;
+				m_vvNetwork[rows][cols] = m_NNeuron;
 			}
 	}
 
@@ -123,9 +123,11 @@ namespace SOM
 	}
 
 	//TODO:Jamais appelée
-	void Network::UpdateWeight(double* weight, Vector coordinate)
+	void Network::UpdateWeight(double* weight)
 	{
-		for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
-			m_vvNetwork[coordinate[0]][coordinate[1]].SetWeight(idWeight, m_fAlpha, m_fPhi, m_fInput);
+		for (uint row = 0; row < m_nNbRow; ++row)
+			for (uint col = 0; col < m_nNbCol; ++col)
+				for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
+					m_vvNetwork[row][col].SetWeight(idWeight, m_fAlpha, m_fPhi, m_fInput);
 	}
 }

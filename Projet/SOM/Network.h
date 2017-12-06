@@ -61,10 +61,10 @@ namespace SOM
 		static Network* instance;
 
 		// Constructeurs privé pour singleton
-		Network(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
+		Network(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
 		
 	public:
-		static Network* GetInstance(Vector dim, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
+		static Network* GetInstance(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
 
 		//Mise à jour de Alpha
 		void UpdateAlpha();
@@ -84,7 +84,7 @@ namespace SOM
 		uint GetInputDim() { return m_nDimInputVector; } // TODO: pas sûre que ça soit utile
 	
 		// Modification du tableau de poids
-		void UpdateWeight(double*, Vector coordinate);
+		void UpdateWeight(double*);
 
 		// Retourne la distance entre un neurone et le neurone vainqueur
 		double GetDistance(Vector coordinate);
