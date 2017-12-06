@@ -30,6 +30,8 @@ private:
 	int m_nNbIterationsMax = 0; //TODO: Recup via SOM (calculé par Arthur)
 	int m_nCurrentIteration = 1;//TODO: Recup via SOM
 	bool m_bReady = true;//tous les parametre sont correcte?
+	uint m_nDimInputVector = 3;
+	SOM::Network* network;
 
 	//visualisation
 	QGraphicsScene *m_pScene;//Scene du QGraphicView

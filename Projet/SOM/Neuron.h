@@ -3,6 +3,7 @@
 #include "Utility.h"
 #include "Vector.h"
 #include "Utility.h"
+#include <stdlib.h>
 
 namespace SOM
 {
@@ -33,6 +34,8 @@ namespace SOM
 		// Met à jour un poids du vecteur de poids
 		void SetWeight(uint idWeight, double alpha, double phi, double* input);
 		
+		// GETTER //
+
 		// Récupère un poids du vecteur de poids
 		double GetWeight(uint idWeight);
 	};

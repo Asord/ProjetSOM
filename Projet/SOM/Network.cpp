@@ -41,7 +41,7 @@ namespace SOM
 			for (uint cols = 0; cols < m_nNbCol; ++cols)
 			{
 				Neuron m_NNeuron(dimInputVector);
-				m_vvNetwork[rows][cols] = m_NNeuron;
+				m_vvNetwork[cols][rows] = m_NNeuron;
 			}
 	}
 

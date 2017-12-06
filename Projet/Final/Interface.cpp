@@ -48,10 +48,10 @@ void Interface::updateGraphic()
 
 	//TODO: Adapter à SOM
 	//dessine chaque neurone du reseau
-	for (int i = 0; i < m_nNbRows; i++)
-		for (int j = 0; j < m_nNbCols; j++) {
-			QBrush brush(QColor(rand() % 255, rand() % 255, rand() % 255, 255));//TODO:mettre poids a la place de rand
-			m_pRect = m_pScene->addRect((ui.graphicsView->width() - 5) / m_nNbCols*j, (ui.graphicsView->height() - 5) / m_nNbRows*i, ui.graphicsView->width() / m_nNbCols, ui.graphicsView->height() / m_nNbRows, outlinePen, brush);
+	for (int row = 0; row < m_nNbRows; row++)
+		for (int col = 0; col < m_nNbCols; col++) {
+			QBrush brush(QColor(network->GetvvNetwork()[row][col].GetWeight(0), network->GetvvNetwork()[row][col].GetWeight(1), network->GetvvNetwork()[row][col].GetWeight(2), 255));//TODO: erreur but miam miam time!
+			m_pRect = m_pScene->addRect((ui.graphicsView->width() - 5) / m_nNbCols*col, (ui.graphicsView->height() - 5) / m_nNbRows*row, ui.graphicsView->width() / m_nNbCols, ui.graphicsView->height() / m_nNbRows, outlinePen, brush);
 		}
 }
 
@@ -150,7 +150,6 @@ void Interface::calcNbMaxIterations()
 void Interface::start()
 {
 	initValues();//initialisation des parametres
-	updateGraphic();//initialisation de la visualisation
 	checkIfReady();//verification des parametres
 
 	if (m_bReady)
@@ -163,16 +162,18 @@ void Interface::start()
 		SOM::Vector vDimNetwork(2);
 		vDimNetwork[0] = m_nNbRows;
 		vDimNetwork[1] = m_nNbCols;
-		SOM::Network* network =
+		network =
 			SOM::Network::GetInstance(
-				m_nNbRows, m_nNbCols, 3, m_dInitialAlpha, m_nInitialBeta,
+				m_nNbRows, m_nNbCols, m_nDimInputVector, m_dInitialAlpha, m_nInitialBeta,
 				m_dAlphaRate, m_dBetaRate, m_nAlphaPeriod, m_nBetaPeriod, 2);
 		//debut de l'algorithme
-		for (m_nCurrentIteration; m_nCurrentIteration <= m_nNbIterationsMax; m_nCurrentIteration++) {
+		updateGraphic();//initialisation de la visualisation
+		for (m_nCurrentIteration; m_nCurrentIteration <= m_nNbIterationsMax; ++m_nCurrentIteration) {
 			
 			ui.ProgressBar->setValue(m_nCurrentIteration);
 			ui.NbrIterations->setText("Iterations : " + QString::number(m_nCurrentIteration) + "/" + QString::number(m_nNbIterationsMax));
 
+			//TODO: le calcul ne se fait pas ici
 			m_dAlpha = m_dInitialAlpha * exp(-m_nCurrentIteration / m_dAlphaRate);;
 			m_nBeta--;
 			updateValues();

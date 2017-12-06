@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include <vector>
 
+
 namespace SOM
 {
 	class Network
@@ -88,5 +89,8 @@ namespace SOM
 
 		// Retourne la distance entre un neurone et le neurone vainqueur
 		double GetDistance(Vector coordinate);
+
+
+		std::vector<std::vector<Neuron>> GetvvNetwork() { return m_vvNetwork; }
 	};
 }

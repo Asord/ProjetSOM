@@ -6,6 +6,8 @@ namespace SOM
 	{
 		m_nWeightDim = weightDim;
 		m_fWeight = new double[m_nWeightDim];
+		for (uint i=0; i<m_nWeightDim;++i)
+			m_fWeight[i] = rand() % 255;
 	}
 
 	Neuron::~Neuron()
