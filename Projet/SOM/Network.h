@@ -3,6 +3,7 @@
 #include "Utility.h"
 #include "Neuron.h"
 #include "Vector.h"
+#include "Settings.h"
 #include <vector>
 
 
@@ -29,31 +30,20 @@ namespace SOM
 		// Point m_pCoordinate;
 
 		// Dimention du tableau de neurones
-		uint m_nNbCol;
-		uint m_nNbRow;
 
 		// Données utiles au traitement du réseau de neurone lors de l'apprentissage (alpha et beta)
-		double m_fInitialAlpha;
-		double m_fInitialBeta;
 
 		double m_fAlpha;
 		double m_fBeta;
-
-		double m_fAlphaRate;
-		double m_fBetaRate;
-
-		uint m_nAlphaPeriod;
-		uint m_nBetaPeriod;
-		//
 
 		// Variable phi qui permet de modifier les neurones proportionnellement
 		double m_fPhi;
 
 		// Iteration actuelle
-		uint m_nCurrentIteration;
+		//uint m_nCurrentIteration;
 
 		// Nombre d'itération de l'apprentissage //Utile pour l'interface d'Arthur
-		uint m_nNbIteration; //TODO: Calculer à partir de alpha
+		uint m_nNbIterationMax;
 
 		// Tableau dynamique de réseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork;
@@ -61,18 +51,28 @@ namespace SOM
 		// Singleton instance pointer
 		static Network* instance;
 
+		Settings m_settings;
+		int m_nCurrentIteration;
+
 		// Constructeurs privé pour singleton
-		Network(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
+		Network(Settings &settings);
 		
 	public:
-		static Network* GetInstance(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size);
+		static Network* GetInstance(Settings &settings);
+
+		double getAlpha() { return m_fAlpha; }
+		int getBeta() { return m_fBeta; }
+		//int getCurrentIteration() { return m_nCurrentIteration; }
+		uint getMaxIteration() { return m_nNbIterationMax; }
+
+		//calcul le nombre maximum d'iterations
+		void calcNbMaxIterations();
 
 		//Mise à jour de Alpha
 		void UpdateAlpha();
 		//Mise à jour de Beta
 		void UpdateBeta();
 
-		//TODO: Faire cette fonction
 		void UpdateNeighbour();
 
 		//Retourne le neurone avec l'activité la plus minime
@@ -80,9 +80,6 @@ namespace SOM
 
 		//Calcul l'activité d'un neurone
 		double GetActivity(Vector coordinate);
-
-		// Retourne la dimension du tableau de poids
-		uint GetInputDim() { return m_nDimInputVector; } // TODO: pas sûre que ça soit utile
 	
 		// Modification du tableau de poids
 		void UpdateWeight(double*);
@@ -90,7 +87,10 @@ namespace SOM
 		// Retourne la distance entre un neurone et le neurone vainqueur
 		double GetDistance(Vector coordinate);
 
+		//std::vector<std::vector<Neuron>>& GetvvNetwork() { return m_vvNetwork; }
 
-		std::vector<std::vector<Neuron>> GetvvNetwork() { return m_vvNetwork; }
+		void AlgoSOM(int currentIteration);
+
+		Neuron& getNeuron(int row, int col);
 	};
 }

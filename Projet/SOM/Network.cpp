@@ -4,57 +4,62 @@ namespace SOM
 {
 	Network* Network::instance = nullptr;
 
-	Network* Network::GetInstance(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaEpoch, uint betaEpoch, uint size)
+	Network* Network::GetInstance(Settings &settings)
 	{
 		if (instance == nullptr)
-			instance = new Network(row, col, dimInputVector, initialAlpha, initialBeta, alphaRate, betaRate, alphaEpoch, betaEpoch, size);
+			instance = new Network(settings);
 		
 		return instance;
 	}
 
 	//Constructeur
-	Network::Network(int row, int col, uint dimInputVector, float initialAlpha, float initialBeta, double alphaRate, double betaRate, uint alphaPeriod, uint betaPeriod, uint size): m_vWinner(size)
+	Network::Network(Settings &settings): m_vWinner(settings.m_nNetworkDim)
 	{
-		//Initialisation des valeurs liées à Alpha et Beta
-		m_fInitialAlpha = initialAlpha;
-		m_fInitialBeta = initialBeta;
+		m_settings = settings;
 
-		m_fAlphaRate = alphaRate;
-		m_fBetaRate = betaRate;
+		//initialisation alpha et beta
+		m_fAlpha = settings.m_dInitialAlpha;
+		m_fBeta = settings.m_nInitialBeta;
 
-		m_nAlphaPeriod = alphaPeriod;
-		m_nBetaPeriod = betaPeriod;
-
-		uint m_nCurrentIteration=0;
-		
-		m_nDimInputVector = dimInputVector;
-		m_nNbCol = col;
-		m_nNbRow = row;
+		uint m_nCurrentIteration = 1;
+		m_nNbIterationMax = 0;
 
 		//Création du vecteur de neurones
-		m_vvNetwork.resize(m_nNbCol);
-		for (int i = 0; i < m_nNbCol; ++i)
-			m_vvNetwork[i].resize(m_nNbRow);
+		m_vvNetwork.resize(m_settings.m_nNbCols);
+		for (int i = 0; i < m_settings.m_nNbCols; ++i)
+			m_vvNetwork[i].resize(m_settings.m_nNbRows);
 
 		//Initialisation du vecteur de neurones
-		for(uint rows=0;rows<m_nNbRow;++rows)
-			for (uint cols = 0; cols < m_nNbCol; ++cols)
+		for(uint rows=0;rows<m_settings.m_nNbRows;++rows)
+			for (uint cols = 0; cols < m_settings.m_nNbCols; ++cols)
 			{
-				Neuron m_NNeuron(dimInputVector);
+				Neuron m_NNeuron(m_settings.m_nDimInputVector);
 				m_vvNetwork[cols][rows] = m_NNeuron;
 			}
 	}
 
+	void Network::calcNbMaxIterations()
+	{
+		uint iteration = 1;
+		while (m_fAlpha > 0.000000001)
+		{
+			m_fAlpha = m_settings.m_dInitialAlpha * exp(-(double)iteration / m_settings.m_dAlphaRate);
+			m_nNbIterationMax++;
+			iteration++;
+		}
+		m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
+	}
+
 	void Network::UpdateAlpha()
 	{
-		if (m_nCurrentIteration % m_nAlphaPeriod == 0)
-			m_fAlpha = m_fInitialAlpha * exp(m_nCurrentIteration / -m_fAlphaRate);
+		if (m_nCurrentIteration % m_settings.m_nAlphaPeriod == 0)
+			m_fAlpha = m_settings.m_dInitialAlpha * exp(m_nCurrentIteration / -m_settings.m_dAlphaRate);
 	}
 
 	void Network::UpdateBeta()
 	{
-		if (m_nCurrentIteration % m_nBetaPeriod == 0)
-			m_fBeta = m_fInitialBeta * exp(m_nCurrentIteration / -m_fBetaRate);
+		if (m_nCurrentIteration % m_settings.m_nBetaPeriod == 0)
+			m_fBeta = m_settings.m_nInitialBeta * exp(m_nCurrentIteration / -m_settings.m_dBetaRate);
 	}
 
 	double Network::GetActivity(Vector coordinate)
@@ -84,12 +89,19 @@ namespace SOM
 		return distance;
 	}
 
-	// TODO: Jamais appelé
+	void Network::AlgoSOM(int currentIteration)
+	{		
+			//TODO: Implémenter l'algorithme de SOM
+			m_fAlpha = m_settings.m_dInitialAlpha * exp(-currentIteration / m_settings.m_dAlphaRate);;
+			m_fBeta--;		
+	}
+
+	// TODO: Implémenter UpdateNeighbour dans l'algorithme de SOM
 	void Network::UpdateNeighbour()
 	{
 		Vector vNeuron(2);
-		for (uint row = 0; row < m_nNbRow; ++row)
-			for (uint col = 0; col < m_nNbCol; ++col)
+		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
+			for (uint col = 0; col < m_settings.m_nNbCols; ++col)
 			{
 				vNeuron[0] = row;
 				vNeuron[1] = col;
@@ -102,8 +114,8 @@ namespace SOM
 		m_fMinAct = 66000;
 		double activity;
 		Vector vNeuron(2);
-		for (uint row = 0; row < m_nNbRow; ++row)
-			for (uint col = 0; col < m_nNbCol; ++col)
+		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
+			for (uint col = 0; col < m_settings.m_nNbCols; ++col)
 			{
 				// Neurone pour lequel on calcule l'activité
 				vNeuron[0] = row;
@@ -122,12 +134,17 @@ namespace SOM
 			}
 	}
 
-	//TODO:Jamais appelée
+	//TODO:Implémenter UpdateWeight dans l'algorithme de SOM
 	void Network::UpdateWeight(double* weight)
 	{
-		for (uint row = 0; row < m_nNbRow; ++row)
-			for (uint col = 0; col < m_nNbCol; ++col)
+		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
+			for (uint col = 0; col < m_settings.m_nNbCols; ++col)
 				for (uint idWeight = 0; idWeight < m_nDimInputVector; ++idWeight)
 					m_vvNetwork[row][col].SetWeight(idWeight, m_fAlpha, m_fPhi, m_fInput);
+	}
+
+	Neuron& Network::getNeuron(int row, int col)
+	{
+		return m_vvNetwork[col][row];
 	}
 }
