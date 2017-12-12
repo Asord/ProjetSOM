@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-25" view-index="0" gantt-divider-location="471" resource-divider-location="300" version="2.8.5" locale="fr">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-21" view-index="0" gantt-divider-location="471" resource-divider-location="300" version="2.8.5" locale="fr_FR">
     <description/>
-    <view zooming-state="default:7" id="gantt-chart">
+    <view zooming-state="default:3" id="gantt-chart">
         <field id="tpd3" name="Nom" width="333" order="0"/>
         <field id="tpd4" name="Date de début" width="75" order="1"/>
         <field id="tpd5" name="Date de fin" width="59" order="2"/>
@@ -39,15 +39,15 @@
             <depend id="30" type="2" difference="0" hardness="Strong"/>
             <depend id="38" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="34" name="Sophie : Création du PowerPoint pour la présentation" color="#339900" meeting="false" start="2017-12-04" duration="5" complete="0" expand="true"/>
-        <task id="38" name="Sophie et Arthur : Fusion de la prog SOM et de l'Interface" color="#66ff99" meeting="false" start="2017-11-29" duration="11" complete="31" expand="true"/>
+        <task id="34" name="Sophie : Création du PowerPoint pour la présentation" color="#339900" meeting="false" start="2017-12-06" duration="5" complete="65" expand="true"/>
+        <task id="38" name="Sophie et Arthur : Fusion de la prog SOM et de l'Interface" color="#66ff99" meeting="false" start="2017-11-29" duration="11" complete="73" expand="true"/>
         <task id="15" name="Laurine : Programmation CUDA pour SOM" color="#ffff00" meeting="false" start="2017-11-13" duration="12" complete="100" expand="true">
             <depend id="30" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="30" name="Laurine et Sophie : Programmation CUDA pour SOM" color="#ffff00" meeting="false" start="2017-11-29" duration="14" complete="25" expand="true"/>
+        <task id="30" name="Laurine et Sophie : Programmation CUDA pour SOM" color="#ffff00" meeting="false" start="2017-11-29" duration="14" complete="58" expand="true"/>
         <task id="6" name="Laurine : Compréhension CUDA" color="#ff9933" meeting="false" start="2017-09-29" duration="21" complete="100" expand="true"/>
         <task id="7" name="Laurine : Programmation basique CUDA" color="#ff9933" meeting="false" start="2017-10-16" duration="26" complete="100" expand="true"/>
-        <task id="32" name="Arthur et Laurine : Finalisation du site internet (phase 1)" color="#ff0099" meeting="false" start="2017-12-08" duration="5" complete="0" expand="true"/>
+        <task id="32" name="Arthur et Laurine : Finalisation du site internet (phase 1)" color="#ff0099" meeting="false" start="2017-12-08" duration="3" complete="35" expand="true"/>
         <task id="4" name="Arthur : Création d'une premiere Interface" color="#6699ff" meeting="false" start="2017-09-29" duration="27" complete="100" expand="true">
             <depend id="5" type="2" difference="0" hardness="Strong"/>
         </task>
@@ -64,7 +64,7 @@
         <task id="37" name="Killian : Fusion des projets" color="#0000cc" meeting="false" start="2017-11-13" duration="5" complete="100" expand="true"/>
         <task id="16" name="Groupe : Apprentissage de la théorie SOM" color="#cc0000" meeting="false" start="2017-10-30" duration="11" complete="100" expand="true"/>
         <task id="23" name="Groupe : Fusion finale des projets" color="#cc0000" meeting="false" start="2017-12-11" duration="8" complete="0" expand="true"/>
-        <task id="26" name="Groupe : Debug" color="#cc0000" meeting="false" start="2017-12-04" duration="13" complete="8" expand="true"/>
+        <task id="26" name="Groupe : Debug" color="#cc0000" meeting="false" start="2017-12-04" duration="13" complete="38" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
