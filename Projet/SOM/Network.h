@@ -17,10 +17,7 @@ namespace SOM
 		enum DistanceMetric { EUCL };
 
 	private:
-		// Vecteur d'entrée : Tableau de uint de taille m_nSizeInputVector
-		double* m_fInput;
-		uint m_nDimInputVector;
-
+		Resources m_resources;
 		// Stockage activité minimum
 		double m_fMinAct;
 
@@ -73,27 +70,29 @@ namespace SOM
 		//Mise à jour de Beta
 		void UpdateBeta();
 
-		void UpdatePhi(Vector vNeuron); //TODO: Modifier dans l'UML
+		void UpdatePhi(Vector& vNeuron); //TODO: Modifier dans l'UML
 
 		//Retourne le neurone avec l'activité la plus minime
-		void SetWinner();
+		void SetWinner(Color& color);
 
 		//Calcul l'activité d'un neurone
-		double GetActivity(Vector coordinate);
+		double GetActivity(/*Vector coordinate*/ uint row, uint col, Color &color);
 	
 		// Modification du tableau de poids
-		void UpdateWeight();
+		void UpdateWeight(Color& color);
 
 		// Retourne la distance entre un neurone et le neurone vainqueur
-		double GetDistance(Vector coordinate);
+		double GetDistance(Vector& coordinate);
 
 		// Met à jour l'itération courante //TODO: Modifier dans l'UML
 		void UpdateCurrentIteration(uint currentIteration) { m_nCurrentIteration = currentIteration; }
 
 		//std::vector<std::vector<Neuron>>& GetvvNetwork() { return m_vvNetwork; }
 
-		void AlgoSOM(int currentIteration);
+		void AlgoSOM(int currentIteration, uint i);
 
 		Neuron& getNeuron(int row, int col);
+
+		Resources& GetResources() { return m_resources; }
 	};
 }
