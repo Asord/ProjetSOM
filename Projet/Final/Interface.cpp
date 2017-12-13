@@ -157,14 +157,22 @@ namespace SOM {
 			updateGraphic();//initialisation de la visualisation
 			
 			//boucle a déplacer pour optimiser
-			for (int i = 1; i <= maxIteration; ++i) {
-				network->AlgoSOM(i);
+			for (uint i = 1; i <= maxIteration; ++i) {
+				//network->AlgoSOM(i);
+				AlgoSOM(i);
 				updateValuesUI(i);
 			}
 
 		}
 	}
-
+	void Interface::AlgoSOM(uint currentIteration)
+	{
+		network->SetWinner();
+		network->UpdateWeight();
+		network->UpdateAlpha();
+		network->UpdateBeta();
+		network->UpdateCurrentIteration(currentIteration);
+	}
 	void Interface::pause()
 	{
 		//TODO: Implémenter handler de pause dans l'algorithme SOM depuis l'interface

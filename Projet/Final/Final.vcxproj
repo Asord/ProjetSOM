@@ -47,7 +47,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>D:\Users\arjacquin\Desktop\ProjetSOM\Projet\SOM;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Users\soraudrant\Desktop\ProjetSOM2\Projet\SOM;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -153,6 +153,7 @@
     </ClCompile>
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Resources.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Interface.h">

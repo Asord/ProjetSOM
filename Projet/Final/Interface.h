@@ -40,6 +40,9 @@ namespace SOM {
 		//initialisation de la visualisation
 		void updateGraphic();
 
+		// Appelle étape par étape les fonctions SOM
+		void Interface::AlgoSOM(uint);
+
 	public slots:
 		void setRows();//Actualise le nombre de lignes
 		void setColumns();//Actualise le nombre de colonnes

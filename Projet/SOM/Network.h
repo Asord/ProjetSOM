@@ -73,7 +73,7 @@ namespace SOM
 		//Mise à jour de Beta
 		void UpdateBeta();
 
-		void UpdateNeighbour();
+		void UpdatePhi(Vector vNeuron); //TODO: Modifier dans l'UML
 
 		//Retourne le neurone avec l'activité la plus minime
 		void SetWinner();
@@ -82,10 +82,13 @@ namespace SOM
 		double GetActivity(Vector coordinate);
 	
 		// Modification du tableau de poids
-		void UpdateWeight(double*);
+		void UpdateWeight();
 
 		// Retourne la distance entre un neurone et le neurone vainqueur
 		double GetDistance(Vector coordinate);
+
+		// Met à jour l'itération courante //TODO: Modifier dans l'UML
+		void UpdateCurrentIteration(uint currentIteration) { m_nCurrentIteration = currentIteration; }
 
 		//std::vector<std::vector<Neuron>>& GetvvNetwork() { return m_vvNetwork; }
 
