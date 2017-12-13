@@ -26,7 +26,6 @@ namespace SOM {
 
 		//visualisation
 		QGraphicsScene *m_pScene;//Scene du QGraphicView
-		QGraphicsRectItem *m_pRect;//un rectangle du QGraphicView
 
 	public:
 		//initialise les variables avec les valeurs des parametres

@@ -29,7 +29,7 @@ namespace SOM
 			m_nInitialBeta = 0;
 			m_dBetaRate = 1;
 			m_nBetaPeriod = 1;
-			m_nNetworkDim = 0;
+			m_nNetworkDim = 2;
 		}
 	};
 }

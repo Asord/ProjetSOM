@@ -4,6 +4,8 @@
 #include "Vector.h"
 #include "Utility.h"
 #include <stdlib.h>
+#include "../Final/Resources.h"
+#include <qcolor.h>
 
 namespace SOM
 {
@@ -15,7 +17,7 @@ namespace SOM
 		Vector m_pCoordinate;
 
 		// Tableau de poids (double)
-		double* m_fWeight;
+		uchar* m_fWeight;
 
 		//Dimension du vecteur de poids
 		uint m_nWeightDim;
@@ -32,11 +34,11 @@ namespace SOM
 		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
 		
 		// Met à jour un poids du vecteur de poids
-		void SetWeight(uint idWeight, double alpha, double phi, double* input);
+		void SetWeight(uint idWeight, double alpha, double phi, uchar* input);
 		
 		// GETTER //
 
 		// Récupère un poids du vecteur de poids
-		double GetWeight(uint idWeight);
+		uchar& GetWeight(uint idWeight);
 	};
 }

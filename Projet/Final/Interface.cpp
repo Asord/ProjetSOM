@@ -43,7 +43,7 @@ namespace SOM {
 	void Interface::updateGraphic()
 	{
 		m_pScene = new QGraphicsScene(this);
-		ui.graphicsView->setScene(m_pScene);
+		
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -53,9 +53,10 @@ namespace SOM {
 		//dessine chaque neurone du reseau
 		for (int row = 0; row < settings.m_nNbRows; row++)
 			for (int col = 0; col < settings.m_nNbCols; col++) {
-				QBrush brush(QColor(network->getNeuron(row, col).GetWeight(0), network->getNeuron(row, col).GetWeight(1), network->getNeuron(row, col).GetWeight(2), 255));
-				m_pRect = m_pScene->addRect((ui.graphicsView->width() - 5) / settings.m_nNbCols*col, (ui.graphicsView->height() - 5) / settings.m_nNbRows*row, ui.graphicsView->width() / settings.m_nNbCols, ui.graphicsView->height() / settings.m_nNbRows, outlinePen, brush);
+				QBrush brush(QColor((uint)network->getNeuron(row, col).GetWeight(0), (uint)network->getNeuron(row, col).GetWeight(1), (uint)network->getNeuron(row, col).GetWeight(2)));
+				m_pScene->addRect((ui.graphicsView->width() - 5) / settings.m_nNbCols*col, (ui.graphicsView->height() - 5) / settings.m_nNbRows*row, ui.graphicsView->width() / settings.m_nNbCols, ui.graphicsView->height() / settings.m_nNbRows, outlinePen, brush);
 			}
+		ui.graphicsView->setScene(m_pScene);
 	}
 
 	void Interface::setAlphaValueText()
@@ -66,7 +67,7 @@ namespace SOM {
 
 	void Interface::setEuclidian()
 	{
-		//initialisation de m_bEuclidianen fonction de si la case est cochée ou non
+		//initialisation de m_bEuclidian fonction de si la case est cochée ou non
 		m_bEuclidian = ui.Distance1->isChecked();
 	}
 
@@ -157,22 +158,21 @@ namespace SOM {
 			updateGraphic();//initialisation de la visualisation
 			
 			//boucle a déplacer pour optimiser
-			for (uint i = 1; i <= maxIteration; ++i) {
+			for (uint it = 1; it <= maxIteration; ++it) {
 				//network->AlgoSOM(i);
-				AlgoSOM(i);
-				updateValuesUI(i);
+				for (uint i = 0; i < sizeof(network->GetResources().m_fColor) / sizeof(Color); ++i)
+				{
+					if (it %3 == 0)
+						printf("blob");
+					updateGraphic();
+					network->AlgoSOM(it, i);
+					updateValuesUI(it);
+				}
 			}
 
 		}
 	}
-	void Interface::AlgoSOM(uint currentIteration)
-	{
-		network->SetWinner();
-		network->UpdateWeight();
-		network->UpdateAlpha();
-		network->UpdateBeta();
-		network->UpdateCurrentIteration(currentIteration);
-	}
+
 	void Interface::pause()
 	{
 		//TODO: Implémenter handler de pause dans l'algorithme SOM depuis l'interface
