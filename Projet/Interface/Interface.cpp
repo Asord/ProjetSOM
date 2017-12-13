@@ -130,7 +130,7 @@ void Interface::start()
 			alpha = alphaStart * exp(-currentIteration / alphaRate);;
 			beta--;
 			updateValues();
-			_sleep(50);
+			//_sleep(50);
 		}
 	}
 }
