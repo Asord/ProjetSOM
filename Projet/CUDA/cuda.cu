@@ -15,7 +15,6 @@ namespace SOM {
 		}
 	}
 	
-	
 	double launchActiviteNeurone(double* h_actIn)
 	{
 		const int ARRAYSIZE = 10; //grid dimension
