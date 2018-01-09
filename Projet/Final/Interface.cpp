@@ -1,5 +1,4 @@
 #include "Interface.h"
-#include <iostream>
 
 namespace SOM {
 
@@ -12,7 +11,7 @@ namespace SOM {
 	void Interface::setRows()
 	{
 		//met la valeur du compteur dans la variable m_nNbRows
-		settings.m_nNbRows = ui.LigneValue->value();
+		settings.m_nNbRows = (uint)ui.LigneValue->value();
 		if (settings.m_nNbRows > ui.BetaValue->maximum())
 			ui.BetaValue->setMaximum(settings.m_nNbRows);
 	}
@@ -20,7 +19,7 @@ namespace SOM {
 	void Interface::setColumns()
 	{
 		//met la valeur du compteur dans la variable m_nNbCols
-		settings.m_nNbCols = ui.ColValue->value();
+		settings.m_nNbCols = (uint)ui.ColValue->value();
 		if (settings.m_nNbCols > ui.BetaValue->maximum())
 			ui.BetaValue->setMaximum(settings.m_nNbCols);
 	}
@@ -28,11 +27,11 @@ namespace SOM {
 	void Interface::updateValuesUI(int currentIteration)
 	{
 		//alpha
-		ui.AlphaSlider->setSliderPosition(network->getAlpha() * 1000);
+		ui.AlphaSlider->setSliderPosition((int)network->getAlpha() * 1000);
 		ui.AlphaValue->setText(QString::number(network->getBeta() + 0.006));
 
 		//beta
-		ui.BetaValue->setValue(network->getBeta());
+		ui.BetaValue->setValue((int)network->getBeta());
 
 		ui.ProgressBar->setValue(currentIteration);
 
@@ -90,10 +89,10 @@ namespace SOM {
 		//initialisation des parametres
 		settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
 		settings.m_dAlphaRate = ui.TauxAlphaValue->value();
-		settings.m_nAlphaPeriod = ui.PeriodeAlphaValue->value();
+		settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
 		settings.m_nInitialBeta = ui.BetaValue->value();
 		settings.m_dBetaRate = ui.TauxBetaValue->value();
-		settings.m_nBetaPeriod = ui.PeriodeBetaValue->value();
+		settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
 
 
 		//initialisation des messages d'erreur
@@ -162,8 +161,6 @@ namespace SOM {
 				//network->AlgoSOM(i);
 				for (uint i = 0; i < sizeof(network->GetResources().m_fColor) / sizeof(Color); ++i)
 				{
-					if (it %3 == 0)
-						printf("blob");
 					updateGraphic();
 					network->AlgoSOM(it, i);
 					updateValuesUI(it);
@@ -177,7 +174,7 @@ namespace SOM {
 	{
 		//TODO: Implémenter handler de pause dans l'algorithme SOM depuis l'interface
 		//changement du texte en fonction de m_bIsPaused
-		m_bIsPaused = m_bIsPaused ? false : true;
+		m_bIsPaused = ! m_bIsPaused;
 		if (m_bIsPaused)
 			ui.PauseBtn->setText("Reprendre");
 		else

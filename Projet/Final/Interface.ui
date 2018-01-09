@@ -641,22 +641,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>BetaValue</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>Window</receiver>
-   <slot>setBeta()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>270</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>295</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>Distance1</sender>
    <signal>clicked(bool)</signal>
    <receiver>Window</receiver>
@@ -913,22 +897,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>AlphaSlider</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>Window</receiver>
-   <slot>setAlphaValueText()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>150</x>
-     <y>250</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>295</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>NouveauRes</sender>
    <signal>clicked(bool)</signal>
    <receiver>TauxAlpha</receiver>
@@ -1057,6 +1025,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>NouveauRes</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>AlphaSlider</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>150</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>TauxAlphaValue</sender>
    <signal>valueChanged(double)</signal>
    <receiver>Window</receiver>
@@ -1089,18 +1073,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>AlphaSlider</receiver>
-   <slot>setDisabled(bool)</slot>
+   <sender>AlphaSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>Window</receiver>
+   <slot>setAlphaValueText()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
      <x>150</x>
      <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>295</y>
     </hint>
    </hints>
   </connection>

@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <QtWidgets/QWidget>
 #include "ui_Interface.h"
 #include "Network.h"
@@ -18,7 +17,8 @@ namespace SOM {
 	private:
 		Ui::Window ui;
 
-		bool m_bEuclidian; //TODO: bool Euclidian a modifier quand avancement calcule distance
+        bool m_bEuclidian; //TODO: bool Euclidian a modifier quand avancement calcule distance
+		//TODO: remove
 		bool m_bIsPaused = false;//programme en pause ?
 		bool m_bReady = true;//tous les parametre sont correcte?
 		Network* network;
@@ -38,9 +38,6 @@ namespace SOM {
 		void disabledEverything();
 		//initialisation de la visualisation
 		void updateGraphic();
-
-		// Appelle étape par étape les fonctions SOM
-		void Interface::AlgoSOM(uint);
 
 	public slots:
 		void setRows();//Actualise le nombre de lignes

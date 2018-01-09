@@ -1,6 +1,4 @@
 #include "Interface.h"
-#include "Network.h"
-#include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {

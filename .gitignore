@@ -85,7 +85,6 @@ ui_*.h
 Makefile*
 *build-*
 
-
 # Qt unit tests
 target_wrapper.*
 
@@ -96,5 +95,10 @@ target_wrapper.*
 *.qmlproject.user
 *.qmlproject.user.*
 
-# QtCtreator CMake
-CMakeLists.txt.user*
+# CMake
+CMakeLists.txt*
+cmake-build*/
+
+# CLion generated files
+build-Final*/
+.idea/

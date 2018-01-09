@@ -1,16 +1,19 @@
 #pragma once
 #include "..\SOM\Utility.h"
+#include <cmath>
+
+#define VECTOR_DIM 3
 
 namespace SOM
 {
 	struct Color
 	{
 		uchar* col;
-		//uint m_nColor;
+        static const double m_fMinAct = sqrt( VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 		Color(uchar red, uchar gre, uchar blu)
 		{
-			col = new uchar[3];
+			col = new uchar[VECTOR_DIM];
 			col[0] = red;
 			col[1] = gre;
 			col[2] = blu;
@@ -30,7 +33,7 @@ namespace SOM
 		}
 	};
 
-	static struct Resources
+	struct Resources
 	{
 		Color m_fColor[100] = { 
 			Color(194, 144, 231), Color(117, 113, 38), Color(33, 19, 246), Color(45, 4, 86),
