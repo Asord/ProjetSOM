@@ -49,12 +49,6 @@
     <ClCompile Include="GeneratedFiles\qrc_Interface.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SOM\Network.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SOM\Neuron.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_Interface.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -63,6 +57,12 @@
     </ClCompile>
     <ClCompile Include="Resources.h">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,19 +80,19 @@
     <ClInclude Include="GeneratedFiles\ui_Interface.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SOM\Network.h">
+    <ClInclude Include="Network.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SOM\Utility.h">
+    <ClInclude Include="Neuron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SOM\Vector.h">
+    <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SOM\Neuron.h">
+    <ClInclude Include="Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SOM\Settings.h">
+    <ClInclude Include="Vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

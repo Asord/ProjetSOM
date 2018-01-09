@@ -115,7 +115,7 @@ namespace SOM
 	{
 		//TODO : Récupérer les couleurs de resources
 
-		m_fMinAct = 442;
+		m_fMinAct = fColorMinAct;
 		double activity;
 		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
 			for (uint col = 0; col < m_settings.m_nNbCols; ++col)

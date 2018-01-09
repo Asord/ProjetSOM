@@ -9,7 +9,6 @@ namespace SOM
 	struct Color
 	{
 		uchar* col;
-        static const double m_fMinAct = sqrt( VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 		Color(uchar red, uchar gre, uchar blu)
 		{
@@ -32,6 +31,8 @@ namespace SOM
 			return col[dim];
 		}
 	};
+
+	static const double fColorMinAct= sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 	struct Resources
 	{
