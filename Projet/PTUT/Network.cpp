@@ -1,5 +1,8 @@
 #include "Network.h"
 #include <cmath>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 namespace SOM
 {
@@ -25,6 +28,9 @@ namespace SOM
 		uint m_nCurrentIteration = 1;
 		m_nNbIterationMax = 0;
 
+		// Aléatoire se fait par rapport au temps
+		srand(time(NULL)); 
+
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_settings.m_nNbCols);
 		for (int i = 0; i < m_settings.m_nNbCols; ++i)
@@ -33,7 +39,7 @@ namespace SOM
 		//Initialisation du vecteur de neurones
 		uint valueWeight;
 		uint id = 0;
-		for (uint rows = 0; rows < m_settings.m_nNbRows; ++rows)
+		/*for (uint rows = 0; rows < m_settings.m_nNbRows; ++rows)
 			for (uint cols = 0; cols < m_settings.m_nNbCols; ++cols)
 			{
 				//Neuron m_NNeuron(m_settings.m_nDimInputVector);
@@ -42,9 +48,9 @@ namespace SOM
 				{
 					valueWeight = m_vvNetwork[cols][rows].GetWeight(weight);
 					printf("");
-				}*/
+				}
 				printf("");
-			}
+			}*/
 	}
 
 	void Network::calcNbMaxIterations()
