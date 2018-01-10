@@ -1,4 +1,5 @@
 #include "PTUT.h"
+#include <algorithm>
 
 namespace SOM {
 
@@ -50,12 +51,23 @@ namespace SOM {
 		outlinePen.setWidth(0);
 
 		//dessine chaque neurone du reseau
-		for (int row = 0; row < settings.m_nNbRows; row++)
-			for (int col = 0; col < settings.m_nNbCols; col++) {
-				QBrush brush(QColor((uint)network->getNeuron(row, col).GetWeight(0), (uint)network->getNeuron(row, col).GetWeight(1), (uint)network->getNeuron(row, col).GetWeight(2)));
+		uint red, green, blue, id;
+		//Neuron neuron(3);
+		for (uint row = 0; row < settings.m_nNbRows; row++)
+		{
+			for (uint col = 0; col < settings.m_nNbCols; col++) {
+				
+				red = network->getNeuron(row, col).GetWeight(0);
+				green = network->getNeuron(row, col).GetWeight(1);
+				blue = network->getNeuron(row, col).GetWeight(2);
+				QBrush brush(QColor(network->getNeuron(row, col).GetWeight(0), network->getNeuron(row, col).GetWeight(1), network->getNeuron(row, col).GetWeight(2)));
+				id = network->getNeuron(row, col).getID();
 				m_pScene->addRect((ui.graphicsView->width() - 5) / settings.m_nNbCols*col, (ui.graphicsView->height() - 5) / settings.m_nNbRows*row, ui.graphicsView->width() / settings.m_nNbCols, ui.graphicsView->height() / settings.m_nNbRows, outlinePen, brush);
+				printf("");
 			}
+		}
 		ui.graphicsView->setScene(m_pScene);
+		printf("");
 	}
 
 	void PTUT::setAlphaValueText()
@@ -82,6 +94,11 @@ namespace SOM {
 		//empeche le taux de beta d'etre inferieur au taux de alpha
 		if (ui.TauxBetaValue->value() <= ui.TauxAlphaValue->value())
 			ui.TauxBetaValue->setValue(ui.TauxAlphaValue->value() + 0.01);
+	}
+
+	void PTUT::setBeta()
+	{
+		ui.BetaValue->setMaximum(std::max(ui.LigneValue->value(), ui.ColValue->value()));
 	}
 
 	void PTUT::initValues() {
@@ -154,7 +171,7 @@ namespace SOM {
 			ui.ProgressBar->setMaximum(maxIteration);
 
 			//debut de l'algorithme
-			updateGraphic();//initialisation de la visualisation
+			//updateGraphic();//initialisation de la visualisation
 			
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
@@ -165,6 +182,7 @@ namespace SOM {
 					network->AlgoSOM(it, i);
 					updateValuesUI(it);
 				}
+				printf("");
 			}
 
 		}

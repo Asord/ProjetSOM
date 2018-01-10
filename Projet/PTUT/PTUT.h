@@ -48,5 +48,6 @@ namespace SOM {
 		void pause();//met le programme en pause
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
+		void setBeta();
 	};
 }

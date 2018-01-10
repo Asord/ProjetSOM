@@ -31,11 +31,19 @@ namespace SOM
 			m_vvNetwork[i].resize(m_settings.m_nNbRows);
 
 		//Initialisation du vecteur de neurones
+		uint valueWeight;
+		uint id = 0;
 		for (uint rows = 0; rows < m_settings.m_nNbRows; ++rows)
 			for (uint cols = 0; cols < m_settings.m_nNbCols; ++cols)
 			{
-				Neuron m_NNeuron(m_settings.m_nDimInputVector);
-				m_vvNetwork[cols][rows] = m_NNeuron;
+				//Neuron m_NNeuron(m_settings.m_nDimInputVector);
+				//m_vvNetwork[cols][rows] = m_NNeuron;
+				/*for (uint weight = 0; weight < m_settings.m_nDimInputVector; ++weight)
+				{
+					valueWeight = m_vvNetwork[cols][rows].GetWeight(weight);
+					printf("");
+				}*/
+				printf("");
 			}
 	}
 

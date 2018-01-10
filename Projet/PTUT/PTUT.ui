@@ -209,6 +209,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="value">
+     <number>10</number>
+    </property>
    </widget>
    <widget class="QLabel" name="ErreurLignes">
     <property name="enabled">
@@ -242,7 +245,7 @@
      </rect>
     </property>
     <property name="value">
-     <number>0</number>
+     <number>10</number>
     </property>
    </widget>
    <widget class="QLabel" name="ErreurColonnes">
@@ -332,8 +335,11 @@
      <property name="maximum">
       <number>1000</number>
      </property>
+     <property name="value">
+      <number>1000</number>
+     </property>
      <property name="sliderPosition">
-      <number>0</number>
+      <number>1000</number>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -377,6 +383,9 @@
       </rect>
      </property>
      <property name="maximum">
+      <number>0</number>
+     </property>
+     <property name="value">
       <number>0</number>
      </property>
     </widget>
@@ -497,6 +506,9 @@
      <property name="singleStep">
       <double>0.010000000000000</double>
      </property>
+     <property name="value">
+      <double>0.400000000000000</double>
+     </property>
     </widget>
     <widget class="QSpinBox" name="PeriodeAlphaValue">
      <property name="enabled">
@@ -552,7 +564,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <double>1.000000000000000</double>
+      <double>0.410000000000000</double>
      </property>
     </widget>
     <widget class="QSpinBox" name="PeriodeBetaValue">
@@ -605,7 +617,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="Interface.qrc"/>
+  <include location="PTUT.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -1081,6 +1093,22 @@
     <hint type="sourcelabel">
      <x>150</x>
      <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BetaValue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>setBeta()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
      <x>400</x>

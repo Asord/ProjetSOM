@@ -12,7 +12,9 @@ namespace SOM
 	class Neuron
 	{
 	private:
+		static uint m_nCounter;
 
+		uint m_nID;
 		Vector m_pCoordinate;
 
 		// Tableau de poids (double)
@@ -22,10 +24,9 @@ namespace SOM
 		uint m_nWeightDim;
 		
 	public:
-		// Constructeur par défaut
-		Neuron() { m_fWeight = nullptr; m_nWeightDim = 0; }
+		//Neuron() { m_fWeight = nullptr; m_nWeightDim = 0; }
 		// Constructeur
-		Neuron(uint dimWeight);
+		Neuron(uint dimWeight = 3);
 		// Destructeur
 		~Neuron();
 
@@ -39,5 +40,6 @@ namespace SOM
 
 		// Récupère un poids du vecteur de poids
 		uchar& GetWeight(uint idWeight);
+		uint getID() { return m_nID; }
 	};
 }
