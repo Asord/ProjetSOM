@@ -28,8 +28,8 @@ namespace SOM
 		uint m_nCurrentIteration = 1;
 		m_nNbIterationMax = 0;
 
-		// Aléatoire se fait par rapport au temps
-		srand(time(NULL)); 
+		// Aléatoire fait par rapport au temps
+		srand((uint)time(NULL)); 
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_settings.m_nNbCols);
@@ -79,7 +79,6 @@ namespace SOM
 
 	double Network::GetActivity(/*Vector coordinate*/uint row, uint col, Color& color)
 	{
-		// TODO : Récupérer les ressources
 		auto distanceType = DistanceMetric::EUCL;
 		double activity = 0;
 		uchar neuronWeight;
@@ -97,15 +96,17 @@ namespace SOM
 		}
 		return activity;
 	}
-	double Network::GetDistance(Vector& coordinate)
+	double Network::GetDistance(Vector& neuron)
 	{
 		auto distanceType = DistanceMetric::EUCL;
 		double distance = 0;
 		switch (distanceType)
 		{
 		case EUCL:
-			for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
-				distance += pow((uint)(this->getNeuron(m_vWinner[0], m_vWinner[1]).GetWeight(idWeight) - this->getNeuron(coordinate[0], coordinate[1]).GetWeight(idWeight)), 2);
+			//for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
+				//distance += pow((uint)(this->getNeuron(m_vWinner[0], m_vWinner[1]).GetWeight(idWeight) - this->getNeuron(coordinate[0], coordinate[1]).GetWeight(idWeight)), 2);
+			for (uint coord = 0; coord < 2; ++coord)
+				distance += pow((uint)(m_vWinner[coord] - neuron[coord]), 2);
 			distance = sqrt(distance);
 		}
 		return distance;
@@ -124,12 +125,11 @@ namespace SOM
 	void Network::UpdatePhi(Vector& vNeuron)
 	{
 		m_fPhi = exp(-GetDistance(vNeuron) / 2 * m_fBeta); //TODO: Modifier lors de la phase 2, phi ne devrait pas être une donnée membre de Network
+		printf("");
 	}
 
 	void Network::SetWinner(Color& color)
 	{
-		//TODO : Récupérer les couleurs de resources
-
 		m_fMinAct = fColorMinAct;
 		double activity;
 		for (uint row = 0; row < m_settings.m_nNbRows; ++row)

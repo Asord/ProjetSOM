@@ -42,8 +42,8 @@ namespace SOM {
 
 	void PTUT::updateGraphic()
 	{
+
 		m_pScene = new QGraphicsScene(this);
-		
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -60,13 +60,16 @@ namespace SOM {
 				red = network->getNeuron(row, col).GetWeight(0);
 				green = network->getNeuron(row, col).GetWeight(1);
 				blue = network->getNeuron(row, col).GetWeight(2);
-				QBrush brush(QColor(network->getNeuron(row, col).GetWeight(0), network->getNeuron(row, col).GetWeight(1), network->getNeuron(row, col).GetWeight(2)));
 				id = network->getNeuron(row, col).getID();
+
+				QBrush brush(QColor(red, green, blue));
 				m_pScene->addRect((ui.graphicsView->width() - 5) / settings.m_nNbCols*col, (ui.graphicsView->height() - 5) / settings.m_nNbRows*row, ui.graphicsView->width() / settings.m_nNbCols, ui.graphicsView->height() / settings.m_nNbRows, outlinePen, brush);
 				printf("");
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
+		ui.graphicsView->update();
+
 		printf("");
 	}
 
@@ -162,8 +165,9 @@ namespace SOM {
 			vDimNetwork[0] = settings.m_nNbRows;
 			vDimNetwork[1] = settings.m_nNbCols;
 			network = SOM::Network::GetInstance(settings);
-			
-			network->calcNbMaxIterations();//calcul du nombre maximum d'iterations
+
+			//calcul du nombre maximum d'iterations
+			network->calcNbMaxIterations();
 
 			uint maxIteration = network->getMaxIteration();
 
@@ -172,13 +176,13 @@ namespace SOM {
 
 			//debut de l'algorithme
 			//updateGraphic();//initialisation de la visualisation
-			
+
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
+				updateGraphic();
 				//network->AlgoSOM(i);
 				for (uint i = 0; i < sizeof(network->GetResources().m_fColor) / sizeof(Color); ++i)
 				{
-					updateGraphic();
 					network->AlgoSOM(it, i);
 					updateValuesUI(it);
 				}
