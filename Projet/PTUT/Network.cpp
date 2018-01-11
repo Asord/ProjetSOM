@@ -29,7 +29,8 @@ namespace SOM
 		m_nNbIterationMax = 0;
 
 		// Aléatoire fait par rapport au temps
-		srand((uint)time(NULL)); 
+		//srand((uint)time(NULL)); 
+		srand(1);
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_settings.m_nNbCols);
@@ -124,7 +125,8 @@ namespace SOM
 
 	void Network::UpdatePhi(Vector& vNeuron)
 	{
-		m_fPhi = exp(-GetDistance(vNeuron) / 2 * m_fBeta); //TODO: Modifier lors de la phase 2, phi ne devrait pas être une donnée membre de Network
+		double phi = exp(-GetDistance(vNeuron) / 2 * m_fBeta); //TODO: Modifier lors de la phase 2, phi ne devrait pas être une donnée membre de Network
+		getNeuron(vNeuron[0], vNeuron[1]).setPhi(phi);
 		printf("");
 	}
 
@@ -164,7 +166,7 @@ namespace SOM
 
 				UpdatePhi(vNeuron);
 				for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
-					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, m_fPhi, &color[idWeight]);
+					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, &color[idWeight]);
 			}
 	}
 
