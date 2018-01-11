@@ -43,7 +43,7 @@ namespace SOM
 
         Resources()
         {
-            srand((uint)time(nullptr));
+            srand((uint)time(NULL));
         }
 
 		/* = {

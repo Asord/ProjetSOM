@@ -1,7 +1,8 @@
 #pragma once
 
 #include <QtWidgets/QWidget>
-#include "cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
+//#include "cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
+#include "ui_PTUT.h"
 #include "Network.h"
 #include "Vector.h"
 #include "Settings.h"
