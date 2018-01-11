@@ -79,7 +79,7 @@ namespace SOM {
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
-		ui.graphicsView->update();
+		ui.ProgressBar->setValue(12);
 
 	}
 
@@ -194,6 +194,7 @@ namespace SOM {
                     network->AlgoSOM(it, i);
                     updateValuesUI(it);
                 }
+				
 				sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
 				network->UpdateAlpha();
 				network->UpdateBeta();
