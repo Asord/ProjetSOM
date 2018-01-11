@@ -28,8 +28,8 @@
    <widget class="QPushButton" name="NouveauRes">
     <property name="geometry">
      <rect>
-      <x>85</x>
-      <y>50</y>
+      <x>20</x>
+      <y>60</y>
       <width>130</width>
       <height>37</height>
      </rect>
@@ -603,6 +603,25 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="Restart">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>60</y>
+      <width>130</width>
+      <height>37</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Réinitialiser</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
@@ -1116,6 +1135,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Restart</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Window</receiver>
+   <slot>restart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>214</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setRows()</slot>
@@ -1127,5 +1162,6 @@
   <slot>pause()</slot>
   <slot>alphaRateConstraint()</slot>
   <slot>betaRateConstraint()</slot>
+  <slot>restart()</slot>
  </slots>
 </ui>

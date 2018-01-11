@@ -147,6 +147,7 @@ namespace SOM {
 		ui.PauseBtn->setEnabled(true);
 		ui.ProgressBar->setEnabled(true);
 		ui.NbrIterations->setEnabled(true);
+		ui.Restart->setEnabled(false);
 	}
 
 	void PTUT::start()
