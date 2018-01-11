@@ -29,7 +29,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
+      <y>30</y>
       <width>130</width>
       <height>37</height>
      </rect>
@@ -610,7 +610,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>60</y>
+      <y>30</y>
       <width>130</width>
       <height>37</height>
      </rect>
@@ -620,6 +620,25 @@
     </property>
     <property name="text">
      <string>Réinitialiser</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="OpenFile">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>70</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Ouvrir un fichier à apprendre</string>
     </property>
    </widget>
   </widget>
@@ -1148,6 +1167,22 @@
     <hint type="destinationlabel">
      <x>400</x>
      <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NouveauRes</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>OpenFile</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>65</y>
     </hint>
    </hints>
   </connection>

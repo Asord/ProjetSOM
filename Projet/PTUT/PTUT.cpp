@@ -229,10 +229,10 @@ namespace SOM {
 		if (m_bIsPaused)
 		{
 			ui.PauseBtn->setText("Reprendre");
-			QWaitCondition w;
-			w.wait(new QMutex(), 5);
+			//QWaitCondition w;
+			//w.wait(new QMutex(), 5);
 		}
 		else
-			ui.PauseBtn->setText("Pause apprentissage");
+			ui.PauseBtn->setText("Pause");
 	}
 }
