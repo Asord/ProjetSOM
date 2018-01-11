@@ -1,4 +1,6 @@
 #include "PTUT.h"
+#include <QWaitCondition>
+#include <QMutex>
 
 namespace SOM {
 
@@ -225,7 +227,11 @@ namespace SOM {
 		//changement du texte en fonction de m_bIsPaused
 		m_bIsPaused = ! m_bIsPaused;
 		if (m_bIsPaused)
+		{
 			ui.PauseBtn->setText("Reprendre");
+			QWaitCondition w;
+			w.wait(new QMutex(), 5);
+		}
 		else
 			ui.PauseBtn->setText("Pause apprentissage");
 	}
