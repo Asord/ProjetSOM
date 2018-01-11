@@ -49,7 +49,7 @@ namespace SOM
 		static Network* instance;
 
 		Settings m_settings;
-		int m_nCurrentIteration;
+		uint m_nCurrentIteration;
 
 		// Constructeurs priv� pour singleton
 		explicit Network(Settings &settings);

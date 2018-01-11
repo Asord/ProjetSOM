@@ -42,7 +42,7 @@ namespace SOM
 		void SetWeight(uint idWeight, double alpha, const uchar* input);
 
 		//Met à jour phi
-		void setPhi(double phi);
+		void setPhi(const double phi);
 
 		// GETTER //
 

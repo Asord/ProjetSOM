@@ -185,7 +185,9 @@ namespace SOM {
 					network->AlgoSOM(it, i);
 					updateValuesUI(it);
 				}
-				printf("");
+				network->UpdateAlpha();
+				network->UpdateBeta();
+!				printf("");
 			}
 
 		}

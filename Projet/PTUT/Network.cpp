@@ -22,12 +22,12 @@ namespace SOM
 		m_fAlpha = settings.m_dInitialAlpha;
 		m_fBeta = settings.m_nInitialBeta;
 
-		uint m_nCurrentIteration = 1;
+		m_nCurrentIteration = 1;
 		m_nNbIterationMax = 0;
 
 		// Aléatoire fait par rapport au temps
-		//srand((uint)time(NULL)); 
-		srand(1);
+		srand((uint)time(NULL)); 
+		//srand(1);
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_settings.m_nNbCols);
@@ -54,25 +54,30 @@ namespace SOM
 	void Network::calcNbMaxIterations()
 	{
 		uint iteration = 1;
-		while (m_fAlpha > 0.000000001)
+		double alpha = m_fAlpha;
+		while (alpha > 0.000000001)
 		{
-			m_fAlpha = m_settings.m_dInitialAlpha * exp(-(double)iteration / m_settings.m_dAlphaRate);
+			//alpha = m_settings.m_dInitialAlpha * exp(-(double)iteration / m_settings.m_dAlphaRate);
+			alpha -= alpha * 1 / 10;
 			m_nNbIterationMax++;
 			iteration++;
 		}
-		m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
+		//m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
 	}
 
 	void Network::UpdateAlpha()
 	{
 		if (m_nCurrentIteration % m_settings.m_nAlphaPeriod == 0)
-			m_fAlpha = m_settings.m_dInitialAlpha * exp(m_nCurrentIteration / -m_settings.m_dAlphaRate);
+			//m_fAlpha = m_settings.m_dInitialAlpha * exp(m_nCurrentIteration / -m_settings.m_dAlphaRate);
+			m_fAlpha -= m_fAlpha * -m_settings.m_dAlphaRate;
+		printf("");
 	}
 
 	void Network::UpdateBeta()
 	{
 		if (m_nCurrentIteration % m_settings.m_nBetaPeriod == 0)
-			m_fBeta = m_settings.m_nInitialBeta * exp(m_nCurrentIteration / -m_settings.m_dBetaRate);
+			//m_fBeta = m_settings.m_nInitialBeta * exp(m_nCurrentIteration / -m_settings.m_dBetaRate);
+			m_fBeta -= m_fBeta * -m_settings.m_dBetaRate;
 	}
 
 	double Network::GetActivity(/*Vector coordinate*/uint row, uint col, Color& color)
@@ -114,21 +119,20 @@ namespace SOM
 	{
 		SetWinner(m_resources.m_fColor[i]);
 		UpdateWeight(m_resources.m_fColor[i]);
-		UpdateAlpha();
-		UpdateBeta();
 		UpdateCurrentIteration(currentIteration);
 
 	}
 
 	void Network::UpdatePhi(Vector& vNeuron)
 	{
-		double phi = exp(-GetDistance(vNeuron) / 2 * m_fBeta); //TODO: Modifier lors de la phase 2, phi ne devrait pas être une donnée membre de Network
+		double phi = exp(-GetDistance(vNeuron) / 2 * m_fBeta);
 		getNeuron(vNeuron[0], vNeuron[1]).setPhi(phi);
 		printf("");
 	}
 
 	void Network::SetWinner(Color& color)
 	{
+		double alphaTest = m_fAlpha;
 		m_fMinAct = fColorMinAct;
 		double activity;
 		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
