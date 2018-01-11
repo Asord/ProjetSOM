@@ -1,7 +1,4 @@
 #include "Neuron.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 namespace SOM
 {
@@ -14,7 +11,7 @@ namespace SOM
 		m_nWeightDim = weightDim;
 		m_fWeight = new uchar[m_nWeightDim];
 		for (uint i = 0; i < m_nWeightDim; ++i) {
-			m_fWeight[i] = rand() % 255;
+			m_fWeight[i] = (uint(rand() % 255);
 			printf("%d", m_fWeight[i]);
 		}
 		/*uchar weight = this->GetWeight(0);
