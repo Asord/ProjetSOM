@@ -1,4 +1,9 @@
+#if defined (_MSC_VER)
+#define sleep(t) _sleep(t*1000)
+#elif defined (__MINGW32__)or(__MINGW64__)
 #include <unistd.h>
+#endif
+
 #include "PTUT.h"
 
 namespace SOM {
@@ -183,15 +188,15 @@ namespace SOM {
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
-				updateGraphic();
 				for (uint i = 0; i < sizeof(network->GetResources().m_fColor) / sizeof(Color); ++i)
                 {
+					updateGraphic();
                     network->AlgoSOM(it, i);
                     updateValuesUI(it);
                 }
+				sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
 				network->UpdateAlpha();
 				network->UpdateBeta();
-                sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
 			}
 
 		}
