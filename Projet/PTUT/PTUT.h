@@ -36,6 +36,8 @@ namespace SOM {
 		void updateValuesUI(int currentIteration);
 		//desactive tout l'interface inutile lorsque l'apprentissageest lancé
 		void disabledEverything();
+		//réactive tout l'interface à la fin de l'aprentissage
+		void activateEverything();
 		//initialisation de la visualisation
 		void updateGraphic();
 
@@ -49,5 +51,6 @@ namespace SOM {
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
 		void setBeta();
+		void restart();//
 	};
 }

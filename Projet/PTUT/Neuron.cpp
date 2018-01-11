@@ -11,11 +11,7 @@ namespace SOM
 		m_nWeightDim = weightDim;
 		m_fWeight = new uchar[m_nWeightDim];
 		for (uint i = 0; i < m_nWeightDim; ++i) {
-<<<<<<< HEAD
-			m_fWeight[i] = (uint(rand() % 255));
-=======
 			m_fWeight[i] = (uchar)(rand() % 255);
->>>>>>> 2a1021c8507ab7ca51ad5cdac59dd0b4a065ced3
 			printf("%d", m_fWeight[i]);
 		}
 		/*uchar weight = this->GetWeight(0);

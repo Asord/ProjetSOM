@@ -22,12 +22,11 @@ namespace SOM
 		m_fAlpha = settings.m_dInitialAlpha;
 		m_fBeta = settings.m_nInitialBeta;
 
-		uint m_nCurrentIteration = 1;
+		m_nCurrentIteration = 1;
 		m_nNbIterationMax = 0;
 
 		// Aléatoire fait par rapport au temps
-		//srand((uint)time(NULL)); 
-		srand(1);
+		srand((uint)time(NULL)); 
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_settings.m_nNbCols);

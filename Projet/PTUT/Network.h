@@ -49,7 +49,7 @@ namespace SOM
 		static Network* instance;
 
 		Settings m_settings;
-		int m_nCurrentIteration;
+		uint m_nCurrentIteration;
 
 		// Constructeurs priv� pour singleton
 		explicit Network(Settings &settings);
@@ -62,6 +62,7 @@ namespace SOM
 		double getAlpha() { return m_fAlpha; }
 		double getBeta() { return m_fBeta; }
 		uint getMaxIteration() { return m_nNbIterationMax; }
+		
 		//Calcul l'activit� d'un neurone
 		double GetActivity(/*Vector coordinate*/ uint row, uint col, Color &color);
 		// Retourne la distance entre un neurone et le neurone vainqueur
@@ -86,7 +87,6 @@ namespace SOM
 
 		//Retourne le neurone avec l'activit� la plus minime
 		void SetWinner(Color& color);
-
 	
 		// Modification du tableau de poids
 		void UpdateWeight(Color& color);

@@ -103,6 +103,19 @@ namespace SOM {
 		ui.BetaValue->setMaximum(std::max(ui.LigneValue->value(), ui.ColValue->value()));
 	}
 
+	void PTUT::restart()
+	{
+		ui.AlphaSlider->setValue(0);
+		ui.AlphaValue->setText("0");
+		ui.TauxAlphaValue->setValue(0);
+		ui.PeriodeAlphaValue->setValue(0);
+		ui.TauxBetaValue->setValue(1);
+		ui.PeriodeBetaValue->setValue(0);
+		m_pScene->clear();
+		ui.graphicsView->setScene(m_pScene);
+		//TODO: réinitialiser le reseau (MaxIterations)
+	}
+
 	void PTUT::initValues() {
 
 		//initialisation des parametres
@@ -150,6 +163,18 @@ namespace SOM {
 		ui.Restart->setEnabled(false);
 	}
 
+	void PTUT::activateEverything()
+	{
+		ui.NouveauRes->setEnabled(true);
+		ui.StartBtn->setEnabled(true);
+		ui.PauseBtn->setEnabled(false);
+		ui.ProgressBar->setEnabled(false);
+		ui.NbrIterations->setEnabled(false);
+		ui.Restart->setEnabled(true);
+		ui.ProgressBar->setValue(0);
+		ui.NbrIterations->setText("Iterations :");
+	}
+
 	void PTUT::start()
 	{
 		initValues();//initialisation des parametres
@@ -188,8 +213,10 @@ namespace SOM {
 				}
 				printf("");
 			}
-
 		}
+
+		//réactivation de l'interface
+		activateEverything();
 	}
 
 	void PTUT::pause()
