@@ -191,7 +191,7 @@ namespace SOM {
                 }
 				network->UpdateAlpha();
 				network->UpdateBeta();
-                sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
+                //sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
 			}
 
 		}

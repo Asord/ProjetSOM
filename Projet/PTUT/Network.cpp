@@ -58,7 +58,6 @@ namespace SOM
 		if (m_nCurrentIteration % m_settings.m_nAlphaPeriod == 0)
 			//m_fAlpha = m_settings.m_dInitialAlpha * exp(m_nCurrentIteration / -m_settings.m_dAlphaRate);
 			m_fAlpha -= m_fAlpha * m_settings.m_dAlphaRate;
-		//printf("");
 	}
 
 	void Network::UpdateBeta()
