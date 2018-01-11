@@ -37,10 +37,15 @@ namespace SOM
 		return m_fWeight[idWeight];
 	}
 
-	void Neuron::SetWeight(uint idWeight, double alpha, double phi, const uchar* input)
+	void Neuron::SetWeight(uint idWeight, double alpha, const uchar* input)
 	{
 		double old_weight = m_fWeight[idWeight];
-		m_fWeight[idWeight] += alpha*phi*(input[idWeight]-old_weight);
+		m_fWeight[idWeight] += alpha*m_fPhi*(input[idWeight]-old_weight);
 		printf("");
+	}
+
+	void Neuron::setPhi(double phi)
+	{
+		m_fPhi = phi;
 	}
 }

@@ -34,7 +34,7 @@ namespace SOM
 		double m_fBeta;
 
 		// Variable phi qui permet de modifier les neurones proportionnellement
-		double m_fPhi;
+		//double m_fPhi;
 
 		// Iteration actuelle
 		//uint m_nCurrentIteration;
