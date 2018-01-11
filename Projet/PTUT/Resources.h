@@ -23,10 +23,11 @@ namespace SOM
 		Color()
 		{
 			col = new uchar[VECTOR_DIM];
-			col[0] = (uchar)(rand() % 255);
-			col[1] = (uchar)(rand() % 255);
-			col[2] = (uchar)(rand() % 255);
+            col[0] = (uchar)(std::rand() % 256);
+            col[1] = (uchar)(std::rand() % 256);
+            col[2] = (uchar)(std::rand() % 256);
 		}
+
 
 		uchar& operator[](uint dim)
 		{
@@ -43,7 +44,11 @@ namespace SOM
 
         Resources()
         {
-            srand((uint)time(NULL));
+            std::srand((uint)std::time(nullptr));
+			for (int i = 0; i < 100; ++i)
+			{
+				m_fColor[i] = Color();
+			}
         }
 
 		/* = {
