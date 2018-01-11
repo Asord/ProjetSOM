@@ -1,5 +1,4 @@
 #include "PTUT.h"
-#include <algorithm>
 
 namespace SOM {
 

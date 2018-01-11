@@ -3,7 +3,7 @@
 #include "Utility.h"
 #include "Vector.h"
 #include "Utility.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include "Resources.h"
 #include <qcolor.h>
 
