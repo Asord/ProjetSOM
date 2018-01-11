@@ -50,7 +50,7 @@ namespace SOM {
 		outlinePen.setWidth(0);
 
 		//dessine chaque neurone du reseau
-		uint red, green, blue, id;
+		uint red, green, blue;
 		//Neuron neuron(3);
 		for (uint row = 0; row < settings.m_nNbRows; row++)
 		{
@@ -59,17 +59,16 @@ namespace SOM {
 				red = network->getNeuron(row, col).GetWeight(0);
 				green = network->getNeuron(row, col).GetWeight(1);
 				blue = network->getNeuron(row, col).GetWeight(2);
-				id = network->getNeuron(row, col).getID();
 
 				QBrush brush(QColor(red, green, blue));
 				m_pScene->addRect((ui.graphicsView->width() - 5) / settings.m_nNbCols*col, (ui.graphicsView->height() - 5) / settings.m_nNbRows*row, ui.graphicsView->width() / settings.m_nNbCols, ui.graphicsView->height() / settings.m_nNbRows, outlinePen, brush);
-				printf("");
+				//printf("");
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
 		ui.graphicsView->update();
 
-		printf("");
+		//printf("");
 	}
 
 	void PTUT::setAlphaValueText()
@@ -187,7 +186,7 @@ namespace SOM {
 				}
 				network->UpdateAlpha();
 				network->UpdateBeta();
-!				printf("");
+				//printf("");
 			}
 
 		}

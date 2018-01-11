@@ -1,5 +1,5 @@
 #include "Network.h"
-#include <time.h>
+#include <ctime>
 
 namespace SOM
 {
@@ -69,15 +69,15 @@ namespace SOM
 	{
 		if (m_nCurrentIteration % m_settings.m_nAlphaPeriod == 0)
 			//m_fAlpha = m_settings.m_dInitialAlpha * exp(m_nCurrentIteration / -m_settings.m_dAlphaRate);
-			m_fAlpha -= m_fAlpha * -m_settings.m_dAlphaRate;
-		printf("");
+			m_fAlpha -= m_fAlpha * m_settings.m_dAlphaRate;
+		//printf("");
 	}
 
 	void Network::UpdateBeta()
 	{
 		if (m_nCurrentIteration % m_settings.m_nBetaPeriod == 0)
 			//m_fBeta = m_settings.m_nInitialBeta * exp(m_nCurrentIteration / -m_settings.m_dBetaRate);
-			m_fBeta -= m_fBeta * -m_settings.m_dBetaRate;
+			m_fBeta -= m_fBeta * m_settings.m_dBetaRate;
 	}
 
 	double Network::GetActivity(/*Vector coordinate*/uint row, uint col, Color& color)
@@ -127,7 +127,7 @@ namespace SOM
 	{
 		double phi = exp(-GetDistance(vNeuron) / 2 * m_fBeta);
 		getNeuron(vNeuron[0], vNeuron[1]).setPhi(phi);
-		printf("");
+		//printf("");
 	}
 
 	void Network::SetWinner(Color& color)
