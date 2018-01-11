@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QWidget>
-#include "ui_PTUT.h"
+#include "cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
 #include "Network.h"
 #include "Vector.h"
 #include "Settings.h"
@@ -26,6 +26,7 @@ namespace SOM {
 
 		//visualisation
 		QGraphicsScene *m_pScene;//Scene du QGraphicView
+		QGraphicsScene *m_pEntryScene; // Scene d'entrée
 
 	public:
 		//initialise les variables avec les valeurs des parametres
@@ -49,5 +50,40 @@ namespace SOM {
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
 		void setBeta();
+
+        // TODO: Remove after debug
+		void drawInput()
+		{
+			m_pEntryScene = new QGraphicsScene(this);
+			ui.graphicsPreview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+			ui.graphicsPreview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+			QPen outlinePen(Qt::black);
+			outlinePen.setWidth(0);
+
+			for (uint i = 0;  i < 100; ++i)
+			{
+                uint col = i % 10;
+                uint row = i / 10;
+
+				Color color = network->m_resources.m_fColor[i];
+				uchar red = color[0];
+				uchar gre = color[1];
+				uchar blu = color[2];
+
+				QBrush brush(QColor(red, gre, blu));
+				m_pEntryScene->addRect(
+                        (ui.graphicsPreview->width() - 5) / 10*col,
+                        (ui.graphicsPreview->height() - 5) / 10*row,
+                        ui.graphicsPreview->width() / 10,
+                        ui.graphicsPreview->height() / 10,
+                        outlinePen,
+                        brush
+                );
+			}
+			ui.graphicsPreview->setScene(m_pEntryScene);
+			ui.graphicsPreview->update();
+
+		}
 	};
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "Utility.h"
 #include <cmath>
+#include <ctime>
+#include <iostream>
 
 #define VECTOR_DIM 3
 
@@ -18,25 +20,33 @@ namespace SOM
 			col[2] = blu;
 		}
 
-		/*Color(uint color)
+		Color()
 		{
-			m_nColor = color;
-			col[0] = 0xFF0000 & color >> 16;
-			col[1] = 0xFF00 & color >> 8;
-			col[2] = 0xFF & color;
-		}*/
+			col = new uchar[VECTOR_DIM];
+			col[0] = (uchar)(rand() % 255);
+			col[1] = (uchar)(rand() % 255);
+			col[2] = (uchar)(rand() % 255);
+		}
 
 		uchar& operator[](uint dim)
-		{ 
+		{
 			return col[dim];
 		}
+
 	};
 
-	static const double fColorMinAct= sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
+	static const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 	struct Resources
 	{
-		Color m_fColor[100] = { 
+		Color m_fColor[100];
+
+        Resources()
+        {
+            srand((uint)time(nullptr));
+        }
+
+		/* = {
 			Color(194, 144, 231), Color(117, 113, 38), Color(33, 19, 246), Color(45, 4, 86),
 			Color(185, 52, 33), Color(37, 85, 232), Color(61, 42, 219), Color(180, 218, 115),
 			Color(91, 123, 185), Color(7, 68, 174), Color(126, 114, 163), Color(246, 99, 88),
@@ -62,6 +72,6 @@ namespace SOM
 			Color(117, 91, 168), Color(36, 3, 14), Color(121, 123, 183), Color(101, 93, 31),
 			Color(248, 99, 122), Color(56, 136, 223), Color(10, 233, 143), Color(205, 189, 49),
 			Color(217, 43, 152), Color(213, 121, 30), Color(165, 80, 130), Color(10, 200, 10)
-		};
+		};*/
 	};
 }

@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "PTUT.h"
 
 namespace SOM {
@@ -61,14 +62,20 @@ namespace SOM {
 				blue = network->getNeuron(row, col).GetWeight(2);
 
 				QBrush brush(QColor(red, green, blue));
-				m_pScene->addRect((ui.graphicsView->width() - 5) / settings.m_nNbCols*col, (ui.graphicsView->height() - 5) / settings.m_nNbRows*row, ui.graphicsView->width() / settings.m_nNbCols, ui.graphicsView->height() / settings.m_nNbRows, outlinePen, brush);
-				//printf("");
+				m_pScene->addRect(
+						(ui.graphicsView->width() - 5) / settings.m_nNbCols*col,
+						(ui.graphicsView->height() - 5) / settings.m_nNbRows*row,
+						ui.graphicsView->width() / settings.m_nNbCols,
+						ui.graphicsView->height() / settings.m_nNbRows,
+						outlinePen,
+						brush
+				);
+
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
 		ui.graphicsView->update();
 
-		//printf("");
 	}
 
 	void PTUT::setAlphaValueText()
@@ -164,6 +171,8 @@ namespace SOM {
 			vDimNetwork[1] = settings.m_nNbCols;
 			network = SOM::Network::GetInstance(settings);
 
+			drawInput();
+
 			//calcul du nombre maximum d'iterations
 			network->calcNbMaxIterations();
 
@@ -172,21 +181,17 @@ namespace SOM {
 			//initialisation de la progressBar
 			ui.ProgressBar->setMaximum(maxIteration);
 
-			//debut de l'algorithme
-			//updateGraphic();//initialisation de la visualisation
-
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
 				updateGraphic();
-				//network->AlgoSOM(i);
 				for (uint i = 0; i < sizeof(network->GetResources().m_fColor) / sizeof(Color); ++i)
-				{
-					network->AlgoSOM(it, i);
-					updateValuesUI(it);
-				}
+                {
+                    network->AlgoSOM(it, i);
+                    updateValuesUI(it);
+                }
 				network->UpdateAlpha();
 				network->UpdateBeta();
-				//printf("");
+                sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
 			}
 
 		}

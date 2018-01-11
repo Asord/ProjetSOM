@@ -15,9 +15,9 @@ namespace SOM
 
 		// Types de calcules de distance
 		enum DistanceMetric { EUCL };
+		Resources m_resources;
 
 	private:
-		Resources m_resources;
 		// Stockage activit� minimum
 		double m_fMinAct;
 
