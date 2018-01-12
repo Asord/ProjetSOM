@@ -122,14 +122,14 @@ namespace SOM {
 	void PTUT::openFile()
 	{
 		//choix du fichier
-		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"),"C://", tr("Image Files (*.png *.jpg *.bmp)"));
+		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"),"C://", tr("Image Files (*.bmp)"));
 
 		//récupération du chemin du fichier
 		QFileInfo fileInfo(filename);
 		QString dirPath = fileInfo.filePath();
 
 		//stoquage des couleur dans un tableau
-		Resources(dirPath.toStdString);
+		resource = Resources(dirPath.toStdString);
 	}
 
 	void PTUT::initValues() {

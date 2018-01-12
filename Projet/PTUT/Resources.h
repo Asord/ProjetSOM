@@ -41,7 +41,10 @@ namespace SOM
 		Color* m_fColor;
 		unsigned char octLu;
 		int nbPix;
-		unsigned char couleur[4];
+		int height;
+		int width;
+		Color histo[256];
+		uchar couleur[4];
 
 		FILE* fichier;
 
@@ -61,46 +64,51 @@ namespace SOM
 
 		Resources(std::string filePath)
 		{
+			//ouverture du fichier
 			fopen_s(&fichier, filePath.std::string::c_str(), "rb");
-
-			//TODO: recupéré le nombre de pixel
-			//nbPix = ?????
-			
-			const int size = nbPix;
-			m_fColor = new Color[size];
 
 			if (fichier == NULL) std::cout << "Impossible d'ouvrir le fichier en lecture !";
 
 			for (int i = 0; i < 14; i++) // lecture BitMapFileHeader 
 			{
-				fread(&octLu, sizeof(unsigned char), 1, fichier);
+				fread(&octLu, sizeof(uchar), 1, fichier);
 			}
 
-			for (int i = 0; i < 40; i++) // lecture BitMapInfoHeader 
+			for (int i = 0; i < 4; i++) // lecture BitMapInfoHeader 
 			{
-				fread(&octLu, sizeof(unsigned char), 1, fichier);
+				fread(&octLu, sizeof(uchar), 1, fichier);
+			}
+			
+			width = fread(&octLu, sizeof(uchar), 4, fichier);
+			height = fread(&octLu, sizeof(uchar), 4, fichier);
+
+			for (int i = 0; i < 28; i++) // lecture reste du BitMapInfoHeader 
+			{
+				fread(&octLu, sizeof(uchar), 1, fichier);
 			}
 
+			//definition des couleurs ndg
 			for (int j = 0; j<256; j++) {
 
 				for (int i = 0; i<4; i++) {
-					fread(&octLu, sizeof(unsigned char), 1, fichier);
+					fread(&octLu, sizeof(uchar), 1, fichier);
 					couleur[i] = octLu;
 				}
 				unsigned char tempCouleur = (couleur[0] + couleur[1] + couleur[2]) / 3;
 				/*rvb to ndg*/
-				couleur[0] = tempCouleur;
-				couleur[1] = tempCouleur;
-				couleur[2] = tempCouleur;
+				histo[j] = Color(tempCouleur, tempCouleur, tempCouleur);
 			}
 
-			//TODO: stoquer la couleur dans m_fColor
-			for (int i = 0; i<nbPix; i++) // lecture Ndg 
+			const int size = height * width;
+			m_fColor = new Color[size];
+
+			//stoquage des couleurs
+			for (int i = 0; i<nbPix; i++) 
 			{
-				fread(&octLu, sizeof(unsigned char), 1, fichier);
-				histo[octLu] = histo[octLu] + 1;
-				m_fColor[i] = octLu;
+				fread(&octLu, sizeof(uchar), 1, fichier);
+				m_fColor[i] = histo[octLu];
 			}
+
 			fclose(fichier);
 		}
 

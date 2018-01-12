@@ -24,6 +24,7 @@ namespace SOM {
 		bool m_bReady = true;//tous les parametre sont correcte?
 		Network* network;
 		Settings settings;
+		Resources resource;
 
 		//visualisation
 		QGraphicsScene *m_pScene;//Scene du QGraphicView
