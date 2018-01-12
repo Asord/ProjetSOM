@@ -1186,6 +1186,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>OpenFile</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Window</receiver>
+   <slot>openFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setRows()</slot>
@@ -1198,5 +1214,6 @@
   <slot>alphaRateConstraint()</slot>
   <slot>betaRateConstraint()</slot>
   <slot>restart()</slot>
+  <slot>openFile()</slot>
  </slots>
 </ui>

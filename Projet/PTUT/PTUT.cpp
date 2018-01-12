@@ -1,6 +1,7 @@
 #include "PTUT.h"
 #include <QWaitCondition>
 #include <QMutex>
+#include <QFileDialog>
 
 namespace SOM {
 
@@ -116,6 +117,19 @@ namespace SOM {
 		m_pScene->clear();
 		ui.graphicsView->setScene(m_pScene);
 		//TODO: réinitialiser le reseau (MaxIterations)
+	}
+
+	void PTUT::openFile()
+	{
+		//choix du fichier
+		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"),"C://", tr("Image Files (*.png *.jpg *.bmp)"));
+
+		//récupération du chemin du fichier
+		QFileInfo fileInfo(filename);
+		QString dirPath = fileInfo.filePath();
+
+		//stoquage des couleur dans un tableau
+		Resources(dirPath.toStdString);
 	}
 
 	void PTUT::initValues() {

@@ -5,6 +5,7 @@
 #include "Network.h"
 #include "Vector.h"
 #include "Settings.h"
+#include "Resources.h"
 
 namespace SOM {
 	class PTUT : public QWidget
@@ -51,6 +52,7 @@ namespace SOM {
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
 		void setBeta();
-		void restart();//
+		void restart();//réinitialise tout
+		void openFile();//selection de fichier
 	};
 }
