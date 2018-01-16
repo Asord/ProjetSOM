@@ -20,8 +20,8 @@ namespace SOM {
 
         bool m_bEuclidian; //TODO: bool Euclidian a modifier quand avancement calcule distance
 		//TODO: remove
-		bool m_bIsPaused = false;//programme en pause ?
-		bool m_bReady = true;//tous les parametre sont correcte?
+		bool m_bIsPaused;//programme en pause ?
+		bool m_bReady;//tous les parametre sont correcte?
 		Network* network;
 		Settings settings;
 		Resources resource;

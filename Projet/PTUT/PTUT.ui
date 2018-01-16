@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
+    <width>798</width>
     <height>591</height>
    </rect>
   </property>
@@ -336,10 +336,10 @@
       <number>1000</number>
      </property>
      <property name="value">
-      <number>1000</number>
+      <number>0</number>
      </property>
      <property name="sliderPosition">
-      <number>1000</number>
+      <number>0</number>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -654,6 +654,23 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>NouveauRes</tabstop>
+  <tabstop>Restart</tabstop>
+  <tabstop>OpenFile</tabstop>
+  <tabstop>LigneValue</tabstop>
+  <tabstop>ColValue</tabstop>
+  <tabstop>AlphaSlider</tabstop>
+  <tabstop>TauxAlphaValue</tabstop>
+  <tabstop>PeriodeAlphaValue</tabstop>
+  <tabstop>BetaValue</tabstop>
+  <tabstop>TauxBetaValue</tabstop>
+  <tabstop>PeriodeBetaValue</tabstop>
+  <tabstop>Distance1</tabstop>
+  <tabstop>StartBtn</tabstop>
+  <tabstop>PauseBtn</tabstop>
+  <tabstop>graphicsView</tabstop>
+ </tabstops>
  <resources>
   <include location="PTUT.qrc"/>
  </resources>

@@ -17,14 +17,21 @@ namespace SOM {
 		settings.m_nNbRows = (uint)ui.LigneValue->value();
 		if (settings.m_nNbRows > ui.BetaValue->maximum())
 			ui.BetaValue->setMaximum(settings.m_nNbRows);
+
+		if (ui.BetaValue->value() > std::max(settings.m_nNbRows, settings.m_nNbCols))
+			ui.BetaValue->setValue(std::max(settings.m_nNbRows, settings.m_nNbCols));
 	}
 
 	void PTUT::setColumns()
 	{
 		//met la valeur du compteur dans la variable m_nNbCols
 		settings.m_nNbCols = (uint)ui.ColValue->value();
-		if (settings.m_nNbCols > ui.BetaValue->maximum())
+		if (settings.m_nNbCols > ui.BetaValue->maximum()) 
 			ui.BetaValue->setMaximum(settings.m_nNbCols);
+
+		if (ui.BetaValue->value() > std::max(settings.m_nNbRows, settings.m_nNbCols))
+			ui.BetaValue->setValue(std::max(settings.m_nNbRows, settings.m_nNbCols));
+			
 	}
 
 	void PTUT::updateValuesUI(int currentIteration)
@@ -116,7 +123,10 @@ namespace SOM {
 		ui.PeriodeBetaValue->setValue(0);
 		m_pScene->clear();
 		ui.graphicsView->setScene(m_pScene);
-		//TODO: réinitialiser le reseau (MaxIterations)
+		
+		//TODO: Erreur lors de la 2e utilisation avec taille differente.
+		delete network;
+		delete m_pScene;
 	}
 
 	void PTUT::openFile()
@@ -126,10 +136,10 @@ namespace SOM {
 
 		//récupération du chemin du fichier
 		QFileInfo fileInfo(filename);
-		QString dirPath = fileInfo.filePath();
+		QString dirPath(fileInfo.filePath());
 
 		//stoquage des couleur dans un tableau
-		resource = Resources(dirPath.toStdString);
+		resource = Resources(dirPath.toStdString());
 	}
 
 	void PTUT::initValues() {
@@ -141,11 +151,14 @@ namespace SOM {
 		settings.m_nInitialBeta = ui.BetaValue->value();
 		settings.m_dBetaRate = ui.TauxBetaValue->value();
 		settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
+		m_bIsPaused = false;
+		m_bReady = true;
 
 
 		//initialisation des messages d'erreur
 		ui.ErreurLignes->setText("");
 		ui.ErreurColonnes->setText("");
+		ui.NbrIterations->setText("Calculs preparatoires en cours.");
 	}
 
 	void PTUT::checkIfReady()
