@@ -6,6 +6,7 @@
 
 #include "PTUT.h"
 #include <QtAlgorithms>
+#include <qtextcodec.h>
 
 namespace SOM {
 
@@ -134,6 +135,7 @@ namespace SOM {
 		//initialisation des messages d'erreur
 		ui.ErreurLignes->setText("");
 		ui.ErreurColonnes->setText("");
+		ui.NbrIterations->setText("Calculs preparatoires en cours.");
 	}
 
 	void PTUT::checkIfReady()

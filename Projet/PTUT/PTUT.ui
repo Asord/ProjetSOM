@@ -352,7 +352,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>200</y>
+       <y>210</y>
        <width>121</width>
        <height>17</height>
       </rect>
@@ -626,6 +626,22 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>NouveauRes</tabstop>
+  <tabstop>LigneValue</tabstop>
+  <tabstop>ColValue</tabstop>
+  <tabstop>AlphaSlider</tabstop>
+  <tabstop>TauxAlphaValue</tabstop>
+  <tabstop>PeriodeAlphaValue</tabstop>
+  <tabstop>BetaValue</tabstop>
+  <tabstop>TauxBetaValue</tabstop>
+  <tabstop>PeriodeBetaValue</tabstop>
+  <tabstop>Distance1</tabstop>
+  <tabstop>StartBtn</tabstop>
+  <tabstop>PauseBtn</tabstop>
+  <tabstop>graphicsView</tabstop>
+  <tabstop>graphicsPreview</tabstop>
+ </tabstops>
  <resources>
   <include location="PTUT.qrc"/>
  </resources>
