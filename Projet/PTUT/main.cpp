@@ -5,5 +5,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	SOM::PTUT w;
 	w.show();
-	return a.exec();
+	auto res = a.exec();
+	_CrtDumpMemoryLeaks();
+	return res;
 }

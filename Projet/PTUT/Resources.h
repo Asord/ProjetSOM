@@ -40,19 +40,24 @@ namespace SOM
 
 	struct Resources
 	{
-		Color m_fColor[100];
+		Color* m_fColor;
+		uint m_nWidth = 20;
+		uint m_nHeight = 20;
 
         Resources()
         {
             std::srand((uint)std::time(nullptr));
-			for (int i = 0; i < 100; ++i)
+
+			m_fColor = new Color[m_nHeight * m_nWidth];
+
+			for (int i = 0; i < m_nHeight * m_nWidth; ++i)
 			{
 				m_fColor[i] = Color();
 			}
         }
 
-		/* = {
-			Color(194, 144, 231), Color(117, 113, 38), Color(33, 19, 246), Color(45, 4, 86),
+		/*Color m_fColor[100] = {
+			Color(194, 144, 232), Color(117, 113, 38), Color(33, 19, 246), Color(45, 4, 86),
 			Color(185, 52, 33), Color(37, 85, 232), Color(61, 42, 219), Color(180, 218, 115),
 			Color(91, 123, 185), Color(7, 68, 174), Color(126, 114, 163), Color(246, 99, 88),
 			Color(219, 220, 109), Color(73, 161, 6), Color(36, 26, 123), Color(1, 216, 48),

@@ -5,6 +5,7 @@
 #endif
 
 #include "PTUT.h"
+#include <QtAlgorithms>
 
 namespace SOM {
 
@@ -46,9 +47,14 @@ namespace SOM {
 	}
 
 	void PTUT::updateGraphic()
-	{
-
+	{	
+		if (m_pScene != Q_NULLPTR)
+			delete m_pScene;
+		
 		m_pScene = new QGraphicsScene(this);
+		
+
+
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -79,7 +85,7 @@ namespace SOM {
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
-		ui.ProgressBar->setValue(12);
+		ui.ProgressBar->setValue(1);
 
 	}
 
@@ -188,14 +194,14 @@ namespace SOM {
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
-				for (uint i = 0; i < sizeof(network->GetResources().m_fColor) / sizeof(Color); ++i)
+				for (uint i = 0; i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
                 {
 					updateGraphic();
                     network->AlgoSOM(it, i);
                     updateValuesUI(it);
+					//sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
                 }
 				
-				sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
 				network->UpdateAlpha();
 				network->UpdateBeta();
 			}

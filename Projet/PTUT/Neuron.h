@@ -39,7 +39,7 @@ namespace SOM
 		// SETTER //
 
 		// Met à jour un poids du vecteur de poids
-		void SetWeight(uint idWeight, double alpha, const uchar* input);
+		void SetWeight(uint idWeight, double alpha, const uchar input);
 
 		//Met à jour phi
 		void setPhi(const double phi);

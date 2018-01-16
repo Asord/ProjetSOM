@@ -43,7 +43,7 @@ namespace SOM
 	{
 		uint iteration = 1;
 		double alpha = m_fAlpha;
-		while (alpha > 0.000000001)
+		while (alpha > 0.03)
 		{
 			//alpha = m_settings.m_dInitialAlpha * exp(-(double)iteration / m_settings.m_dAlphaRate);
 			alpha -= alpha * 1 / 10;
@@ -90,13 +90,17 @@ namespace SOM
 	{
 		auto distanceType = DistanceMetric::EUCL;
 		double distance = 0;
+		int diff;
 		switch (distanceType)
 		{
 		case EUCL:
 			//for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
 				//distance += pow((uint)(this->getNeuron(m_vWinner[0], m_vWinner[1]).GetWeight(idWeight) - this->getNeuron(coordinate[0], coordinate[1]).GetWeight(idWeight)), 2);
 			for (uint coord = 0; coord < 2; ++coord)
-				distance += pow((uint)(m_vWinner[coord] - neuron[coord]), 2);
+			{
+				diff = (int)(m_vWinner[coord] - neuron[coord]);
+				distance += (uint)pow(diff, 2);
+			}
 			distance = sqrt(distance);
 		}
 		return distance;
@@ -154,7 +158,7 @@ namespace SOM
 
 				UpdatePhi(vNeuron);
 				for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
-					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, &color[idWeight]);
+					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, color[idWeight]);
 			}
 	}
 
