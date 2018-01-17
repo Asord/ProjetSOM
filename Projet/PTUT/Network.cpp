@@ -42,7 +42,7 @@ namespace SOM
 			m_nNbIterationMax++;
 			iteration++;
 		}
-		alpha *= m_settings.m_nAlphaPeriod;
+		m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
 		//m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
 	}
 

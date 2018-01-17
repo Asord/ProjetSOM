@@ -33,8 +33,8 @@ namespace SOM {
 	void PTUT::updateValuesUI(int currentIteration)
 	{
 		//alpha
-		ui.AlphaSlider->setSliderPosition((int)network->getAlpha() * 1000);
-		ui.AlphaValue->setText(QString::number(network->getBeta() + 0.006));
+		ui.AlphaSlider->setSliderPosition((int)(network->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
+		ui.AlphaValue->setText(QString::number(network->getBeta() + 0.006)); // TODO: slider pour BETA
 
 		//beta
 		ui.BetaValue->setValue((int)network->getBeta());
