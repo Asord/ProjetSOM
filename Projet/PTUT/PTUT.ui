@@ -695,22 +695,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>Distance1</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Window</receiver>
-   <slot>setEuclidian()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>70</x>
-     <y>308</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>295</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>StartBtn</sender>
    <signal>clicked()</signal>
    <receiver>Window</receiver>
@@ -899,22 +883,6 @@
     <hint type="destinationlabel">
      <x>85</x>
      <y>290</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Distance1</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>70</x>
-     <y>328</y>
     </hint>
    </hints>
   </connection>

@@ -1,9 +1,3 @@
-#if defined (_MSC_VER)
-#define sleep(t) _sleep(t*1000)
-#elif defined (__MINGW32__)or(__MINGW64__)
-#include <unistd.h>
-#endif
-
 #include "PTUT.h"
 #include <QtAlgorithms>
 #include <qtextcodec.h>
@@ -96,12 +90,6 @@ namespace SOM {
 		ui.AlphaValue->setText(QString::number(ui.AlphaSlider->value() / 1000.0 + 0.006));
 	}
 
-	void PTUT::setEuclidian()
-	{
-		//initialisation de m_bEuclidian fonction de si la case est cochée ou non
-		m_bEuclidian = ui.Distance1->isChecked();
-	}
-
 	void PTUT::alphaRateConstraint()
 	{
 		//empeche le taux de alpha d'etre supérieur au taux de beta
@@ -163,7 +151,7 @@ namespace SOM {
 		//desactive les elements de l'interface
 		ui.NouveauRes->setEnabled(false);
 		ui.StartBtn->setEnabled(false);
-		ui.PauseBtn->setEnabled(true);
+		//ui.PauseBtn->setEnabled(true); //TODO Enable btn when pause handle works
 		ui.ProgressBar->setEnabled(true);
 		ui.NbrIterations->setEnabled(true);
 	}
@@ -204,7 +192,6 @@ namespace SOM {
 					updateGraphic();
                     network->AlgoSOM(it, i);
                     updateValuesUI(it);
-					//sleep(1); // TODO: Retirer cette ligne une fois l'opti terminé
                 }
 				
 				network->UpdateAlpha();

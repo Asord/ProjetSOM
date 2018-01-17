@@ -23,11 +23,10 @@ namespace SOM
 		//Dimension du vecteur de poids
 		uint m_nWeightDim;
 
-		// Variable phi qui permet de modifier les neurones proportionnellement à leur distance au neurone vainqueur
+		// Variable phi qui permet de modifier les neurones proportionnellement ï¿½ leur distance au neurone vainqueur
 		double m_fPhi;
 
 	public:
-		//Neuron() { m_fWeight = nullptr; m_nWeightDim = 0; }
 		// Constructeur
 		Neuron(uint dimWeight = 3);
 		// Destructeur
@@ -38,15 +37,15 @@ namespace SOM
 		
 		// SETTER //
 
-		// Met à jour un poids du vecteur de poids
+		// Met ï¿½ jour un poids du vecteur de poids
 		void SetWeight(uint idWeight, double alpha, const uchar input);
 
-		//Met à jour phi
+		//Met ï¿½ jour phi
 		void setPhi(const double phi);
 
 		// GETTER //
 
-		// Récupère un poids du vecteur de poids
+		// Rï¿½cupï¿½re un poids du vecteur de poids
 		uchar& GetWeight(uint idWeight);
 		uint getID() { return m_nID; }
 		//double getPhi() { return m_fPhi; }

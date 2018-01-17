@@ -1,8 +1,15 @@
 #pragma once
 
-#include <QtWidgets/QWidget>
-//#include "cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
+// Include spécifique par IDE (VS17 | CLion2017)
+#if defined (_MSC_VER)
 #include "ui_PTUT.h"
+#elif defined (__MINGW32__)or(__MINGW64__)
+#include "cmake-build-debug/PTUT_autogen/include/cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
+#endif
+
+#define _SOM_DEBUG
+
+#include <QtWidgets/QWidget>
 #include "Network.h"
 #include "Vector.h"
 #include "Settings.h"
@@ -20,8 +27,6 @@ namespace SOM {
 	private:
 		Ui::Window ui;
 
-        bool m_bEuclidian; //TODO: bool Euclidian a modifier quand avancement calcule distance
-		//TODO: remove
 		bool m_bIsPaused = false;//programme en pause ?
 		bool m_bReady = true;//tous les parametre sont correcte?
 		Network* network;
@@ -48,46 +53,15 @@ namespace SOM {
 		void setRows();//Actualise le nombre de lignes
 		void setColumns();//Actualise le nombre de colonnes
 		void setAlphaValueText();//Actualise l'affichage de la valeur de alpha
-		void setEuclidian();//Actualise Euclidian
 		void start();//Lance l'algorythme de SOM
 		void pause();//met le programme en pause
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
 		void setBeta();
 
+#if defined _SOM_DEBUG
         // TODO: Remove after debug
-		void drawInput()
-		{
-			m_pEntryScene = new QGraphicsScene(this);
-			ui.graphicsPreview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-			ui.graphicsPreview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-			
-			QPen outlinePen(Qt::black);
-			outlinePen.setWidth(0);
-
-			for (uint i = 0;  i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
-			{
-                uint col = i % network->m_resources.m_nWidth;
-                uint row = i / network->m_resources.m_nWidth;
-
-				Color color = network->m_resources.m_fColor[i];
-				uchar red = color[0];
-				uchar gre = color[1];
-				uchar blu = color[2];
-
-				QBrush brush(QColor(red, gre, blu));
-				m_pEntryScene->addRect(
-                        (ui.graphicsPreview->width() - 5) / network->m_resources.m_nWidth*col,
-                        (ui.graphicsPreview->height() - 5) / network->m_resources.m_nHeight*row,
-                        ui.graphicsPreview->width() / 10,
-                        ui.graphicsPreview->height() / 10,
-                        outlinePen,
-                        brush
-                );
-			}
-			ui.graphicsPreview->setScene(m_pEntryScene);
-			ui.graphicsPreview->update();
-
-		}
+		void drawInput();
+#endif
 	};
 }
