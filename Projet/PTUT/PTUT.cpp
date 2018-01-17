@@ -1,3 +1,5 @@
+#define CURRENT_VER_TITLE "Algorithme de SOM | Beta 1.0"
+
 #include "PTUT.h"
 #include <QtAlgorithms>
 #include <qtextcodec.h>
@@ -7,6 +9,7 @@ namespace SOM {
 	PTUT::PTUT(QWidget *parent)
 		: QWidget(parent)
 	{
+		setWindowTitle(QString(CURRENT_VER_TITLE));
 		ui.setupUi(this);
 	}
 
