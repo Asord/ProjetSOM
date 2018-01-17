@@ -1,4 +1,4 @@
-#define CURRENT_VER_TITLE "Algorithme de SOM | Beta 1.0"
+#define CURRENT_VER_TITLE "Algorithme de SOM | Beta 1.1"
 
 #include "PTUT.h"
 #include <QtAlgorithms>
