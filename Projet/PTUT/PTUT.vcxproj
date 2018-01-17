@@ -156,6 +156,7 @@
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="PTUT.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PTUT_DBG.cpp" />
     <ClCompile Include="Resources.h" />
   </ItemGroup>
   <ItemGroup>

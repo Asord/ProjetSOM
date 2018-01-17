@@ -34,6 +34,7 @@ namespace SOM {
 		bool m_bReady = true;//tous les parametre sont correcte?
 		Network* network;
 		Settings settings;
+		Resources* m_resources;
 
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView
@@ -59,6 +60,8 @@ namespace SOM {
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
 		void setBeta();
+		void restart();
+		void openFile();
 
 		#ifdef _SOM_DEBUG  // TODO: Mettre les methodes debug ici et définir dans PTUT_DBG.cpp
 

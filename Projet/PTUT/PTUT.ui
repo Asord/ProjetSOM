@@ -28,8 +28,8 @@
    <widget class="QPushButton" name="NouveauRes">
     <property name="geometry">
      <rect>
-      <x>85</x>
-      <y>50</y>
+      <x>19</x>
+      <y>30</y>
       <width>130</width>
       <height>37</height>
      </rect>
@@ -226,7 +226,7 @@
      </rect>
     </property>
     <property name="value">
-     <number>10</number>
+     <number>0</number>
     </property>
    </widget>
    <widget class="QLabel" name="ErreurLignes">
@@ -261,7 +261,7 @@
      </rect>
     </property>
     <property name="value">
-     <number>10</number>
+     <number>0</number>
     </property>
    </widget>
    <widget class="QLabel" name="ErreurColonnes">
@@ -618,6 +618,44 @@
       <string>Periode beta :</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="Restart">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>130</width>
+      <height>37</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Reinitialiser</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="OpenFile">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>70</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Choisir un vecteur d'entree</string>
+    </property>
    </widget>
   </widget>
   <widget class="QGraphicsView" name="graphicsView">
@@ -1142,6 +1180,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>NouveauRes</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>OpenFile</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>134</x>
+     <y>65</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Restart</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Window</receiver>
+   <slot>restart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>308</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setRows()</slot>
@@ -1153,5 +1223,7 @@
   <slot>pause()</slot>
   <slot>alphaRateConstraint()</slot>
   <slot>betaRateConstraint()</slot>
+  <slot>openFile()</slot>
+  <slot>restart()</slot>
  </slots>
 </ui>

@@ -3,6 +3,7 @@
 #include "PTUT.h"
 #include <QtAlgorithms>
 #include <qtextcodec.h>
+#include <QFileDialog>
 
 namespace SOM {
 
@@ -159,7 +160,34 @@ namespace SOM {
 		ui.NbrIterations->setEnabled(true);
 	}
 
+	void PTUT::restart()
+	{
+		ui.AlphaSlider->setValue(0);
+		ui.AlphaValue->setText("0");
+		ui.TauxAlphaValue->setValue(0);
+		ui.PeriodeAlphaValue->setValue(0);
+		ui.TauxBetaValue->setValue(1);
+		ui.PeriodeBetaValue->setValue(0);
+		m_pScene->clear();
+		ui.graphicsView->setScene(m_pScene);
+		//TODO: réinitialiser le reseau (MaxIterations)
+	}
+
+	void PTUT::openFile()
+	{
+		//choix du fichier
+		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "%userdata%", tr("Image Files (*.bmp)"));
+
+		//récupération du chemin du fichier
+		QFileInfo fileInfo(filename);
+		QString dirPath(fileInfo.filePath());
+
+		//stoquage des couleur dans un tableau
+		m_resources = &Resources(dirPath.toStdString());
+	}
+
 	#if not defined _SOM_DEBUG
+
 	void PTUT::start()
 	{
 		initValues();//initialisation des parametres

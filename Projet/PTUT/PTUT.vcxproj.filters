@@ -54,6 +54,9 @@
     <ClCompile Include="PTUT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PTUT_DBG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PTUT.qrc">

@@ -70,7 +70,7 @@ namespace SOM
 		// Retourne le neurone à la position row col
 		Neuron& getNeuron(int row, int col);
 
-		Resources& GetResources() { return m_resources; }
+		Resources* GetResources() { return &m_resources; }
 		//int getCurrentIteration() { return m_nCurrentIteration; }
 		//std::vector<std::vector<Neuron>>& GetvvNetwork() { return m_vvNetwork; }
 

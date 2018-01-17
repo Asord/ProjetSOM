@@ -12,21 +12,21 @@ namespace SOM
         QPen outlinePen(Qt::black);
         outlinePen.setWidth(0);
 
-        for (uint i = 0;  i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
+        for (uint i = 0;  i < m_resources->m_nNbPix; ++i)
         {
-            uint col = i % network->m_resources.m_nWidth;
-            uint row = i / network->m_resources.m_nWidth;
+            uint col = i % m_resources->m_nWidth;
+            uint row = i / m_resources->m_nWidth;
 
-            Color color = network->m_resources.m_fColor[i];
+            Color color = m_resources->m_fColor[i];
             uchar red = color[0];
             uchar gre = color[1];
             uchar blu = color[2];
 
             QBrush brush(QColor(red, gre, blu));
             m_pEntryScene->addRect(
-            (ui.graphicsPreview->width() - 5) / network->m_resources.m_nWidth*col,
-            (ui.graphicsPreview->height() - 5) / network->m_resources.m_nHeight*row,
-                    ui.graphicsPreview->width() / 10,
+            (ui.graphicsPreview->width() - 5) / m_resources->m_nWidth*col,
+            (ui.graphicsPreview->height() - 5) / m_resources->m_nHeight*row,
+            ui.graphicsPreview->width() / 10,
             ui.graphicsPreview->height() / 10,
             outlinePen,
             brush
@@ -54,6 +54,8 @@ namespace SOM
 			vDimNetwork[0] = settings.m_nNbRows;
 			vDimNetwork[1] = settings.m_nNbCols;
 			network = SOM::Network::GetInstance(settings);
+
+			m_resources = network->GetResources();
 
 			drawInput();
 

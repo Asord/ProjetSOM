@@ -18,6 +18,9 @@ namespace SOM
 	{
 		m_settings = settings;
 
+		// TODO remove after debug
+		m_resources = Resources(settings.m_nNbCols / 5, settings.m_nNbRows / 5);
+
 		//initialisation alpha et beta
 		m_fAlpha = settings.m_dInitialAlpha;
 		m_fBeta = settings.m_nInitialBeta;
@@ -86,6 +89,7 @@ namespace SOM
 		}
 		return activity;
 	}
+
 	double Network::GetDistance(Vector& neuron)
 	{
 		auto distanceType = DistanceMetric::EUCL;
