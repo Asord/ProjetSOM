@@ -3,16 +3,6 @@
 
 namespace SOM
 {
-	Network* Network::instance = nullptr;
-
-	Network* Network::GetInstance(Settings &settings)
-	{
-		if (instance == nullptr)
-			instance = new Network(settings);
-
-		return instance;
-	}
-
 	//Constructeur
 	Network::Network(Settings &settings) : m_vWinner(settings.m_nNetworkDim)
 	{
@@ -29,8 +19,7 @@ namespace SOM
 		m_nNbIterationMax = 0;
 
 		// Aléatoire fait par rapport au temps
-		srand((uint)time(NULL)); 
-		//srand(1);
+		srand((uint)time(NULL));
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_settings.m_nNbCols);
@@ -49,10 +38,11 @@ namespace SOM
 		while (alpha > 0.03)
 		{
 			//alpha = m_settings.m_dInitialAlpha * exp(-(double)iteration / m_settings.m_dAlphaRate);
-			alpha -= alpha * 1 / 10;
+			alpha -= alpha * m_settings.m_dAlphaRate;
 			m_nNbIterationMax++;
 			iteration++;
 		}
+		alpha *= m_settings.m_nAlphaPeriod;
 		//m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
 	}
 

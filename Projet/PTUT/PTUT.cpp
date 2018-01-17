@@ -160,22 +160,7 @@ namespace SOM {
 		ui.NbrIterations->setEnabled(true);
 	}
 
-	void PTUT::restart()
-	{
-		ui.AlphaSlider->setValue(0);
-		ui.AlphaValue->setText("0");
-		ui.TauxAlphaValue->setValue(0);
-		ui.PeriodeAlphaValue->setValue(0);
-		ui.TauxBetaValue->setValue(1);
-		ui.PeriodeBetaValue->setValue(0);
-		m_pScene->clear();
-		ui.graphicsView->setScene(m_pScene);
-		ui.ProgressBar->setValue(0);
-		ui.StartBtn->setEnabled(true);
-		ui.NbrIterations->setText("");
 
-		//TODO: réinitialiser le reseau (MaxIterations)
-	}
 
 	void PTUT::openFile()
 	{
@@ -191,6 +176,25 @@ namespace SOM {
 	}
 
 	#if not defined _SOM_DEBUG
+
+	void PTUT::restart()
+	{
+		ui.AlphaSlider->setValue(0);
+		ui.AlphaValue->setText("0");
+		ui.TauxAlphaValue->setValue(0);
+		ui.PeriodeAlphaValue->setValue(0);
+		ui.TauxBetaValue->setValue(1);
+		ui.PeriodeBetaValue->setValue(0);
+		m_pScene->clear();
+		ui.graphicsView->setScene(m_pScene);
+		ui.ProgressBar->setValue(0);
+		ui.StartBtn->setEnabled(true);
+		ui.NbrIterations->setText("");
+
+		delete network;
+
+		//TODO: réinitialiser le reseau (MaxIterations)
+	}
 
 	void PTUT::start()
 	{

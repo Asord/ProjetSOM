@@ -53,7 +53,8 @@ namespace SOM
 			SOM::Vector vDimNetwork(2);
 			vDimNetwork[0] = settings.m_nNbRows;
 			vDimNetwork[1] = settings.m_nNbCols;
-			network = SOM::Network::GetInstance(settings);
+
+			network = new SOM::Network(settings);
 
 			m_resources = network->GetResources();
 
@@ -86,8 +87,26 @@ namespace SOM
 			ui.Time->setText("Temps: " + QString::number(time.count()));
 
 			ui.NbrIterations->setText("Apprentissage fini.");
-
 		}
+	}
+
+	void PTUT::restart()
+	{
+		ui.AlphaSlider->setValue(0);
+		ui.AlphaValue->setText("0");
+		ui.TauxAlphaValue->setValue(0);
+		ui.PeriodeAlphaValue->setValue(0);
+		ui.TauxBetaValue->setValue(1);
+		ui.PeriodeBetaValue->setValue(0);
+		m_pScene->clear();
+		m_pEntryScene->clear();
+		ui.graphicsView->setScene(m_pScene);
+		ui.graphicsPreview->setScene(m_pScene);
+		ui.ProgressBar->setValue(0);
+		ui.StartBtn->setEnabled(true);
+		ui.NbrIterations->setText("");
+
+		delete network;
 	}
 
 }
