@@ -176,6 +176,8 @@ namespace SOM {
 		
 		if (m_bReady)
 		{
+			begin = std::chrono::system_clock::now();//TODO:remove apres debug
+
 			disabledEverything();//desactive l'interface inutile
 		
 			// Creation du réseau
@@ -194,6 +196,7 @@ namespace SOM {
 			//initialisation de la progressBar
 			ui.ProgressBar->setMaximum(maxIteration);
 
+
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
 				for (uint i = 0; i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
@@ -207,6 +210,10 @@ namespace SOM {
 				network->UpdateAlpha();
 				network->UpdateBeta();
 			}
+
+			end = std::chrono::system_clock::now();//TODO:remove apres debug
+			std::chrono::duration<double> time = end - begin;
+			ui.Time->setText("Temps: " + QString::number(time.count()));
 
 		}
 	}

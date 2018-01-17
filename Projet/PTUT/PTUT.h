@@ -6,6 +6,8 @@
 #include "Network.h"
 #include "Vector.h"
 #include "Settings.h"
+#include <chrono>
+#include <iostream>
 
 namespace SOM {
 	class PTUT : public QWidget
@@ -24,6 +26,7 @@ namespace SOM {
 		bool m_bReady = true;//tous les parametre sont correcte?
 		Network* network;
 		Settings settings;
+		std::chrono::time_point < std::chrono::system_clock > begin, end;//TODO: remove apres debug
 
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView
@@ -58,7 +61,7 @@ namespace SOM {
 			m_pEntryScene = new QGraphicsScene(this);
 			ui.graphicsPreview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 			ui.graphicsPreview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
+			
 			QPen outlinePen(Qt::black);
 			outlinePen.setWidth(0);
 

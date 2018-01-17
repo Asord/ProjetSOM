@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1309</width>
-    <height>591</height>
+    <height>618</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>-10</x>
      <y>-20</y>
      <width>300</width>
-     <height>620</height>
+     <height>641</height>
     </rect>
    </property>
    <property name="title">
@@ -47,7 +47,7 @@
       <x>10</x>
       <y>490</y>
       <width>291</width>
-      <height>131</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="title">
@@ -118,6 +118,22 @@
      </property>
      <property name="text">
       <string>Itérations : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Time">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>116</y>
+       <width>151</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Temps :</string>
      </property>
     </widget>
    </widget>
@@ -336,10 +352,10 @@
       <number>1000</number>
      </property>
      <property name="value">
-      <number>1000</number>
+      <number>0</number>
      </property>
      <property name="sliderPosition">
-      <number>1000</number>
+      <number>0</number>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -610,7 +626,7 @@
      <x>290</x>
      <y>0</y>
      <width>511</width>
-     <height>591</height>
+     <height>621</height>
     </rect>
    </property>
   </widget>
@@ -620,7 +636,7 @@
      <x>800</x>
      <y>0</y>
      <width>511</width>
-     <height>591</height>
+     <height>621</height>
     </rect>
    </property>
   </widget>
@@ -1139,6 +1155,22 @@
     <hint type="destinationlabel">
      <x>400</x>
      <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>StartBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Time</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>495</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>95</x>
+     <y>596</y>
     </hint>
    </hints>
   </connection>
