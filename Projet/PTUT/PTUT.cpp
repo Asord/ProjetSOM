@@ -159,6 +159,7 @@ namespace SOM {
 		ui.NbrIterations->setEnabled(true);
 	}
 
+	#if not defined _SOM_DEBUG
 	void PTUT::start()
 	{
 		initValues();//initialisation des parametres
@@ -167,8 +168,6 @@ namespace SOM {
 		
 		if (m_bReady)
 		{
-			begin = std::chrono::system_clock::now();//TODO:remove apres debug
-
 			disabledEverything();//desactive l'interface inutile
 		
 			// Creation du réseau
@@ -200,13 +199,9 @@ namespace SOM {
 				network->UpdateAlpha();
 				network->UpdateBeta();
 			}
-
-			end = std::chrono::system_clock::now();//TODO:remove apres debug
-			std::chrono::duration<double> time = end - begin;
-			ui.Time->setText("Temps: " + QString::number(time.count()));
-
 		}
 	}
+	#endif
 
 	void PTUT::pause()
 	{

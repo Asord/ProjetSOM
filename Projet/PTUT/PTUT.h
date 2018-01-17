@@ -1,20 +1,23 @@
 #pragma once
 
+// Défini l'instance débug
+#define _SOM_DEBUG
+
 // Include spécifique par IDE (VS17 | CLion2017)
 #if defined (_MSC_VER)
 #include "ui_PTUT.h"
 #elif defined (__MINGW32__)or(__MINGW64__)
-#include "cmake-build-debug/PTUT_autogen/include/cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
+#include "cmake-build-debug/PTUT_autogen/include/cmake-build-debug/PTUT_autogen/include/cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
 #endif
 
-#define _SOM_DEBUG
 
 #include <QtWidgets/QWidget>
 #include "Network.h"
 #include "Vector.h"
 #include "Settings.h"
-#include <chrono>
 #include <iostream>
+
+#include <chrono>
 
 namespace SOM {
 	class PTUT : public QWidget
@@ -31,11 +34,9 @@ namespace SOM {
 		bool m_bReady = true;//tous les parametre sont correcte?
 		Network* network;
 		Settings settings;
-		std::chrono::time_point < std::chrono::system_clock > begin, end;//TODO: remove apres debug
 
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView
-		QGraphicsScene *m_pEntryScene; // Scene d'entrée
 
 	public:
 		//initialise les variables avec les valeurs des parametres
@@ -59,9 +60,14 @@ namespace SOM {
 		void betaRateConstraint();//contraint la modification du taux de beta
 		void setBeta();
 
-#if defined _SOM_DEBUG
-        // TODO: Remove after debug
+		#ifdef _SOM_DEBUG  // TODO: Mettre les methodes debug ici et définir dans PTUT_DBG.cpp
+
+	private:
+		std::chrono::time_point < std::chrono::system_clock > begin, end;
+		QGraphicsScene *m_pEntryScene; // Scene d'entrée
+	public:
 		void drawInput();
-#endif
+
+		#endif
 	};
 }

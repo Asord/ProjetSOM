@@ -1,6 +1,6 @@
 #include "PTUT.h"
 
-
+#ifdef _SOM_DEBUG
 namespace SOM
 {
     void PTUT::drawInput()
@@ -36,5 +36,56 @@ namespace SOM
         ui.graphicsPreview->update();
 
     }
+
+    void PTUT::start()
+	{
+		initValues();//initialisation des parametres
+		checkIfReady();//verification des parametres
+
+
+		if (m_bReady)
+		{
+			begin = std::chrono::system_clock::now();//TODO:remove apres debug
+
+			disabledEverything();//desactive l'interface inutile
+
+			// Creation du réseau
+			SOM::Vector vDimNetwork(2);
+			vDimNetwork[0] = settings.m_nNbRows;
+			vDimNetwork[1] = settings.m_nNbCols;
+			network = SOM::Network::GetInstance(settings);
+
+			drawInput();
+
+			//calcul du nombre maximum d'iterations
+			network->calcNbMaxIterations();
+
+			uint maxIteration = network->getMaxIteration();
+
+			//initialisation de la progressBar
+			ui.ProgressBar->setMaximum(maxIteration);
+
+
+			//boucle a déplacer pour optimiser
+			for (uint it = 1; it <= maxIteration; ++it) {
+				for (uint i = 0; i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
+                {
+					updateGraphic();
+                    network->AlgoSOM(it, i);
+                    updateValuesUI(it);
+                }
+
+				network->UpdateAlpha();
+				network->UpdateBeta();
+			}
+
+			end = std::chrono::system_clock::now();//TODO:remove apres debug
+			std::chrono::duration<double> time = end - begin;
+			ui.Time->setText("Temps: " + QString::number(time.count()));
+
+		}
+	}
+
 }
+#endif
 
