@@ -26,8 +26,8 @@ namespace SOM
             m_pEntryScene->addRect(
             (ui.graphicsPreview->width() - 5) / m_resources->m_nWidth*col,
             (ui.graphicsPreview->height() - 5) / m_resources->m_nHeight*row,
-            ui.graphicsPreview->width() / 10,
-            ui.graphicsPreview->height() / 10,
+            ui.graphicsPreview->width() / m_resources->m_nWidth,
+            ui.graphicsPreview->height() / m_resources->m_nHeight,
             outlinePen,
             brush
             );
@@ -84,6 +84,8 @@ namespace SOM
 			end = std::chrono::system_clock::now();//TODO:remove apres debug
 			std::chrono::duration<double> time = end - begin;
 			ui.Time->setText("Temps: " + QString::number(time.count()));
+
+			ui.NbrIterations->setText("Apprentissage fini.");
 
 		}
 	}

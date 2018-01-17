@@ -1197,6 +1197,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>OpenFile</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Window</receiver>
+   <slot>openFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>Restart</sender>
    <signal>clicked(bool)</signal>
    <receiver>Window</receiver>
@@ -1209,6 +1225,22 @@
     <hint type="destinationlabel">
      <x>654</x>
      <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>StartBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Restart</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>495</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>214</x>
+     <y>28</y>
     </hint>
    </hints>
   </connection>

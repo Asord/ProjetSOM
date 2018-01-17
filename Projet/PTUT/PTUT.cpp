@@ -170,6 +170,10 @@ namespace SOM {
 		ui.PeriodeBetaValue->setValue(0);
 		m_pScene->clear();
 		ui.graphicsView->setScene(m_pScene);
+		ui.ProgressBar->setValue(0);
+		ui.StartBtn->setEnabled(true);
+		ui.NbrIterations->setText("");
+
 		//TODO: réinitialiser le reseau (MaxIterations)
 	}
 
