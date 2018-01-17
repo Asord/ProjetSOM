@@ -9,8 +9,8 @@ namespace SOM {
 	PTUT::PTUT(QWidget *parent)
 		: QWidget(parent)
 	{
-		setWindowTitle(QString(CURRENT_VER_TITLE));
 		ui.setupUi(this);
+		setWindowTitle(QString(CURRENT_VER_TITLE));
 	}
 
 	void PTUT::setRows()
