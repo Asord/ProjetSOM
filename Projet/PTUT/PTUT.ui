@@ -386,25 +386,6 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QSpinBox" name="BetaValue">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>120</y>
-       <width>51</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <number>0</number>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-    </widget>
     <widget class="Line" name="Line2">
      <property name="enabled">
       <bool>false</bool>
@@ -523,7 +504,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <double>0.400000000000000</double>
+      <double>0.000000000000000</double>
      </property>
     </widget>
     <widget class="QSpinBox" name="PeriodeAlphaValue">
@@ -580,7 +561,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <double>0.410000000000000</double>
+      <double>1.000000000000000</double>
      </property>
     </widget>
     <widget class="QSpinBox" name="PeriodeBetaValue">
@@ -616,6 +597,44 @@
      </property>
      <property name="text">
       <string>Periode beta :</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="BetaSlider">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>120</y>
+       <width>181</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="BetaValue">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>120</y>
+       <width>61</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -687,7 +706,6 @@
   <tabstop>AlphaSlider</tabstop>
   <tabstop>TauxAlphaValue</tabstop>
   <tabstop>PeriodeAlphaValue</tabstop>
-  <tabstop>BetaValue</tabstop>
   <tabstop>TauxBetaValue</tabstop>
   <tabstop>PeriodeBetaValue</tabstop>
   <tabstop>Distance1</tabstop>
@@ -904,22 +922,6 @@
     </hint>
     <hint type="destinationlabel">
      <x>33</x>
-     <y>290</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>BetaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>85</x>
      <y>290</y>
     </hint>
    </hints>
@@ -1149,22 +1151,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>BetaValue</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>Window</receiver>
-   <slot>setBeta()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>320</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>295</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>StartBtn</sender>
    <signal>clicked(bool)</signal>
    <receiver>Time</receiver>
@@ -1244,12 +1230,60 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>BetaSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>Window</receiver>
+   <slot>setBetaValueText()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>320</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NouveauRes</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>BetaSlider</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>150</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NouveauRes</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>BetaValue</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>316</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setRows()</slot>
   <slot>setColumns()</slot>
   <slot>setAlphaValueText()</slot>
-  <slot>setBeta()</slot>
+  <slot>setBetaValueText()</slot>
   <slot>setEuclidian()</slot>
   <slot>start()</slot>
   <slot>pause()</slot>
