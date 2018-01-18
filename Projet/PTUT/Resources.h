@@ -3,6 +3,7 @@
 #include <cmath>
 #include <time.h>
 #include <iostream>
+#include "bitmapHeader.h"
 
 #define VECTOR_DIM 3
 
@@ -34,17 +35,16 @@ namespace SOM
 		}
 	};
 
-	static const double fColorMinAct= sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
+	static const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 	struct Resources
 	{
-		Color* m_fColor;
-		uchar m_cOctLu;
+		Color* m_fColor = nullptr;
+
 		uint m_nNbPix;
+
 		uint m_nHeight;
 		uint m_nWidth;
-		Color m_histo[256];
-		uchar m_cCouleur[4];
 
 		FILE* m_fichier;
 
@@ -72,55 +72,48 @@ namespace SOM
 
 		}
 
-
 		Resources(std::string filePath)
 		{
 			//ouverture du fichier
-			fopen_s(&m_fichier, filePath.std::string::c_str(), "rb");
+			m_fichier = fopen(filePath.std::string::c_str(), "rb");
 
-			if (m_fichier == NULL) std::cout << "Impossible d'ouvrir le fichier en lecture !";
-
-			for (int i = 0; i < 14; i++) // lecture BitMapFileHeader 
+			if (m_fichier == NULL) // TODO: handle file reading error
 			{
-				fread(&m_cOctLu, sizeof(uchar), 1, m_fichier);
+				std::cout << "Impossible d'ouvrir le fichier en lecture !";
+				return;
 			}
 
-			for (int i = 0; i < 4; i++) // lecture BitMapInfoHeader 
+			bitmapHeader header;
+
+			header.readBitmapHeader(m_fichier);
+
+			m_nNbPix  = header.nbPix;
+			m_nWidth  = header.width;
+			m_nHeight = header.height;
+
+			m_fColor  = new Color[m_nNbPix];
+
+			uchar byte;
+			uchar* color = new uchar[3];
+
+			for (uint i = 0; i < m_nNbPix; ++i)
 			{
-				fread(&m_cOctLu, sizeof(uchar), 1, m_fichier);
-			}
-			
-			m_nWidth = fread(&m_cOctLu, sizeof(uchar), 4, m_fichier);
-			m_nHeight = fread(&m_cOctLu, sizeof(uchar), 4, m_fichier);
-
-			for (int i = 0; i < 28; i++) // lecture reste du BitMapInfoHeader 
-			{
-				fread(&m_cOctLu, sizeof(uchar), 1, m_fichier);
-			}
-
-			//definition des couleurs ndg
-			for (int j = 0; j<256; j++) {
-
-				for (int i = 0; i<4; i++) {
-					fread(&m_cOctLu, sizeof(uchar), 1, m_fichier);
-					m_cCouleur[i] = m_cOctLu;
+				for (uint col = 0; col < 3; ++col)
+				{
+					fread(&byte, sizeof(uchar), 1, m_fichier);
+					color[col] = byte;
 				}
-				unsigned char tempCouleur = (m_cCouleur[0] + m_cCouleur[1] + m_cCouleur[2]) / 3;
-				/*rvb to ndg*/
-				m_histo[j] = Color(tempCouleur, tempCouleur, tempCouleur);
+				m_fColor[i] = Color(color[0], color[1], color[2]);
 			}
 
-			const int size = m_nHeight * m_nWidth;
-			m_fColor = new Color[size];
-
-			//stoquage des couleurs
-			for (int i = 0; i<m_nNbPix; i++) 
-			{
-				fread(&m_cOctLu, sizeof(uchar), 1, m_fichier);
-				m_fColor[i] = m_histo[m_cOctLu];
-			}
+			delete[] color;
 
 			fclose(m_fichier);
+		}
+
+		~Resources()
+		{
+			delete[] m_fColor;
 		}
 
 	};
