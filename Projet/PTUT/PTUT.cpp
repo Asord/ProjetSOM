@@ -18,26 +18,39 @@ namespace SOM {
 	{
 		//met la valeur du compteur dans la variable m_nNbRows
 		settings.m_nNbRows = (uint)ui.LigneValue->value();
-		if (settings.m_nNbRows > ui.BetaValue->maximum())
-			ui.BetaValue->setMaximum(settings.m_nNbRows);
+		if (settings.m_nNbRows > ui.BetaSlider->maximum())
+			ui.BetaSlider->setMaximum(settings.m_nNbRows);
+
+		if (ui.BetaSlider->value() > std::max(settings.m_nNbRows, settings.m_nNbCols))
+		{
+			ui.BetaSlider->setValue(std::max(settings.m_nNbRows, settings.m_nNbCols));
+			ui.BetaValue->setText(QString::number(std::max(settings.m_nNbRows, settings.m_nNbCols)));
+		}
 	}
 
 	void PTUT::setColumns()
 	{
 		//met la valeur du compteur dans la variable m_nNbCols
 		settings.m_nNbCols = (uint)ui.ColValue->value();
-		if (settings.m_nNbCols > ui.BetaValue->maximum())
-			ui.BetaValue->setMaximum(settings.m_nNbCols);
+		if (settings.m_nNbCols > ui.BetaSlider->maximum())
+			ui.BetaSlider->setMaximum(settings.m_nNbCols);
+
+		if (ui.BetaSlider->value() > std::max(settings.m_nNbRows, settings.m_nNbCols))
+		{
+			ui.BetaSlider->setValue(std::max(settings.m_nNbRows, settings.m_nNbCols));
+			ui.BetaValue->setText(QString::number(std::max(settings.m_nNbRows, settings.m_nNbCols)));
+		}
 	}
 
 	void PTUT::updateValuesUI(int currentIteration)
 	{
 		//alpha
 		ui.AlphaSlider->setSliderPosition((int)(network->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
-		ui.AlphaValue->setText(QString::number(network->getBeta() + 0.006)); // TODO: slider pour BETA
+		ui.AlphaValue->setText(QString::number(network->getAlpha() + 0.006)); // TODO: slider pour BETA
 
 		//beta
-		ui.BetaValue->setValue((int)network->getBeta());
+		ui.BetaSlider->setSliderPosition((int)(network->getBeta()));
+		ui.BetaValue->setText(QString::number(network->getBeta()));
 
 		ui.ProgressBar->setValue(currentIteration);
 
@@ -108,9 +121,10 @@ namespace SOM {
 			ui.TauxBetaValue->setValue(ui.TauxAlphaValue->value() + 0.01);
 	}
 
-	void PTUT::setBeta()
+	void PTUT::setBetaValueText()
 	{
-		ui.BetaValue->setMaximum(std::max(ui.LigneValue->value(), ui.ColValue->value()));
+		ui.BetaSlider->setMaximum(std::max(ui.LigneValue->value(), ui.ColValue->value()));
+		ui.BetaValue->setText(QString::number(ui.BetaSlider->value()));
 	}
 
 	void PTUT::initValues() {
@@ -119,7 +133,7 @@ namespace SOM {
 		settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
 		settings.m_dAlphaRate = ui.TauxAlphaValue->value();
 		settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
-		settings.m_nInitialBeta = ui.BetaValue->value();
+		settings.m_nInitialBeta = ui.BetaSlider->value();
 		settings.m_dBetaRate = ui.TauxBetaValue->value();
 		settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
 
@@ -148,6 +162,9 @@ namespace SOM {
 			ui.ErreurColonnes->setText("Veuillez saisir une valeur valide.");
 			m_bReady = false;
 		}
+
+		if (settings.m_nInitialBeta == 0)
+			m_bReady = false;
 	}
 
 	void PTUT::disabledEverything()
@@ -165,17 +182,21 @@ namespace SOM {
 	void PTUT::openFile()
 	{
 		//choix du fichier
-		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "%userdata%", tr("Image Files (*.bmp)"));
+		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "%userdata%", tr("SOM Data Files (*.sdt)"));
 
 		//récupération du chemin du fichier
 		QFileInfo fileInfo(filename);
 		QString dirPath(fileInfo.filePath());
 
 		//stoquage des couleur dans un tableau
-		m_resources = &Resources(dirPath.toStdString());
+		DYN_FREE(m_resources_ptr);
+		m_resources_ptr = new Resources(dirPath.toStdString());
+
+		m_bDefaultResource = false;
 	}
 
-	#if not defined _SOM_DEBUG
+
+	#ifndef _SOM_DEBUG
 
 	void PTUT::restart()
 	{

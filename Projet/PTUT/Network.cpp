@@ -4,12 +4,11 @@
 namespace SOM
 {
 	//Constructeur
-	Network::Network(Settings &settings) : m_vWinner(settings.m_nNetworkDim)
+	Network::Network(Settings &settings, Resources* resources_ptr) : m_vWinner(settings.m_nNetworkDim)
 	{
 		m_settings = settings;
 
-		// TODO remove after debug
-		m_resources = Resources(settings.m_nNbCols / 5, settings.m_nNbRows / 5);
+		m_resources_ptr = resources_ptr;
 
 		//initialisation alpha et beta
 		m_fAlpha = settings.m_dInitialAlpha;
@@ -42,8 +41,7 @@ namespace SOM
 			m_nNbIterationMax++;
 			iteration++;
 		}
-		m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
-		//m_nNbIterationMax *= m_settings.m_nAlphaPeriod;
+		m_nNbIterationMax *= m_settings.m_nAlphaPeriod/2;
 	}
 
 	void Network::UpdateAlpha()
@@ -102,8 +100,8 @@ namespace SOM
 
 	void Network::AlgoSOM(uint currentIteration, uint i)
 	{
-		SetWinner(m_resources.m_fColor[i]);
-		UpdateWeight(m_resources.m_fColor[i]);
+		SetWinner(m_resources_ptr->m_fColor[i]);
+		UpdateWeight(m_resources_ptr->m_fColor[i]);
 		UpdateCurrentIteration(currentIteration);
 
 	}

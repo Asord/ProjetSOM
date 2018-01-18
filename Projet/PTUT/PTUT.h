@@ -32,9 +32,11 @@ namespace SOM {
 
 		bool m_bIsPaused = false;//programme en pause ?
 		bool m_bReady = true;//tous les parametre sont correcte?
-		Network* network;
+		bool m_bDefaultResource = true;
+
+		Network* network = nullptr;
 		Settings settings;
-		Resources* m_resources;
+		Resources* m_resources_ptr = nullptr;
 
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView
@@ -59,7 +61,7 @@ namespace SOM {
 		void pause();//met le programme en pause
 		void alphaRateConstraint();//contraint la modification du taux de alpha
 		void betaRateConstraint();//contraint la modification du taux de beta
-		void setBeta();
+		void setBetaValueText();
 		void restart();
 		void openFile();
 

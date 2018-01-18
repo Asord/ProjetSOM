@@ -15,7 +15,6 @@ namespace SOM
 
 		// Types de calcules de distance
 		enum DistanceMetric { EUCL };
-		Resources m_resources;
 
 	private:
 		// Stockage activit� minimum
@@ -34,11 +33,13 @@ namespace SOM
 		std::vector<std::vector<Neuron>> m_vvNetwork;
 
 		Settings m_settings;
+		Resources* m_resources_ptr;
+
 		uint m_nCurrentIteration;
 
 	public:
 		// Constructeurs priv� pour singleton
-		Network(Settings &settings);
+		Network(Settings &settings, Resources* resources_ptr);
 
 		/* GETTER */
 
@@ -54,8 +55,6 @@ namespace SOM
 
 		// Retourne le neurone à la position row col
 		Neuron& getNeuron(int row, int col);
-
-		Resources* GetResources() { return &m_resources; }
 
 		//calcul le nombre maximum d'iterations
 		void calcNbMaxIterations();
