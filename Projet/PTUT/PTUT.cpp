@@ -17,56 +17,53 @@ namespace SOM {
 	void PTUT::setRows()
 	{
 		//met la valeur du compteur dans la variable m_nNbRows
-		settings.m_nNbRows = (uint)ui.LigneValue->value();
-		if (settings.m_nNbRows > ui.BetaSlider->maximum())
-			ui.BetaSlider->setMaximum(settings.m_nNbRows);
+		m_settings.m_nNbRows = (uint)ui.LigneValue->value();
+		if (m_settings.m_nNbRows > ui.BetaSlider->maximum())
+			ui.BetaSlider->setMaximum(m_settings.m_nNbRows);
 
-		if (ui.BetaSlider->value() > std::max(settings.m_nNbRows, settings.m_nNbCols))
+		if (ui.BetaSlider->value() > std::max(m_settings.m_nNbRows, m_settings.m_nNbCols))
 		{
-			ui.BetaSlider->setValue(std::max(settings.m_nNbRows, settings.m_nNbCols));
-			ui.BetaValue->setText(QString::number(std::max(settings.m_nNbRows, settings.m_nNbCols)));
+			ui.BetaSlider->setValue(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols));
+			ui.BetaValue->setText(QString::number(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols)));
 		}
 	}
 
 	void PTUT::setColumns()
 	{
 		//met la valeur du compteur dans la variable m_nNbCols
-		settings.m_nNbCols = (uint)ui.ColValue->value();
-		if (settings.m_nNbCols > ui.BetaSlider->maximum())
-			ui.BetaSlider->setMaximum(settings.m_nNbCols);
+		m_settings.m_nNbCols = (uint)ui.ColValue->value();
+		if (m_settings.m_nNbCols > ui.BetaSlider->maximum())
+			ui.BetaSlider->setMaximum(m_settings.m_nNbCols);
 
-		if (ui.BetaSlider->value() > std::max(settings.m_nNbRows, settings.m_nNbCols))
+		if (ui.BetaSlider->value() > std::max(m_settings.m_nNbRows, m_settings.m_nNbCols))
 		{
-			ui.BetaSlider->setValue(std::max(settings.m_nNbRows, settings.m_nNbCols));
-			ui.BetaValue->setText(QString::number(std::max(settings.m_nNbRows, settings.m_nNbCols)));
+			ui.BetaSlider->setValue(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols));
+			ui.BetaValue->setText(QString::number(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols)));
 		}
 	}
 
 	void PTUT::updateValuesUI(int currentIteration)
 	{
 		//alpha
-		ui.AlphaSlider->setSliderPosition((int)(network->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
-		ui.AlphaValue->setText(QString::number(network->getAlpha() + 0.006)); // TODO: slider pour BETA
+		ui.AlphaSlider->setSliderPosition((int)(m_pNetwork->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
+		ui.AlphaValue->setText(QString::number(m_pNetwork->getAlpha() + 0.006)); // TODO: slider pour BETA
 
 		//beta
-		ui.BetaSlider->setSliderPosition((int)(network->getBeta()));
-		ui.BetaValue->setText(QString::number(network->getBeta()));
+		ui.BetaSlider->setSliderPosition((int)(m_pNetwork->getBeta()));
+		ui.BetaValue->setText(QString::number(m_pNetwork->getBeta()));
 
 		ui.ProgressBar->setValue(currentIteration);
 
 		//calcul nombre d'itérations a faire
-		ui.NbrIterations->setText("Iterations : " + QString::number(currentIteration) + "/" + QString::number(network->getMaxIteration()));
+		ui.NbrIterations->setText("Iterations : " + QString::number(currentIteration) + "/" + QString::number(m_pNetwork->getMaxIteration()));
 	}
 
 	void PTUT::updateGraphic()
 	{	
-		if (m_pScene != Q_NULLPTR)
-			delete m_pScene;
+		DYN_FREE(m_pScene)
 		
 		m_pScene = new QGraphicsScene(this);
 		
-
-
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -76,20 +73,20 @@ namespace SOM {
 		//dessine chaque neurone du reseau
 		uint red, green, blue;
 		//Neuron neuron(3);
-		for (uint row = 0; row < settings.m_nNbRows; row++)
+		for (uint row = 0; row < m_settings.m_nNbRows; row++)
 		{
-			for (uint col = 0; col < settings.m_nNbCols; col++) {
+			for (uint col = 0; col < m_settings.m_nNbCols; col++) {
 				
-				red = network->getNeuron(row, col).GetWeight(0);
-				green = network->getNeuron(row, col).GetWeight(1);
-				blue = network->getNeuron(row, col).GetWeight(2);
+				red = m_pNetwork->getNeuron(row, col).GetWeight(0);
+				green = m_pNetwork->getNeuron(row, col).GetWeight(1);
+				blue = m_pNetwork->getNeuron(row, col).GetWeight(2);
 
 				QBrush brush(QColor(red, green, blue));
 				m_pScene->addRect(
-						(ui.graphicsView->width() - 5) / settings.m_nNbCols*col,
-						(ui.graphicsView->height() - 5) / settings.m_nNbRows*row,
-						ui.graphicsView->width() / settings.m_nNbCols,
-						ui.graphicsView->height() / settings.m_nNbRows,
+						(ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col,
+						(ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row,
+						ui.graphicsView->width() / m_settings.m_nNbCols,
+						ui.graphicsView->height() / m_settings.m_nNbRows,
 						outlinePen,
 						brush
 				);
@@ -130,12 +127,12 @@ namespace SOM {
 	void PTUT::initValues() {
 
 		//initialisation des parametres
-		settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
-		settings.m_dAlphaRate = ui.TauxAlphaValue->value();
-		settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
-		settings.m_nInitialBeta = ui.BetaSlider->value();
-		settings.m_dBetaRate = ui.TauxBetaValue->value();
-		settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
+		m_settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
+		m_settings.m_dAlphaRate = ui.TauxAlphaValue->value();
+		m_settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
+		m_settings.m_nInitialBeta = ui.BetaSlider->value();
+		m_settings.m_dBetaRate = ui.TauxBetaValue->value();
+		m_settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
 
 
 		//initialisation des messages d'erreur
@@ -147,23 +144,23 @@ namespace SOM {
 	void PTUT::checkIfReady()
 	{
 		//verifie que le taux alpha n'est pas egal au taux beta
-		if (settings.m_dAlphaRate == settings.m_dBetaRate)
+		if (m_settings.m_dAlphaRate == m_settings.m_dBetaRate)
 			m_bReady = false;
 
 		//verifie que le nombre de ligne est correct
-		if (settings.m_nNbRows == 0)
+		if (m_settings.m_nNbRows == 0)
 		{
 			ui.ErreurLignes->setText("Veuillez saisir une valeur valide.");
 			m_bReady = false;
 		}
 		//verifie que le nombre de colonnes est correct
-		if (settings.m_nNbCols == 0)
+		if (m_settings.m_nNbCols == 0)
 		{
 			ui.ErreurColonnes->setText("Veuillez saisir une valeur valide.");
 			m_bReady = false;
 		}
 
-		if (settings.m_nInitialBeta == 0)
+		if (m_settings.m_nInitialBeta == 0)
 			m_bReady = false;
 	}
 
@@ -177,8 +174,6 @@ namespace SOM {
 		ui.NbrIterations->setEnabled(true);
 	}
 
-
-
 	void PTUT::openFile()
 	{
 		//choix du fichier
@@ -189,12 +184,11 @@ namespace SOM {
 		QString dirPath(fileInfo.filePath());
 
 		//stoquage des couleur dans un tableau
-		DYN_FREE(m_resources_ptr);
-		m_resources_ptr = new Resources(dirPath.toStdString());
+		DYN_FREE(m_pResources);
+		m_pResources = new Resources(dirPath.toStdString());
 
 		m_bDefaultResource = false;
 	}
-
 
 	#ifndef _SOM_DEBUG
 

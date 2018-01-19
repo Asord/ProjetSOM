@@ -4,15 +4,15 @@
 namespace SOM
 {
 	//Constructeur
-	Network::Network(Settings &settings, Resources* resources_ptr) : m_vWinner(settings.m_nNetworkDim)
+	Network::Network(Settings* settings_ptr, Resources* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
 	{
-		m_settings = settings;
+		m_pSettings = settings_ptr;
 
-		m_resources_ptr = resources_ptr;
+		m_pResources = resources_ptr;
 
 		//initialisation alpha et beta
-		m_fAlpha = settings.m_dInitialAlpha;
-		m_fBeta = settings.m_nInitialBeta;
+		m_fAlpha = m_pSettings->m_dInitialAlpha;
+		m_fBeta = m_pSettings->m_nInitialBeta;
 
 		m_nCurrentIteration = 1;
 		m_nNbIterationMax = 0;
@@ -21,9 +21,9 @@ namespace SOM
 		srand((uint)time(NULL));
 
 		//Création du vecteur de neurones
-		m_vvNetwork.resize(m_settings.m_nNbCols);
-		for (int i = 0; i < m_settings.m_nNbCols; ++i)
-			m_vvNetwork[i].resize(m_settings.m_nNbRows);
+		m_vvNetwork.resize(m_pSettings->m_nNbCols);
+		for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
+			m_vvNetwork[i].resize(m_pSettings->m_nNbRows);
 
 		//Initialisation du vecteur de neurones
 		uint valueWeight;
@@ -36,38 +36,36 @@ namespace SOM
 		double alpha = m_fAlpha;
 		while (alpha > 0.03)
 		{
-			//alpha = m_settings.m_dInitialAlpha * exp(-(double)iteration / m_settings.m_dAlphaRate);
-			alpha -= alpha * m_settings.m_dAlphaRate;
+			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
 			iteration++;
 		}
-		m_nNbIterationMax *= m_settings.m_nAlphaPeriod/2;
+		m_nNbIterationMax *= m_pSettings->m_nAlphaPeriod/2;
 	}
 
 	void Network::UpdateAlpha()
 	{
-		if (m_nCurrentIteration % m_settings.m_nAlphaPeriod == 0)
-			//m_fAlpha = m_settings.m_dInitialAlpha * exp(m_nCurrentIteration / -m_settings.m_dAlphaRate);
-			m_fAlpha -= m_fAlpha * m_settings.m_dAlphaRate;
+		if (m_nCurrentIteration % m_pSettings->m_nAlphaPeriod == 0)
+			m_fAlpha -= m_fAlpha * m_pSettings->m_dAlphaRate;
 	}
 
 	void Network::UpdateBeta()
 	{
-		if (m_nCurrentIteration % m_settings.m_nBetaPeriod == 0)
-			//m_fBeta = m_settings.m_nInitialBeta * exp(m_nCurrentIteration / -m_settings.m_dBetaRate);
-			m_fBeta -= m_fBeta * m_settings.m_dBetaRate;
+		if (m_nCurrentIteration % m_pSettings->m_nBetaPeriod == 0)
+
+			m_fBeta -= m_fBeta * m_pSettings->m_dBetaRate;
 	}
 
-	double Network::GetActivity(/*Vector coordinate*/uint row, uint col, Color& color)
+	double Network::GetActivity(uint row, uint col, Color& color)
 	{
-		auto distanceType = DistanceMetric::EUCL;
+		auto distanceType = DistanceMetric::EUCL; //TODO: ajouter d'autres methodes de calcules de distances
 		double activity = 0;
 		uchar neuronWeight;
 		uchar colorWeight;
 		switch (distanceType)
 		{
 		case EUCL:
-			for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
+			for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
 			{
 				neuronWeight = this->getNeuron(row, col).GetWeight(idWeight);
 				colorWeight = color[idWeight];
@@ -80,14 +78,12 @@ namespace SOM
 
 	double Network::GetDistance(Vector& neuron)
 	{
-		auto distanceType = DistanceMetric::EUCL;
+		auto distanceType = DistanceMetric::EUCL;  //TODO: ajouter d'autres methodes de calcules de distances
 		double distance = 0;
 		int diff;
 		switch (distanceType)
 		{
 		case EUCL:
-			//for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
-				//distance += pow((uint)(this->getNeuron(m_vWinner[0], m_vWinner[1]).GetWeight(idWeight) - this->getNeuron(coordinate[0], coordinate[1]).GetWeight(idWeight)), 2);
 			for (uint coord = 0; coord < 2; ++coord)
 			{
 				diff = (int)(m_vWinner[coord] - neuron[coord]);
@@ -100,8 +96,8 @@ namespace SOM
 
 	void Network::AlgoSOM(uint currentIteration, uint i)
 	{
-		SetWinner(m_resources_ptr->m_fColor[i]);
-		UpdateWeight(m_resources_ptr->m_fColor[i]);
+		SetWinner(m_pResources->m_fColor[i]);
+		UpdateWeight(m_pResources->m_fColor[i]);
 		UpdateCurrentIteration(currentIteration);
 
 	}
@@ -110,7 +106,7 @@ namespace SOM
 	{
 		double phi = exp(-GetDistance(vNeuron) / 2 * m_fBeta);
 		getNeuron(vNeuron[0], vNeuron[1]).setPhi(phi);
-		//printf("");
+
 	}
 
 	void Network::SetWinner(Color& color)
@@ -118,13 +114,9 @@ namespace SOM
 		double alphaTest = m_fAlpha;
 		m_fMinAct = fColorMinAct;
 		double activity;
-		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
-			for (uint col = 0; col < m_settings.m_nNbCols; ++col)
+		for (uint row = 0; row < m_pSettings->m_nNbRows; ++row)
+			for (uint col = 0; col < m_pSettings->m_nNbCols; ++col)
 			{
-				// Neurone pour lequel on calcule l'activité
-				//vNeuron[0] = row;
-				//vNeuron[1] = col;
-
 				//Calcul de l'activité
 				activity = GetActivity(row, col, color);
 
@@ -142,14 +134,14 @@ namespace SOM
 	void Network::UpdateWeight(Color &color)
 	{
 		Vector vNeuron(2);
-		for (uint row = 0; row < m_settings.m_nNbRows; ++row)
-			for (uint col = 0; col < m_settings.m_nNbCols; ++col)
+		for (uint row = 0; row < m_pSettings->m_nNbRows; ++row)
+			for (uint col = 0; col < m_pSettings->m_nNbCols; ++col)
 			{
 				vNeuron[0] = row;
 				vNeuron[1] = col;
 
 				UpdatePhi(vNeuron);
-				for (uint idWeight = 0; idWeight < m_settings.m_nDimInputVector; ++idWeight)
+				for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
 					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, color[idWeight]);
 			}
 	}

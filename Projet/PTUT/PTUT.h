@@ -7,7 +7,7 @@
 #if defined (_MSC_VER)
 #include "ui_PTUT.h"
 #elif defined (__MINGW32__)or(__MINGW64__)
-#include "cmake-build-debug/PTUT_autogen/include/cmake-build-debug/PTUT_autogen/include/cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
+#include "cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
 #endif
 
 
@@ -30,13 +30,14 @@ namespace SOM {
 	private:
 		Ui::Window ui;
 
-		bool m_bIsPaused = false;//programme en pause ?
-		bool m_bReady = true;//tous les parametre sont correcte?
+		bool m_bIsPaused = false; // programme en pause ?
+		bool m_bReady = true; // tous les parametres sont correcte?
 		bool m_bDefaultResource = true;
 
-		Network* network = nullptr;
-		Settings settings;
-		Resources* m_resources_ptr = nullptr;
+		Network* m_pNetwork = nullptr;
+		Resources* m_pResources = nullptr;
+
+		Settings m_settings;
 
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView

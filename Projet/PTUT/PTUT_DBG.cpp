@@ -12,22 +12,22 @@ namespace SOM
         QPen outlinePen(Qt::black);
         outlinePen.setWidth(0);
 
-        for (uint i = 0;  i < m_resources_ptr->m_nNbPix; ++i)
+        for (uint i = 0;  i < m_pResources->m_nNbPix; ++i)
         {
-            uint col = i % m_resources_ptr->m_nWidth;
-            uint row = i / m_resources_ptr->m_nWidth;
+            uint col = i % m_pResources->m_nWidth;
+            uint row = i / m_pResources->m_nWidth;
 
-            Color color = m_resources_ptr->m_fColor[i];
+            Color color = m_pResources->m_fColor[i];
             uchar red = color[0];
             uchar gre = color[1];
             uchar blu = color[2];
 
             QBrush brush(QColor(red, gre, blu));
             m_pEntryScene->addRect(
-            (ui.graphicsPreview->width() - 5)  / m_resources_ptr->m_nWidth*col,
-            (ui.graphicsPreview->height() - 5) / m_resources_ptr->m_nHeight*row,
-            ui.graphicsPreview->width()        / m_resources_ptr->m_nWidth,
-            ui.graphicsPreview->height()       / m_resources_ptr->m_nHeight,
+            (ui.graphicsPreview->width() - 5)  / m_pResources->m_nWidth*col,
+            (ui.graphicsPreview->height() - 5) / m_pResources->m_nHeight*row,
+            ui.graphicsPreview->width()        / m_pResources->m_nWidth,
+            ui.graphicsPreview->height()       / m_pResources->m_nHeight,
             outlinePen,
             brush
             );
@@ -51,24 +51,24 @@ namespace SOM
 
 			// Creation du réseau
 			SOM::Vector vDimNetwork(2);
-			vDimNetwork[0] = settings.m_nNbRows;
-			vDimNetwork[1] = settings.m_nNbCols;
+			vDimNetwork[0] = m_settings.m_nNbRows;
+			vDimNetwork[1] = m_settings.m_nNbCols;
 
 			if (m_bDefaultResource)
 			{
-				DYN_FREE(m_resources_ptr);
-				m_resources_ptr = new Resources(settings.m_nNbCols / 5, settings.m_nNbRows / 5);
+				DYN_FREE(m_pResources);
+				m_pResources = new Resources(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
 			}
 
 
-			network = new SOM::Network(settings, m_resources_ptr);
+			m_pNetwork = new SOM::Network(m_settings, m_pResources);
 
 			drawInput();
 
 			//calcul du nombre maximum d'iterations
-			network->calcNbMaxIterations();
+			m_pNetwork->calcNbMaxIterations();
 
-			uint maxIteration = network->getMaxIteration();
+			uint maxIteration = m_pNetwork->getMaxIteration();
 
 			//initialisation de la progressBar
 			ui.ProgressBar->setMaximum(maxIteration);
@@ -76,15 +76,15 @@ namespace SOM
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
-				for (uint i = 0; i < m_resources_ptr->m_nHeight * m_resources_ptr->m_nWidth; ++i)
+				for (uint i = 0; i < m_pResources->m_nHeight * m_pResources->m_nWidth; ++i)
                 {
 					updateGraphic();
-                    network->AlgoSOM(it, i);
+                    m_pNetwork->AlgoSOM(it, i);
                     updateValuesUI(it);
                 }
 
-				network->UpdateAlpha();
-				network->UpdateBeta();
+				m_pNetwork->UpdateAlpha();
+				m_pNetwork->UpdateBeta();
 			}
 
 			end = std::chrono::system_clock::now();//TODO:remove apres debug
@@ -115,7 +115,7 @@ namespace SOM
 
 		m_bDefaultResource = true;
 
-		delete network;
+		delete m_pNetwork;
 	}
 
 }

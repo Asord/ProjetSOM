@@ -32,9 +32,6 @@ namespace SOM
 		// Destructeur
 		~Neuron();
 
-		// getActivity
-		//float getActivity(const double* entryTable, Network::DistanceMetric distanceType = Network::DistanceMetric::EUCL) const;
-		
 		// SETTER //
 
 		// Met � jour un poids du vecteur de poids
