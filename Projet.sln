@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PTUT", "Projet\PTUT\PTUT.vcxproj", "{F5C1289F-74E6-42F9-90AF-0255DFCF5952}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "formatImage", "Projet\formatImage\formatImage.vcxproj", "{6ADE118F-A784-4C51-A4B1-502E5956544E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -19,6 +21,14 @@ Global
 		{F5C1289F-74E6-42F9-90AF-0255DFCF5952}.Release|x64.ActiveCfg = Release|x64
 		{F5C1289F-74E6-42F9-90AF-0255DFCF5952}.Release|x64.Build.0 = Release|x64
 		{F5C1289F-74E6-42F9-90AF-0255DFCF5952}.Release|x86.ActiveCfg = Release|x64
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Debug|x64.ActiveCfg = Debug|x64
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Debug|x64.Build.0 = Debug|x64
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Debug|x86.ActiveCfg = Debug|Win32
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Debug|x86.Build.0 = Debug|Win32
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Release|x64.ActiveCfg = Release|x64
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Release|x64.Build.0 = Release|x64
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Release|x86.ActiveCfg = Release|Win32
+		{6ADE118F-A784-4C51-A4B1-502E5956544E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
