@@ -39,7 +39,7 @@ namespace SOM
 
 	public:
 		// Constructeurs priv� pour singleton
-		Network(Settings* settings, Resources* resources_ptr);
+		Network(Settings* settings_ptr, Resources* resources_ptr);
 
 		/* GETTER */
 

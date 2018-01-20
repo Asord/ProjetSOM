@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Utility.h"
 
-struct bitmapHeader
+struct bitmap
 {
 	ushort identifier;
 	uchar height;

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <time.h>
 #include <iostream>
-#include "bitmapHeader.h"
+#include "bitmap.h"
 
 #define VECTOR_DIM 3
 
@@ -11,22 +11,37 @@ namespace SOM
 {
 	struct Color
 	{
-		uchar* col;
+		uchar col[3];
+
+		Color(uchar ndg)
+		{
+			//col = new uchar[VECTOR_DIM];
+			col[0] = col[1] = col[2] = ndg * 16;
+		}
 
 		Color(uchar red, uchar gre, uchar blu)
 		{
-			col = new uchar[VECTOR_DIM];
-			col[0] = red;
-			col[1] = gre;
-			col[2] = blu;
+			//col = new uchar[VECTOR_DIM];
+			col[0] = red / 16;
+			col[1] = gre / 16;
+			col[2] = blu / 16;
+
+			col[0] *= 16;
+			col[1] *= 16;
+			col[2] *= 16;
+
 		}
 
 		Color()
 		{
-			col = new uchar[VECTOR_DIM];
-			col[0] = (uchar)rand() % 256;
-			col[1] = (uchar)rand() % 256;
-			col[2] = (uchar)rand() % 256;
+			//col = new uchar[VECTOR_DIM];
+			uchar r0 = rand() % 16;
+			uchar r1 = rand() % 16;
+			uchar r2 = rand() % 16;
+
+			col[0] = r0 * 16;
+			col[1] = r1 * 16;
+			col[2] = r2 * 16;
 		}
 
 		uchar& operator[](uint dim)
@@ -67,7 +82,7 @@ namespace SOM
 
 			for (uint i = 0; i < m_nNbPix; ++i)
 			{
-				m_fColor[i] = Color();
+				m_fColor[i] = Color(i % 256);
 			}
 
 		}
@@ -83,30 +98,28 @@ namespace SOM
 				return;
 			}
 
-			bitmapHeader header;
+			bitmap header;
 
 			header.readBitmapHeader(m_fichier);
 
-			m_nNbPix  = header.nbPix;
 			m_nWidth  = header.width;
 			m_nHeight = header.height;
+			m_nNbPix = m_nHeight * m_nWidth;
 
 			m_fColor  = new Color[m_nNbPix];
 
 			uchar byte;
-			uchar* color = new uchar[3];
 
-			for (uint i = 0; i < m_nNbPix; ++i)
+			for (uint i = 0; i < m_nNbPix; i += 2)
 			{
-				for (uint col = 0; col < 3; ++col)
-				{
-					fread(&byte, sizeof(uchar), 1, m_fichier);
-					color[col] = byte;
-				}
-				m_fColor[i] = Color(color[0], color[1], color[2]);
-			}
+				fread(&byte, sizeof(uchar), 1, m_fichier);
 
-			delete[] color;
+				uchar c0 = byte & 0x0F;
+				uchar c1 = (byte & 0xF0) >> 4;
+
+				m_fColor[i]     = Color(c0);
+				m_fColor[i + 1] = Color(c1);
+			}
 
 			fclose(m_fichier);
 		}

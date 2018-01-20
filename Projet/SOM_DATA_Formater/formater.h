@@ -25,7 +25,7 @@ public:
 		printf("Formatage du fichier %s (raw) en fichier %s (en sdt)", fromFile.c_str(), toFile.c_str());
 
 		SECURE_OPEN(m_pFile, fromFile.c_str(), "rb");
-		ReadFileData();
+		ReadAndCompressData();
 		fclose(m_pFile);
 
 		SECURE_OPEN(m_pFile, toFile.c_str(), "wb");
@@ -50,6 +50,25 @@ private:
 		m_nNbPix = (ushort)(m_nSize / FILE_FORMAT_PIX_SIZE);
 
 		if (SQUARED_FILE_DATA) m_nHeight = m_nWidth = (uchar)sqrt(m_nNbPix);
+	}
+
+	void ReadAndCompressData()
+	{
+		m_nSize = file_utile::getFileLen(m_pFile);
+
+		uchar* tmpData = new uchar[m_nSize];
+
+		file_utile::fileToData(m_pFile, tmpData, m_nSize);
+
+		m_nNbPix = (ushort)(m_nSize);
+
+		m_nSize /= 2;
+		m_pData = new uchar[m_nSize];
+
+		file_utile::rngCompress(tmpData, m_pData, m_nNbPix);
+
+		if (SQUARED_FILE_DATA) m_nHeight = m_nWidth = (uchar)sqrt(m_nNbPix);
+
 	}
 
 	void WriteFileData()

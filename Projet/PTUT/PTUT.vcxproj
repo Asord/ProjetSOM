@@ -134,7 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bitmapHeader.cpp" />
+    <ClCompile Include="bitmap.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_PTUT.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -201,7 +201,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bitmapHeader.h" />
+    <ClInclude Include="bitmap.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Neuron.h" />
     <ClInclude Include="Settings.h" />

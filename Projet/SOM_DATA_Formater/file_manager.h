@@ -57,4 +57,19 @@ namespace file_utile
 			fwrite(&buffer, sizeof(char), 1, file_ptr);
 		}
 	}
+
+	void rngCompress(uchar* data_ptr, uchar* compressData_ptr, uint size)
+	{
+		if (size % 2 != 0)
+			return;
+
+		uchar buffer_1;
+		uchar buffer_2;
+		for (uint i = 0; i < size; i += 2)
+		{
+			buffer_1 = (data_ptr[i] / 16);
+			buffer_2 = (data_ptr[i + 1] / 16) << 4;
+			compressData_ptr[i / 2] = buffer_1 + buffer_2;
+		}
+	}
 }

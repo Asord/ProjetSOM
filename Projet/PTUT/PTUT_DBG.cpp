@@ -61,7 +61,7 @@ namespace SOM
 			}
 
 
-			m_pNetwork = new SOM::Network(m_settings, m_pResources);
+			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
 			drawInput();
 
@@ -73,9 +73,23 @@ namespace SOM
 			//initialisation de la progressBar
 			ui.ProgressBar->setMaximum(maxIteration);
 
+			double last_time = 0.0;
+			double delta_time = 0.0;
+
+			ui.Time->setText("Temps restant: calcule...");
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
+
+				if (it != 1)
+				{
+					delta_time = last_time * (maxIteration - it);
+
+					ui.Time->setText("Temps restant: " + QString::number(delta_time) + " s");
+				}
+
+				auto before_calc = std::chrono::system_clock::now();
+
 				for (uint i = 0; i < m_pResources->m_nHeight * m_pResources->m_nWidth; ++i)
                 {
 					updateGraphic();
@@ -83,13 +97,18 @@ namespace SOM
                     updateValuesUI(it);
                 }
 
+				auto after_calc = std::chrono::system_clock::now();
+				std::chrono::duration<double> delta = after_calc - before_calc;
+
+				last_time = delta.count();
+
 				m_pNetwork->UpdateAlpha();
 				m_pNetwork->UpdateBeta();
 			}
 
 			end = std::chrono::system_clock::now();//TODO:remove apres debug
 			std::chrono::duration<double> time = end - begin;
-			ui.Time->setText("Temps: " + QString::number(time.count()));
+			ui.Time->setText("Temps total: " + QString::number(time.count()));
 
 			ui.NbrIterations->setText("Apprentissage fini.");
 		}
