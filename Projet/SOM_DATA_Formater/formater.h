@@ -6,17 +6,17 @@
 class Formater
 {
 private:
-	uchar* m_pData;
+	bytearray m_pData;
 	ulong  m_nSize;
 	FILE*  m_pFile;
 
 	uchar  m_cBuffer;
 
 	ushort m_nIdentifier = FILE_FORMAT_ID;
-	uchar  m_nHeight;
-	uchar  m_nWidth;
+	byte  m_nHeight;
+	byte  m_nWidth;
 	ushort m_nNbPix;
-	uchar  m_nPixelSize = FILE_FORMAT_PIX_SIZE;
+	byte  m_nPixelSize = FILE_FORMAT_PIX_SIZE;
 
 public:
 
@@ -43,31 +43,31 @@ private:
 	{
 		m_nSize = file_utile::getFileLen(m_pFile);
 
-		m_pData = new uchar[m_nSize];
+		m_pData = new byte[m_nSize];
 
 		file_utile::fileToData(m_pFile, m_pData, m_nSize);
 
 		m_nNbPix = (ushort)(m_nSize / FILE_FORMAT_PIX_SIZE);
 
-		if (SQUARED_FILE_DATA) m_nHeight = m_nWidth = (uchar)sqrt(m_nNbPix);
+		if (SQUARED_FILE_DATA) m_nHeight = m_nWidth = (byte)sqrt(m_nNbPix);
 	}
 
 	void ReadAndCompressData()
 	{
 		m_nSize = file_utile::getFileLen(m_pFile);
 
-		uchar* tmpData = new uchar[m_nSize];
+		bytearray tmpData = new byte[m_nSize];
 
 		file_utile::fileToData(m_pFile, tmpData, m_nSize);
 
 		m_nNbPix = (ushort)(m_nSize);
 
 		m_nSize /= 2;
-		m_pData = new uchar[m_nSize];
+		m_pData = new byte[m_nSize];
 
 		file_utile::rngCompress(tmpData, m_pData, m_nNbPix);
 
-		if (SQUARED_FILE_DATA) m_nHeight = m_nWidth = (uchar)sqrt(m_nNbPix);
+		if (SQUARED_FILE_DATA) m_nHeight = m_nWidth = (byte)sqrt(m_nNbPix);
 
 	}
 

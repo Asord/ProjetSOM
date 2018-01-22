@@ -9,10 +9,11 @@ if (file_ptr == NULL) return;
 #define FILE_FORMAT_PIX_SIZE 3 // RGB
 #define SQUARED_FILE_DATA true // Square image
 
-typedef unsigned char uchar;
 typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong;
+typedef unsigned char byte;
+typedef byte* bytearray;
 
 namespace file_utile
 {
@@ -38,9 +39,9 @@ namespace file_utile
 	}
 
 
-	void fileToData(FILE* file_ptr, uchar* data_ptr, uint size)
+	void fileToData(FILE* file_ptr, bytearray data_ptr, uint size)
 	{
-		uchar buffer;
+		byte buffer;
 		for (uint i = 0; i < size; ++i)
 		{
 			fread(&buffer, sizeof(char), 1, file_ptr);
@@ -48,9 +49,9 @@ namespace file_utile
 		}
 	}
 
-	void dataToFile(FILE* file_ptr, uchar* data_ptr, uint size)
+	void dataToFile(FILE* file_ptr, bytearray data_ptr, uint size)
 	{
-		uchar buffer;
+		byte buffer;
 		for (uint i = 0; i < size; ++i)
 		{
 			buffer = data_ptr[i];
@@ -58,13 +59,13 @@ namespace file_utile
 		}
 	}
 
-	void rngCompress(uchar* data_ptr, uchar* compressData_ptr, uint size)
+	void rngCompress(bytearray data_ptr, bytearray compressData_ptr, uint size)
 	{
 		if (size % 2 != 0)
 			return;
 
-		uchar buffer_1;
-		uchar buffer_2;
+		byte buffer_1;
+		byte buffer_2;
 		for (uint i = 0; i < size; i += 2)
 		{
 			buffer_1 = (data_ptr[i] / 16);
