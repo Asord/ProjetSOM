@@ -4,10 +4,12 @@
 struct bitmap
 {
 	ushort identifier;
+	uchar version;
 	uchar height;
 	uchar width;
+	uchar nbImage;
+
 	ushort nbPix;
-	uchar pixSize;
 
 	bool is_completed;
 	bool is_valid;

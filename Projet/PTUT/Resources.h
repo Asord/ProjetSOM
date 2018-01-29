@@ -104,7 +104,9 @@ namespace SOM
 
 			m_nWidth  = header.width;
 			m_nHeight = header.height;
-			m_nNbPix = m_nHeight * m_nWidth;
+			m_nNbPix  = header.nbPix;
+
+			// TODO: handle file version
 
 			m_fColor  = new Color[m_nNbPix];
 

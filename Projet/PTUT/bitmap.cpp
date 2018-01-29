@@ -4,10 +4,12 @@
 void bitmap::readBitmapHeader(FILE* file)
 {
 	fread(&identifier, sizeof(ushort), 1, file);
+	fread(&version, sizeof(uchar), 1, file);
 	fread(&height, sizeof(uchar), 1, file);
 	fread(&width, sizeof(uchar), 1, file);
-	fread(&nbPix, sizeof(ushort), 1, file);
-	fread(&pixSize, sizeof(uchar), 1, file);
+	fread(&nbImage, sizeof(uchar), 1, file);
+
+	nbPix = (ushort)(height*width);
 
 	is_completed = true;
 	is_valid = (identifier == 17491);
