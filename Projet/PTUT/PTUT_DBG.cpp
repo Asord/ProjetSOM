@@ -61,7 +61,7 @@ namespace SOM
 			}
 
 
-			m_pNetwork = new SOM::Network(m_settings, m_pResources);
+			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
 			drawInput();
 
