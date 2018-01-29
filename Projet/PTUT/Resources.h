@@ -9,6 +9,7 @@
 
 namespace SOM
 {
+	/* DECAPED: DO NOT USE COLOR STRUCTURE FROM NOW */
 	struct Color
 	{
 		uchar col[3];
@@ -50,13 +51,62 @@ namespace SOM
 		}
 	};
 
-	static const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
+	struct SOMData
+	{
+		uchar* m_pData = nullptr;
+		uchar  m_nWidth;
+		uchar  m_nHeight;
+		ushort m_nNbPix;
+
+		SOMData()
+		{
+			m_pData = new uchar[100]{
+				0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				0,  0,  0, 16, 16, 16, 16, 16,  0,  0,
+				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
+				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
+				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
+				0,  0,  0, 16, 16, 16, 16, 16,  0,  0,
+				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
+				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
+				0,  0,  0, 16, 16, 16, 16, 16,  0,  0,
+				0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			};
+
+			m_nHeight = 10;
+			m_nWidth  = 10;
+			m_nNbPix  = 100;
+		}
+
+
+
+
+		SOMData(uchar* data, uchar width, uchar height)
+		{
+			m_nWidth = width;
+			m_nHeight = height;
+			m_nNbPix = (ushort)(width * height);
+
+			m_pData = new uchar[m_nNbPix];
+			memcpy(m_pData, data, sizeof(uchar)*m_nNbPix);
+
+		}
+
+		~SOMData()
+		{
+			delete[] m_pData;
+		}
+	};
+
+
+	const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 	struct Resources
 	{
-		Color* m_fColor = nullptr;
+		SOMData* m_pData = nullptr;
 
-		uint m_nNbPix;
+		uint m_nNbImages;
+		uint m_nImageSize;
 
 		uint m_nHeight;
 		uint m_nWidth;
@@ -65,26 +115,7 @@ namespace SOM
 
 		Resources()
 		{
-			Resources(10, 10);
-		}
-
-		Resources(uint width, uint height)
-		{
-			m_nWidth = width;
-			m_nHeight = height;
-
-			m_nNbPix = m_nHeight * m_nWidth;
-
-			m_fColor = new Color[m_nNbPix];
-
-			srand((uint)time(NULL));
-
-
-			for (uint i = 0; i < m_nNbPix; ++i)
-			{
-				m_fColor[i] = Color(i % 256);
-			}
-
+			m_pData = new SOMData();
 		}
 
 		Resources(std::string filePath)
@@ -92,9 +123,9 @@ namespace SOM
 			//ouverture du fichier
 			m_fichier = fopen(filePath.std::string::c_str(), "rb");
 
-			if (m_fichier == NULL) // TODO: handle file reading error
+			if (m_fichier == NULL)
 			{
-				std::cout << "Impossible d'ouvrir le fichier en lecture !";
+				std::cerr << "Impossible d'ouvrir le fichier en lecture !";
 				return;
 			}
 
@@ -104,31 +135,58 @@ namespace SOM
 
 			m_nWidth  = header.width;
 			m_nHeight = header.height;
-			m_nNbPix  = header.nbPix;
+			m_nImageSize  = header.nbPix;
+			m_nNbImages = header.nbImage;
 
-			// TODO: handle file version
-
-			m_fColor  = new Color[m_nNbPix];
-
-			uchar byte;
-
-			for (uint i = 0; i < m_nNbPix; i += 2)
+			if (m_nImageSize > 625) // 25*25
 			{
-				fread(&byte, sizeof(uchar), 1, m_fichier);
-
-				uchar c0 = byte & 0x0F;
-				uchar c1 = (byte & 0xF0) >> 4;
-
-				m_fColor[i]     = Color(c0);
-				m_fColor[i + 1] = Color(c1);
+				std::cerr << "Le fichier ouvert contiens au moins une image d'une dimention suppérieure à 25*25 pixels.";
+				return;
 			}
+
+			if (m_nNbImages > 20)
+			{
+				std::cerr << "Le nombres d'images contenues dans le fichier est suppérieure à 20.";
+				return;
+			}
+
+			// 1: Random Color | 2: Random Gray | 3: Char Data
+			if (header.version == 3) {
+				m_pData = new SOMData[m_nNbImages];
+
+				uchar* data_buffer = new uchar[m_nImageSize];
+				uchar  buffer;
+
+				for (uint image = 0; image < m_nNbImages; ++image)
+				{
+					for (uint i = 0; i < m_nImageSize; i += 2)
+					{
+						fread(&buffer, sizeof(uchar), 1, m_fichier);
+
+						uchar c0 = buffer & 0x0F;
+						uchar c1 = (buffer & 0xF0) >> 4;
+
+						data_buffer[i] = c0;
+						data_buffer[i + 1] = c1;
+					}
+
+					m_pData[image] = SOMData(data_buffer, m_nHeight, m_nWidth);
+				}
+
+				delete[] data_buffer;
+			}
+			else
+			{
+					std::cerr << "Le format de fichier que vous avez séléctionné ne actuellement pas être utiliser.";
+					return;
+			};
 
 			fclose(m_fichier);
 		}
 
 		~Resources()
 		{
-			delete[] m_fColor;
+			delete[] m_pData;
 		}
 
 	};
