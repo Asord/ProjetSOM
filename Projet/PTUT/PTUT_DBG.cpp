@@ -51,6 +51,7 @@ namespace SOM
 
 			// Creation du réseau
 			SOM::Vector vDimNetwork(2);
+			//TODO:  Récuperer row et col à partir de ressources
 			vDimNetwork[0] = m_settings.m_nNbRows;
 			vDimNetwork[1] = m_settings.m_nNbCols;
 

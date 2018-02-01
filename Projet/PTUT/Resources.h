@@ -186,8 +186,4 @@ namespace SOM
 
 	};
 
-	/*
-	Resources res;
-	res.m_pData[0].m_pData
-	*/
 }
