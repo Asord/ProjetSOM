@@ -9,6 +9,9 @@
 
 namespace SOM
 {
+
+	const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
+
 	struct Color
 	{
 		uchar col[3];
@@ -49,8 +52,6 @@ namespace SOM
 			return col[dim];
 		}
 	};
-
-	static const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
 	struct Resources
 	{
@@ -94,8 +95,8 @@ namespace SOM
 
 			if (m_fichier == NULL) // TODO: handle file reading error
 			{
-				std::cout << "Impossible d'ouvrir le fichier en lecture !";
-				return;
+				std::cerr << "Impossible d'ouvrir le fichier en lecture !";
+				exit(EXIT_FAILURE);
 			}
 
 			bitmap header;
