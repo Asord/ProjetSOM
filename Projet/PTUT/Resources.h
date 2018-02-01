@@ -52,7 +52,7 @@ namespace SOM
 	};
 
 	struct SOMData
-	{
+	{	
 		uchar* m_pData = nullptr;
 		uchar  m_nWidth;
 		uchar  m_nHeight;
@@ -60,7 +60,7 @@ namespace SOM
 
 		SOMData()
 		{
-			m_pData = new uchar[100]{
+			m_pData = new uchar[]{
 				0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				0,  0,  0, 16, 16, 16, 16, 16,  0,  0,
 				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
@@ -78,9 +78,6 @@ namespace SOM
 			m_nNbPix  = 100;
 		}
 
-
-
-
 		SOMData(uchar* data, uchar width, uchar height)
 		{
 			m_nWidth = width;
@@ -89,7 +86,6 @@ namespace SOM
 
 			m_pData = new uchar[m_nNbPix];
 			memcpy(m_pData, data, sizeof(uchar)*m_nNbPix);
-
 		}
 
 		~SOMData()
@@ -97,7 +93,6 @@ namespace SOM
 			delete[] m_pData;
 		}
 	};
-
 
 	const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
 
@@ -123,10 +118,10 @@ namespace SOM
 			//ouverture du fichier
 			m_fichier = fopen(filePath.std::string::c_str(), "rb");
 
-			if (m_fichier == NULL)
+			if (!m_fichier)
 			{
 				std::cerr << "Impossible d'ouvrir le fichier en lecture !";
-				return;
+				exit(EXIT_FAILURE);
 			}
 
 			bitmap header;
@@ -141,13 +136,13 @@ namespace SOM
 			if (m_nImageSize > 625) // 25*25
 			{
 				std::cerr << "Le fichier ouvert contiens au moins une image d'une dimention suppérieure à 25*25 pixels.";
-				return;
+				exit(EXIT_FAILURE);
 			}
 
 			if (m_nNbImages > 20)
 			{
 				std::cerr << "Le nombres d'images contenues dans le fichier est suppérieure à 20.";
-				return;
+				exit(EXIT_FAILURE);
 			}
 
 			// 1: Random Color | 2: Random Gray | 3: Char Data
@@ -159,14 +154,14 @@ namespace SOM
 
 				for (uint image = 0; image < m_nNbImages; ++image)
 				{
-					for (uint i = 0; i < m_nImageSize; i += 2)
+					for (uint i = 0; i < m_nImageSize/2; i += 2)
 					{
 						fread(&buffer, sizeof(uchar), 1, m_fichier);
 
 						uchar c0 = buffer & 0x0F;
 						uchar c1 = (buffer & 0xF0) >> 4;
 
-						data_buffer[i] = c0;
+						data_buffer[i]     = c0;
 						data_buffer[i + 1] = c1;
 					}
 
@@ -178,7 +173,7 @@ namespace SOM
 			else
 			{
 					std::cerr << "Le format de fichier que vous avez séléctionné ne actuellement pas être utiliser.";
-					return;
+					exit(EXIT_FAILURE);
 			};
 
 			fclose(m_fichier);
@@ -190,4 +185,9 @@ namespace SOM
 		}
 
 	};
+
+	/*
+	Resources res;
+	res.m_pData[0].m_pData
+	*/
 }
