@@ -10,7 +10,7 @@
 
 namespace SOM
 {
-	Resources* m_pRessource;
+	Resources* m_pRsc;
 
 	class Neuron
 	{

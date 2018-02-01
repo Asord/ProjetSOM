@@ -20,7 +20,7 @@ namespace SOM
 		// Aléatoire fait par rapport au temps
 		srand((uint)time(NULL));
 
-		m_pRessource = resources_ptr;
+		SOM::m_pRsc = resources_ptr;
 
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_pSettings->m_nNbCols);

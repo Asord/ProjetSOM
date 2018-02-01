@@ -4,7 +4,6 @@
 
 namespace SOM
 {
-
 	struct  Settings{
 
 		uint m_nNbRows;//nombre de lignes du réseau
@@ -18,9 +17,7 @@ namespace SOM
 		uint m_nBetaPeriod;//periode de beta
 		uint m_nNetworkDim; // dimension du vecteur de poids (commun aux vecteur d'entrée et aux neurones)
 
-
-
-	private:
+		//TODO :Mettre Settings en Singleton !!!
 
 		Settings()
 		{

@@ -6,7 +6,7 @@ namespace SOM
 
 	Neuron::Neuron(): m_pCoordinate(2)
 	{
-		if (m_pRessource == nullptr)
+		if (m_pRsc == nullptr)
 		{
 			std::cout << "Ressources non assignéeesesesses aux neurones!";
 			exit(8);
@@ -15,22 +15,22 @@ namespace SOM
 		m_nID = Neuron::m_nCounter;
 		Neuron::m_nCounter++;
 
-		if (m_pRessource->m_cVersion == 1)
+		m_nWeightDim = m_pRsc->m_nImageSize;
+		m_fWeight = new uchar[m_nWeightDim];
+
+		if (m_pRsc->m_cVersion == 1)
 		{
-			m_nWeightDim = m_pRessource->m_nImageSize;
-			m_fWeight = new uchar[m_nWeightDim];
 			for (uint i = 0; i < m_nWeightDim; ++i) {
 				m_fWeight[i] = (uchar)(rand() % 255);
 			}
 		}
 		// TODO : Si type 2 (nuance de gris) à écrire
-		else if (m_pRessource->m_cVersion == 3)
+		else if (m_pRsc->m_cVersion == 3)
 		{
-			m_nWeightDim = m_pRessource->m_nImageSize;
-			m_fWeight = new uchar[m_nWeightDim];
 
 			for (uint i = 0; i < m_nWeightDim; ++i) {
-				m_fWeight[i] = *m_pRessource->m_pData[i].m_pData; // Poids de l'image à l'index i
+				m_fWeight[i] = (uchar)(rand() % 1) * 255;
+				//*m_pRessource->m_pData[i].m_pData; // Poids de l'image à l'index i
 			}
 		}
 	}
