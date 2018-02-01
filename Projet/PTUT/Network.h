@@ -48,7 +48,7 @@ namespace SOM
 		uint getMaxIteration() { return m_nNbIterationMax; }
 
 		//Calcul l'activit� d'un neurone
-		double GetActivity(uint row, uint col, Color &color);
+		double GetActivity(uint row, uint col, SOMData& data);
 
 		// Retourne la distance entre un neurone et le neurone vainqueur
 		double GetDistance(Vector& coordinate);
@@ -67,10 +67,10 @@ namespace SOM
 		void UpdatePhi(Vector& vNeuron);
 
 		//Retourne le neurone avec l'activit� la plus minime
-		void SetWinner(Color& color);
+		void SetWinner(SOMData& data);
 
 		// Modification du tableau de poids
-		void UpdateWeight(Color& color);
+		void UpdateWeight(SOMData& data);
 
 		void UpdateCurrentIteration(uint currentIteration) { m_nCurrentIteration = currentIteration; }
 

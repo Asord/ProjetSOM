@@ -16,9 +16,13 @@ namespace SOM
 		int m_nInitialBeta;//Valeur initial de beta
 		double m_dBetaRate;//taux de diminution de beta
 		uint m_nBetaPeriod;//periode de beta
-		uint m_nNetworkDim;
+		uint m_nNetworkDim; // dimension du vecteur de poids (commun aux vecteur d'entrée et aux neurones)
 
-		Settings() 
+
+
+	private:
+
+		Settings()
 		{
 			m_nNbRows = 0;
 			m_nNbCols = 0;

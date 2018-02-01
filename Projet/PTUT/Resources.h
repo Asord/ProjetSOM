@@ -60,7 +60,7 @@ namespace SOM
 
 		SOMData()
 		{
-			m_pData = new uchar[]{
+			m_pData = new uchar[100]{
 				0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				0,  0,  0, 16, 16, 16, 16, 16,  0,  0,
 				0,  0,  0,  0,  0,  0,  0, 16,  0,  0,
@@ -92,6 +92,17 @@ namespace SOM
 		{
 			delete[] m_pData;
 		}
+
+		ushort operator[](uint idWeight) 
+		{
+			if (idWeight < m_nNbPix)
+				return m_pData[idWeight];
+			else
+			{
+				std::cout << "Poids inexistants (hors limite)";
+				exit(EXIT_FAILURE);
+			}
+		}
 	};
 
 	const double fColorMinAct = sqrt(VECTOR_DIM * pow(2, 16 * sizeof(uchar)));
@@ -105,6 +116,8 @@ namespace SOM
 
 		uint m_nHeight;
 		uint m_nWidth;
+
+		uchar m_cVersion;
 
 		FILE* m_fichier;
 
@@ -120,8 +133,8 @@ namespace SOM
 
 			if (!m_fichier)
 			{
-				std::cerr << "Impossible d'ouvrir le fichier en lecture !";
-				exit(EXIT_FAILURE);
+				std::cout << "Impossible d'ouvrir le fichier en lecture !";
+				exit(1);
 			}
 
 			bitmap header;
@@ -132,21 +145,22 @@ namespace SOM
 			m_nHeight = header.height;
 			m_nImageSize  = header.nbPix;
 			m_nNbImages = header.nbImage;
+			m_cVersion = header.version;
 
 			if (m_nImageSize > 625) // 25*25
 			{
-				std::cerr << "Le fichier ouvert contiens au moins une image d'une dimention suppérieure à 25*25 pixels.";
-				exit(EXIT_FAILURE);
+				std::cout << "Le fichier ouvert contiens au moins une image d'une dimention suppérieure à 25*25 pixels.";
+				exit(2);
 			}
 
 			if (m_nNbImages > 20)
 			{
-				std::cerr << "Le nombres d'images contenues dans le fichier est suppérieure à 20.";
-				exit(EXIT_FAILURE);
+				std::cout << "Le nombres d'images contenues dans le fichier est suppérieure à 20.";
+				exit(4);
 			}
 
 			// 1: Random Color | 2: Random Gray | 3: Char Data
-			if (header.version == 3) {
+			if (m_cVersion == 3) {
 				m_pData = new SOMData[m_nNbImages];
 
 				uchar* data_buffer = new uchar[m_nImageSize];
@@ -172,8 +186,8 @@ namespace SOM
 			}
 			else
 			{
-					std::cerr << "Le format de fichier que vous avez séléctionné ne actuellement pas être utiliser.";
-					exit(EXIT_FAILURE);
+					std::cout << "Le format de fichier que vous avez séléctionné ne actuellement pas être utiliser.";
+					exit(3);
 			};
 
 			fclose(m_fichier);

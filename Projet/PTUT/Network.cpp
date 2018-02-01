@@ -20,6 +20,8 @@ namespace SOM
 		// Aléatoire fait par rapport au temps
 		srand((uint)time(NULL));
 
+		m_pRessource = resources_ptr;
+
 		//Création du vecteur de neurones
 		m_vvNetwork.resize(m_pSettings->m_nNbCols);
 		for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
@@ -38,7 +40,6 @@ namespace SOM
 		{
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
-			iteration++;
 		}
 		m_nNbIterationMax *= m_pSettings->m_nAlphaPeriod/2;
 	}
@@ -56,7 +57,7 @@ namespace SOM
 			m_fBeta -= m_fBeta * m_pSettings->m_dBetaRate;
 	}
 
-	double Network::GetActivity(uint row, uint col, Color& color)
+	double Network::GetActivity(uint row, uint col, SOMData& data)
 	{
 		auto distanceType = DistanceMetric::EUCL; //TODO: ajouter d'autres methodes de calcules de distances
 		double activity = 0;
@@ -68,7 +69,7 @@ namespace SOM
 			for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
 			{
 				neuronWeight = this->getNeuron(row, col).GetWeight(idWeight);
-				colorWeight = color[idWeight];
+				colorWeight = data[idWeight];
 				activity += pow((colorWeight - neuronWeight), 2);
 			}
 			activity = sqrt(activity);
@@ -96,8 +97,8 @@ namespace SOM
 
 	void Network::AlgoSOM(uint currentIteration, uint i)
 	{
-		SetWinner(m_pResources->m_fColor[i]);
-		UpdateWeight(m_pResources->m_fColor[i]);
+		SetWinner(m_pResources->m_pData[i]);
+		UpdateWeight(m_pResources->m_pData[i]);
 		UpdateCurrentIteration(currentIteration);
 
 	}
@@ -109,7 +110,7 @@ namespace SOM
 
 	}
 
-	void Network::SetWinner(Color& color)
+	void Network::SetWinner(SOMData& data)
 	{
 		double alphaTest = m_fAlpha;
 		m_fMinAct = fColorMinAct;
@@ -118,7 +119,7 @@ namespace SOM
 			for (uint col = 0; col < m_pSettings->m_nNbCols; ++col)
 			{
 				//Calcul de l'activité
-				activity = GetActivity(row, col, color);
+				activity = GetActivity(row, col, data);
 
 				// Verification si vNeuron est le neurone vainqueur
 				if (activity < m_fMinAct)
@@ -131,7 +132,7 @@ namespace SOM
 			}
 	}
 
-	void Network::UpdateWeight(Color &color)
+	void Network::UpdateWeight(SOMData& data)
 	{
 		Vector vNeuron(2);
 		for (uint row = 0; row < m_pSettings->m_nNbRows; ++row)
@@ -142,7 +143,7 @@ namespace SOM
 
 				UpdatePhi(vNeuron);
 				for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
-					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, color[idWeight]);
+					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, data[idWeight]);
 			}
 	}
 

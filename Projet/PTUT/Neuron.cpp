@@ -4,25 +4,35 @@ namespace SOM
 {
 	uint Neuron::m_nCounter = 0;
 
-	Neuron::Neuron(uint weightDim): m_pCoordinate(2)
+	Neuron::Neuron(): m_pCoordinate(2)
 	{
-		//TODO : Supprimer weightDim des paramètres et l'ajouter à Settings.
-		//TODO: Vérifier quel type d'entree on utilise
-		// TODO : Si type 1
+		if (m_pRessource == nullptr)
+		{
+			std::cout << "Ressources non assignéeesesesses aux neurones!";
+			exit(8);
+		}
+
 		m_nID = Neuron::m_nCounter;
 		Neuron::m_nCounter++;
-		m_nWeightDim = weightDim;
-		m_fWeight = new uchar[m_nWeightDim];
-		for (uint i = 0; i < m_nWeightDim; ++i) {
-			m_fWeight[i] = (uchar)(rand() % 255);
+
+		if (m_pRessource->m_cVersion == 1)
+		{
+			m_nWeightDim = m_pRessource->m_nImageSize;
+			m_fWeight = new uchar[m_nWeightDim];
+			for (uint i = 0; i < m_nWeightDim; ++i) {
+				m_fWeight[i] = (uchar)(rand() % 255);
+			}
 		}
 		// TODO : Si type 2 (nuance de gris) à écrire
-		// TODO : Si type 3 (lettre) à écrire
-		// TODO : 
-		/*
-		Resources res;
-		res.m_pData[i].m_pData // Poids de l'image index i
-		*/
+		else if (m_pRessource->m_cVersion == 3)
+		{
+			m_nWeightDim = m_pRessource->m_nImageSize;
+			m_fWeight = new uchar[m_nWeightDim];
+
+			for (uint i = 0; i < m_nWeightDim; ++i) {
+				m_fWeight[i] = *m_pRessource->m_pData[i].m_pData; // Poids de l'image à l'index i
+			}
+		}
 	}
 
 	Neuron::~Neuron()

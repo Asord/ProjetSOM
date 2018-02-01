@@ -12,7 +12,7 @@ namespace SOM
         QPen outlinePen(Qt::black);
         outlinePen.setWidth(0);
 
-        for (uint i = 0;  i < m_pResources->m_nNbPix; ++i)
+        /*for (uint i = 0;  i < m_pResources->m_nImageSize; ++i)
         {
             uint col = i % m_pResources->m_nWidth;
             uint row = i / m_pResources->m_nWidth;
@@ -31,7 +31,7 @@ namespace SOM
             outlinePen,
             brush
             );
-        }
+        }*/
         ui.graphicsPreview->setScene(m_pEntryScene);
         ui.graphicsPreview->update();
 
@@ -49,6 +49,7 @@ namespace SOM
 
 			disabledEverything();//desactive l'interface inutile
 
+			m_settings.m_nDimInputVector = 1;
 			// Creation du réseau
 			SOM::Vector vDimNetwork(2);
 			//TODO:  Récuperer row et col à partir de ressources
@@ -58,9 +59,8 @@ namespace SOM
 			if (m_bDefaultResource)
 			{
 				DYN_FREE(m_pResources);
-				m_pResources = new Resources(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
+				m_pResources = new Resources();
 			}
-
 
 			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 

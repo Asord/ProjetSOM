@@ -7,8 +7,11 @@
 #include "Resources.h"
 #include <qcolor.h>
 
+
 namespace SOM
 {
+	Resources* m_pRessource;
+
 	class Neuron
 	{
 	private:
@@ -27,8 +30,9 @@ namespace SOM
 		double m_fPhi;
 
 	public:
+
 		// Constructeur
-		Neuron(uint dimWeight = 3);
+		Neuron();
 		// Destructeur
 		~Neuron();
 
