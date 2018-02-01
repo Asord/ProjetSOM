@@ -18,9 +18,9 @@ namespace SOM
             uint row = i / m_pResources->m_nWidth;
 
             Color color = m_pResources->m_fColor[i];
-            uchar red = color[0];
-            uchar gre = color[1];
-            uchar blu = color[2];
+            uchar red = color.col[0];
+            uchar gre = color.col[1];
+            uchar blu = color.col[2];
 
             QBrush brush(QColor(red, gre, blu));
             m_pEntryScene->addRect(
@@ -61,7 +61,7 @@ namespace SOM
 			}
 
 
-			m_pNetwork = new SOM::Network(m_settings, m_pResources);
+			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
 			drawInput();
 

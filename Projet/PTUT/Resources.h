@@ -1,9 +1,11 @@
 #pragma once
 #include "Utility.h"
+#include "bitmapHeader.h"
+
 #include <cmath>
 #include <time.h>
 #include <iostream>
-#include "bitmapHeader.h"
+#include <exception>
 
 #define VECTOR_DIM 3
 
@@ -11,11 +13,10 @@ namespace SOM
 {
 	struct Color
 	{
-		uchar* col;
+		uchar col[VECTOR_DIM];
 
 		Color(uchar red, uchar gre, uchar blu)
 		{
-			col = new uchar[VECTOR_DIM];
 			col[0] = red;
 			col[1] = gre;
 			col[2] = blu;
@@ -23,15 +24,9 @@ namespace SOM
 
 		Color()
 		{
-			col = new uchar[VECTOR_DIM];
 			col[0] = (uchar)rand() % 256;
 			col[1] = (uchar)rand() % 256;
 			col[2] = (uchar)rand() % 256;
-		}
-
-		uchar& operator[](uint dim)
-		{ 
-			return col[dim];
 		}
 	};
 
@@ -77,10 +72,10 @@ namespace SOM
 			//ouverture du fichier
 			m_fichier = fopen(filePath.std::string::c_str(), "rb");
 
-			if (m_fichier == NULL) // TODO: handle file reading error
+			if (!m_fichier) // TODO: handle file reading error
 			{
-				std::cout << "Impossible d'ouvrir le fichier en lecture !";
-				return;
+				std::cerr << "Impossible d'ouvrir le fichier en lecture !";
+				exit(EXIT_FAILURE);
 			}
 
 			bitmapHeader header;
@@ -94,7 +89,7 @@ namespace SOM
 			m_fColor  = new Color[m_nNbPix];
 
 			uchar byte;
-			uchar* color = new uchar[3];
+			uchar color[3];
 
 			for (uint i = 0; i < m_nNbPix; ++i)
 			{
