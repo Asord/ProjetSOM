@@ -117,6 +117,7 @@ namespace SOM {
 
 		//initialisation des parametres
 		settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
+		settings.m_dEndAlpha = ui.AlphaEndValue->value();
 		settings.m_dAlphaRate = ui.TauxAlphaValue->value();
 		settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
 		settings.m_nInitialBeta = ui.BetaValue->value();

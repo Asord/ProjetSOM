@@ -11,6 +11,7 @@ namespace SOM
 		uint m_nNbCols;//nombre de colonnes du réseau
 		uint m_nDimInputVector;//Dimension = 3
 		double m_dInitialAlpha;//valeur initial de alpha
+		double m_dEndAlpha;//valeur de fin de alpha
 		double m_dAlphaRate;//taux de diminution de alpha
 		uint m_nAlphaPeriod;//periode de alpha
 		int m_nInitialBeta;//Valeur initial de beta
@@ -24,6 +25,7 @@ namespace SOM
 			m_nNbCols = 0;
 			m_nDimInputVector = 3;
 			m_dInitialAlpha = 0;
+			m_dEndAlpha = 0;
 			m_dAlphaRate = 0;
 			m_nAlphaPeriod = 1;
 			m_nInitialBeta = 0;
