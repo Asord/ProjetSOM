@@ -52,6 +52,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>C:\Users\Killian\Desktop\cuda_dll;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Killian\Desktop\cuda_dll\cmake-build-debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -160,6 +162,7 @@
     <ClCompile Include="PTUT_DBG.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Resources.h" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PTUT.h">

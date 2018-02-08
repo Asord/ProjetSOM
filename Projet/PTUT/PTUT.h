@@ -35,7 +35,7 @@ namespace SOM {
 		bool m_bDefaultResource = true;
 
 		Network* m_pNetwork = nullptr;
-		Resources<Color>* m_pResources = nullptr;
+		Resources* m_pResources = nullptr;
 
 		Settings m_settings;
 

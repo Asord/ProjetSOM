@@ -12,22 +12,21 @@ namespace SOM
         QPen outlinePen(Qt::black);
         outlinePen.setWidth(0);
 
-        for (uint i = 0;  i < m_pResources->m_nNbPix; ++i)
+        for (uint i = 0;  i < m_pResources->size; ++i)
         {
-            uint col = i % m_pResources->m_nWidth;
-            uint row = i / m_pResources->m_nWidth;
+            uint col = i % m_pResources->width;
+            uint row = i / m_pResources->width;
 
-            Color color = m_pResources->vector[i];
-            uchar red = color[0];
-            uchar gre = color[1];
-            uchar blu = color[2];
+            uchar red = m_pResources->vector[i][0];
+            uchar gre = m_pResources->vector[i][1];
+            uchar blu = m_pResources->vector[i][2];
 
             QBrush brush(QColor(red, gre, blu));
             m_pEntryScene->addRect(
-            (ui.graphicsPreview->width() - 5)  / m_pResources->m_nWidth*col,
-            (ui.graphicsPreview->height() - 5) / m_pResources->m_nHeight*row,
-            ui.graphicsPreview->width()        / m_pResources->m_nWidth,
-            ui.graphicsPreview->height()       / m_pResources->m_nHeight,
+            (ui.graphicsPreview->width() - 5)  / m_pResources->width*col,
+            (ui.graphicsPreview->height() - 5) / m_pResources->height*row,
+            ui.graphicsPreview->width()        / m_pResources->width,
+            ui.graphicsPreview->height()       / m_pResources->height,
             outlinePen,
             brush
             );
@@ -57,7 +56,7 @@ namespace SOM
 			if (m_bDefaultResource)
 			{
 				DYN_FREE(m_pResources);
-				m_pResources = new Resources<Color>(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
+				m_pResources = new Resources(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
 			}
 
 
@@ -76,7 +75,7 @@ namespace SOM
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
-				for (uint i = 0; i < m_pResources->m_nHeight * m_pResources->m_nWidth; ++i)
+				for (uint i = 0; i < m_pResources->size; ++i)
                 {
 					updateGraphic();
                     m_pNetwork->AlgoSOM(it, i);

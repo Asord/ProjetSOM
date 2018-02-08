@@ -4,7 +4,7 @@
 namespace SOM
 {
 	//Constructeur
-	Network::Network(Settings* settings_ptr, Resources<Color>* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
+	Network::Network(Settings* settings_ptr, Resources* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
 	{
 		m_pSettings = settings_ptr;
 
@@ -56,7 +56,7 @@ namespace SOM
 			m_fBeta -= m_fBeta * m_pSettings->m_dBetaRate;
 	}
 
-	double Network::GetActivity(uint row, uint col, Color& color)
+	double Network::GetActivity(uint row, uint col, SomElement& color)
 	{
 		auto distanceType = DistanceMetric::EUCL; //TODO: ajouter d'autres methodes de calcules de distances
 		double activity = 0;
@@ -109,7 +109,7 @@ namespace SOM
 
 	}
 
-	void Network::SetWinner(Color& color)
+	void Network::SetWinner(SomElement& color)
 	{
 		double alphaTest = m_fAlpha;
 		m_fMinAct = fColorMinAct;
@@ -131,7 +131,7 @@ namespace SOM
 			}
 	}
 
-	void Network::UpdateWeight(Color &color)
+	void Network::UpdateWeight(SomElement &color)
 	{
 		Vector vNeuron(2);
 		for (uint row = 0; row < m_pSettings->m_nNbRows; ++row)
