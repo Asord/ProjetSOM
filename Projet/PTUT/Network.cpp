@@ -4,7 +4,7 @@
 namespace SOM
 {
 	//Constructeur
-	Network::Network(Settings* settings_ptr, Resources* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
+	Network::Network(Settings* settings_ptr, Resources<Color>* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
 	{
 		m_pSettings = settings_ptr;
 
@@ -96,8 +96,8 @@ namespace SOM
 
 	void Network::AlgoSOM(uint currentIteration, uint i)
 	{
-		SetWinner(m_pResources->m_fColor[i]);
-		UpdateWeight(m_pResources->m_fColor[i]);
+		SetWinner(m_pResources->vector[i]);
+		UpdateWeight(m_pResources->vector[i]);
 		UpdateCurrentIteration(currentIteration);
 
 	}

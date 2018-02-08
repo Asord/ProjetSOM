@@ -17,7 +17,7 @@ namespace SOM
             uint col = i % m_pResources->m_nWidth;
             uint row = i / m_pResources->m_nWidth;
 
-            Color color = m_pResources->m_fColor[i];
+            Color color = m_pResources->vector[i];
             uchar red = color[0];
             uchar gre = color[1];
             uchar blu = color[2];
@@ -57,7 +57,7 @@ namespace SOM
 			if (m_bDefaultResource)
 			{
 				DYN_FREE(m_pResources);
-				m_pResources = new Resources(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
+				m_pResources = new Resources<Color>(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
 			}
 
 

@@ -33,13 +33,13 @@ namespace SOM
 		std::vector<std::vector<Neuron>> m_vvNetwork;
 
 		Settings* m_pSettings;
-		Resources* m_pResources;
+		Resources<Color>* m_pResources;
 
 		uint m_nCurrentIteration;
 
 	public:
 		// Constructeurs priv� pour singleton
-		Network(Settings* settings, Resources* resources_ptr);
+		Network(Settings* settings, Resources<Color>* resources_ptr);
 
 		/* GETTER */
 

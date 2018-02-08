@@ -185,7 +185,7 @@ namespace SOM {
 
 		//stoquage des couleur dans un tableau
 		DYN_FREE(m_pResources);
-		m_pResources = new Resources(dirPath.toStdString());
+		m_pResources = new Resources<Color>(dirPath.toStdString());
 
 		m_bDefaultResource = false;
 	}
