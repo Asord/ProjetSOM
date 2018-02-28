@@ -3,13 +3,7 @@
 // Défini l'instance débug
 #define _SOM_DEBUG
 
-// Include spécifique par IDE (VS17 | CLion2017)
-#if defined (_MSC_VER)
 #include "ui_PTUT.h"
-#elif defined (__MINGW32__)or(__MINGW64__)
-#include "cmake-build-debug/PTUT_autogen/include/ui_PTUT.h"
-#endif
-
 
 #include <QtWidgets/QWidget>
 #include "Network.h"
