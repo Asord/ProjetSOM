@@ -1,4 +1,5 @@
 #include "Network.h"
+#include <QDebug>
 #include <ctime>
 
 namespace SOM
@@ -15,15 +16,36 @@ namespace SOM
 		m_fBeta = m_pSettings->m_nInitialBeta;
 
 		m_nCurrentIteration = 1;
-		m_nNbIterationMax = 0;
+		calcNbMaxIterations();
 
 		// Aléatoire fait par rapport au temps
 		srand((uint)time(NULL));
 
 		//Création du vecteur de neurones
+
+		//TODO : pb ici
 		m_vvNetwork.resize(m_pSettings->m_nNbCols);
 		for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
-			m_vvNetwork[i].resize(m_pSettings->m_nNbRows);
+		{
+			m_vvNetwork[i].reserve(m_pSettings->m_nNbRows);
+			for (int j = 0; j < m_pSettings->m_nNbRows; ++j)
+			{
+				{
+					Neuron n = Neuron();
+					m_vvNetwork[i].push_back(n);
+				}
+				qDebug() << m_vvNetwork[i][j].GetWeight(0) << " " 
+					<< m_vvNetwork[i][j].GetWeight(1) << " "
+					<< m_vvNetwork[i][j].GetWeight(2) << " ";
+			}
+		}
+
+		qDebug() << "Affichage du réseau";
+		
+		for (uint i = 0; i < m_pSettings->m_nNbCols; ++i)
+			for (uint j = 0; j < m_pSettings->m_nNbRows; ++j)
+				for (uint w = 0; w <3; ++w)
+					qDebug() << m_vvNetwork[i][j].GetWeight(w);
 
 		//Initialisation du vecteur de neurones
 		uint valueWeight;
@@ -34,13 +56,14 @@ namespace SOM
 	{
 		uint iteration = 1;
 		double alpha = m_fAlpha;
+		m_nNbIterationMax = 0;
 		while (alpha > 0.03)
 		{
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
 			iteration++;
 		}
-		m_nNbIterationMax *= m_pSettings->m_nAlphaPeriod/2;
+		//m_nNbIterationMax *= m_pSettings->m_nAlphaPeriod/2;
 	}
 
 	void Network::UpdateAlpha()
@@ -148,6 +171,7 @@ namespace SOM
 
 	Neuron& Network::getNeuron(int row, int col)
 	{
-		return m_vvNetwork[col][row];
+		Neuron& neuron = m_vvNetwork[col][row];
+		return neuron;
 	}
 }

@@ -4,6 +4,7 @@
 #include "Neuron.h"
 #include "Vector.h"
 #include "Settings.h"
+#include "Resources.h"
 #include <vector>
 
 

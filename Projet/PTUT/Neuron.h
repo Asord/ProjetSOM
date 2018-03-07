@@ -28,7 +28,7 @@ namespace SOM
 
 	public:
 		// Constructeur
-		Neuron(uint dimWeight = 3);
+		Neuron();
 		// Destructeur
 		~Neuron();
 

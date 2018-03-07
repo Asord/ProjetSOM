@@ -5,27 +5,27 @@
 
 namespace SOM // SomElement
 {
-	SomElement::SomElement(uint dimention)
+	SomElement::SomElement(uint dimension)
 	{
-		this->dimention = dimention;
+		this->dimension = dimension;
 		
-		for (uint i = 0; i < dimention; ++i)
+		for (uint i = 0; i < dimension; ++i)
 			this->vector.push_back((float)rand());
 	}
 
-	SomElement::SomElement(uint dimention, int min, int max)
+	SomElement::SomElement(uint dimension, int min, int max)
 	{
-		this->dimention = dimention;
+		this->dimension = dimension;
 
-		for (uint i = 0; i < dimention; ++i)
+		for (uint i = 0; i < dimension; ++i)
 			this->vector.push_back((float)(randRange(min, max)));
 	}
 
-	SomElement::SomElement(std::vector<float>& data, uint dimention)
+	SomElement::SomElement(std::vector<float>& data, uint dimension)
 	{
-		this->dimention = dimention;
+		this->dimension = dimension;
 
-		for (uint i = 0; i < dimention; ++i)
+		for (uint i = 0; i < dimension; ++i)
 			this->vector.push_back(data[i]);
 	}
 

@@ -1,17 +1,19 @@
 #include "Neuron.h"
+#include <QDebug>
 
 namespace SOM
 {
 	uint Neuron::m_nCounter = 0;
 
-	Neuron::Neuron(uint weightDim): m_pCoordinate(2)
+	Neuron::Neuron()
 	{
 		m_nID = Neuron::m_nCounter;
 		Neuron::m_nCounter++;
-		m_nWeightDim = weightDim;
+		m_nWeightDim = 3;
 		m_fWeight = new uchar[m_nWeightDim];
 		for (uint i = 0; i < m_nWeightDim; ++i) {
 			m_fWeight[i] = (uchar)(rand() % 255);
+			qDebug() << m_fWeight[i];
 		}
 	}
 
@@ -22,7 +24,8 @@ namespace SOM
 
 	uchar& Neuron::GetWeight(uint idWeight)
 	{
-		return m_fWeight[idWeight];
+		uchar& weight = m_fWeight[idWeight];
+		return weight;
 	}
 
 	void Neuron::SetWeight(uint idWeight, double alpha, const uchar input)

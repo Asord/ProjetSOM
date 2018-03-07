@@ -13,13 +13,13 @@ namespace SOM
 	class SomElement
 	{
 	protected:
-		uchar dimention;
+		uchar dimension;
 		std::vector<float> vector;
 
 	public:
-		SomElement(uint dimention);
-		SomElement(uint dimention, int min, int max);
-		SomElement(std::vector<float>& data, uint dimention);
+		SomElement(uint dimension);
+		SomElement(uint dimension, int min, int max);
+		SomElement(std::vector<float>& data, uint dimension);
 
 		float& operator[](uint dim);
 	};
