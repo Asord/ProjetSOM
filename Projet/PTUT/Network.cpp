@@ -34,13 +34,12 @@ namespace SOM
 	{
 		uint iteration = 1;
 		double alpha = m_fAlpha;
-		while (alpha > 0.03)
+		while (alpha > m_pSettings->m_dEndAlpha)
 		{
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
 			iteration++;
 		}
-		m_nNbIterationMax *= m_pSettings->m_nAlphaPeriod/2;
 	}
 
 	void Network::UpdateAlpha()

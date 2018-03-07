@@ -32,6 +32,9 @@ namespace SOM
 		// Tableau dynamique de reseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork;
 
+		//Tableau dynamique des valeurs de alpha
+		std::vector<double> m_vAlphaValues;
+
 		Settings* m_pSettings;
 		Resources* m_pResources;
 
