@@ -39,6 +39,8 @@ namespace SOM
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
 			iteration++;
+			//ajout de toutes les valeurs de alpha dans un tableau pour les courbes
+			m_vAlphaValues.push_back(alpha);
 		}
 	}
 

@@ -98,6 +98,45 @@ namespace SOM {
 
 	}
 
+	void PTUT::drawCurves()
+	{
+		//Courbe Alpha
+		QGraphicsScene* m_pAlphaCurveScene = new QGraphicsScene(this);
+		int size = m_pNetwork->getAlphaValues().size();
+
+		QPen outlinePen(Qt::red);
+		outlinePen.setWidth(2);
+		
+		for (int i = 0; i < size-1; i++) {
+			m_pAlphaCurveScene->addLine(i * ui.AlphaCurve->width() / size,
+										ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+										(i + 1) * ui.AlphaCurve->width() / size,
+										ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+										outlinePen);
+		}
+		
+		ui.AlphaCurve->setScene(m_pAlphaCurveScene);
+
+		//Courbe Beta
+		QGraphicsScene* m_pBetaCurveScene = new QGraphicsScene(this);
+
+		double beta = m_settings.m_nInitialBeta;
+		double beta2 = beta - beta * m_settings.m_dBetaRate;
+		for (int i = 0; i < size - 1; i++) {
+			
+			m_pBetaCurveScene->addLine(i * ui.BetaCurve->width() / size,
+				ui.BetaCurve->height() - (beta * (ui.BetaCurve->height()-30) / m_settings.m_nInitialBeta),
+				(i + 1) * ui.BetaCurve->width() / size,
+				ui.BetaCurve->height() - (beta2 * (ui.BetaCurve->height()-30) / m_settings.m_nInitialBeta),
+				outlinePen);
+
+			beta -= beta * m_settings.m_dBetaRate;
+			beta2 -= beta2 * m_settings.m_dBetaRate;
+		}
+
+		ui.BetaCurve->setScene(m_pBetaCurveScene);
+	}
+
 	void PTUT::setAlphaValueText()
 	{
 		//met la valeur du slider dans la variable m_dAlpha

@@ -49,6 +49,7 @@ namespace SOM
 		double getAlpha() { return m_fAlpha; }
 		double getBeta() { return m_fBeta; }
 		uint getMaxIteration() { return m_nNbIterationMax; }
+		std::vector<double> getAlphaValues() { return m_vAlphaValues; }
 
 		//Calcul l'activit� d'un neurone
 		double GetActivity(uint row, uint col, SomElement &color);
