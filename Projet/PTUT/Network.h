@@ -33,6 +33,9 @@ namespace SOM
 		// Tableau dynamique de reseau de neurones
 		std::vector<std::vector<Neuron>> m_vvNetwork;
 
+		//Tableau dynamique des valeurs de alpha
+		std::vector<double> m_vAlphaValues;
+
 		Settings* m_pSettings;
 		Resources* m_pResources;
 
@@ -47,6 +50,7 @@ namespace SOM
 		double getAlpha() { return m_fAlpha; }
 		double getBeta() { return m_fBeta; }
 		uint getMaxIteration() { return m_nNbIterationMax; }
+		std::vector<double> getAlphaValues() { return m_vAlphaValues; }
 
 		//Calcul l'activit� d'un neurone
 		double GetActivity(uint row, uint col, SomElement &color);

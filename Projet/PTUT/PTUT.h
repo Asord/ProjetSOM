@@ -47,6 +47,8 @@ namespace SOM {
 		void disabledEverything();
 		//initialisation de la visualisation
 		void updateGraphic();
+		//Dessin des courbes de alpha
+		void drawCurves();
 
 	public slots:
 		void setRows();//Actualise le nombre de lignes

@@ -57,14 +57,14 @@ namespace SOM
 		uint iteration = 1;
 		double alpha = m_fAlpha;
 		m_nNbIterationMax = 0;
-		while (alpha > 0.03)
+		while (alpha > m_pSettings->m_dEndAlpha)
 		{
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
 			iteration++;
-		}
-		//m_nNbIterationMax *= m_pSettings->m_nAlphaPeriod/2;
-	}
+			//ajout de toutes les valeurs de alpha dans un tableau pour les courbes
+			m_vAlphaValues.push_back(alpha);
+		}	}
 
 	void Network::UpdateAlpha()
 	{

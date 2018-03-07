@@ -72,6 +72,8 @@ namespace SOM
 			//initialisation de la progressBar
 			ui.ProgressBar->setMaximum(maxIteration);
 
+			//affichage des courbes de alpha et beta
+			drawCurves();
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
