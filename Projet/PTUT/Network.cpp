@@ -16,7 +16,7 @@ namespace SOM
 		m_fBeta = m_pSettings->m_nInitialBeta;
 
 		m_nCurrentIteration = 1;
-		calcNbMaxIterations();
+		//calcNbMaxIterations();
 
 		// Aléatoire fait par rapport au temps
 		srand((uint)time(NULL));
@@ -54,17 +54,16 @@ namespace SOM
 
 	void Network::calcNbMaxIterations()
 	{
-		uint iteration = 1;
 		double alpha = m_fAlpha;
 		m_nNbIterationMax = 0;
 		while (alpha > m_pSettings->m_dEndAlpha)
 		{
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
 			m_nNbIterationMax++;
-			iteration++;
 			//ajout de toutes les valeurs de alpha dans un tableau pour les courbes
 			m_vAlphaValues.push_back(alpha);
-		}	}
+		}	
+	}
 
 	void Network::UpdateAlpha()
 	{
