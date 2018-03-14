@@ -57,9 +57,10 @@ namespace SOM
 			{
 				DYN_FREE(m_pResources);
 				m_pResources = new Resources(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
+				m_settings.m_nDimInputVector = 3;
 			}
 
-
+			m_settings.m_bDefaultResource = m_bDefaultResource;
 			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
 			drawInput();

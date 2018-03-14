@@ -37,6 +37,9 @@ namespace SOM
 		// Met � jour un poids du vecteur de poids
 		void SetWeight(uint idWeight, double alpha, const uchar input);
 
+		// Initialise le vecteur de poids
+		void InitiateWeight(uint WeightDim, uint resourceType);
+
 		//Met � jour phi
 		void setPhi(const double phi);
 

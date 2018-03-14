@@ -18,6 +18,7 @@ namespace SOM
 		double m_dBetaRate;//taux de diminution de beta
 		uint m_nBetaPeriod;//periode de beta
 		uint m_nNetworkDim;
+		bool m_bDefaultResource;
 
 		Settings() 
 		{
@@ -32,6 +33,7 @@ namespace SOM
 			m_dBetaRate = 1;
 			m_nBetaPeriod = 1;
 			m_nNetworkDim = 2;
+			m_bDefaultResource = true;
 		}
 	};
 }

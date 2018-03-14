@@ -22,30 +22,37 @@ namespace SOM
 		srand((uint)time(NULL));
 
 		//Création du vecteur de neurones
-
-		//TODO : pb ici
 		m_vvNetwork.resize(m_pSettings->m_nNbCols);
 		for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
-		{
-			m_vvNetwork[i].reserve(m_pSettings->m_nNbRows);
-			for (int j = 0; j < m_pSettings->m_nNbRows; ++j)
-			{
-				{
-					Neuron n = Neuron();
-					m_vvNetwork[i].push_back(n);
-				}
-				qDebug() << m_vvNetwork[i][j].GetWeight(0) << " " 
-					<< m_vvNetwork[i][j].GetWeight(1) << " "
-					<< m_vvNetwork[i][j].GetWeight(2) << " ";
-			}
-		}
+			m_vvNetwork[i].resize(m_pSettings->m_nNbRows);
 
-		qDebug() << "Affichage du réseau";
-		
-		for (uint i = 0; i < m_pSettings->m_nNbCols; ++i)
-			for (uint j = 0; j < m_pSettings->m_nNbRows; ++j)
-				for (uint w = 0; w <3; ++w)
-					qDebug() << m_vvNetwork[i][j].GetWeight(w);
+
+		for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
+			for (int j = 0; j < m_pSettings->m_nNbRows; ++j)
+				m_vvNetwork[i][j].InitiateWeight(m_pSettings->m_nDimInputVector, m_pSettings->m_bDefaultResource);
+		//TODO : pb ici
+		//m_vvNetwork.resize(m_pSettings->m_nNbCols);
+		//for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
+		//{
+		//	m_vvNetwork[i].reserve(m_pSettings->m_nNbRows);
+		//	for (int j = 0; j < m_pSettings->m_nNbRows; ++j)
+		//	{
+		//		{
+		//			Neuron n = Neuron();
+		//			m_vvNetwork[i].push_back(n);
+		//		}
+		//		qDebug() << m_vvNetwork[i][j].GetWeight(0) << " " 
+		//			<< m_vvNetwork[i][j].GetWeight(1) << " "
+		//			<< m_vvNetwork[i][j].GetWeight(2) << " ";
+		//	}
+		//}
+
+		//qDebug() << "Affichage du réseau";
+		//
+		//for (uint i = 0; i < m_pSettings->m_nNbCols; ++i)
+		//	for (uint j = 0; j < m_pSettings->m_nNbRows; ++j)
+		//		for (uint w = 0; w <3; ++w)
+		//			qDebug() << m_vvNetwork[i][j].GetWeight(w);
 
 		//Initialisation du vecteur de neurones
 		uint valueWeight;
