@@ -12,21 +12,21 @@ namespace SOM
         QPen outlinePen(Qt::black);
         outlinePen.setWidth(0);
 
-        for (uint i = 0;  i < m_pResources->size; ++i)
+        for (uint i = 0;  i < m_pResources->byteSize; ++i)
         {
-            uint col = i % m_pResources->width;
-            uint row = i / m_pResources->width;
+            uint col = i % m_pResources->imageWidth;
+            uint row = i / m_pResources->imageWidth;
 
-            uchar red = m_pResources->vector[i][0];
-            uchar gre = m_pResources->vector[i][1];
-            uchar blu = m_pResources->vector[i][2];
+            uchar red = m_pResources->images[i][0];
+            uchar gre = m_pResources->images[i][1];
+            uchar blu = m_pResources->images[i][2];
 
             QBrush brush(QColor(red, gre, blu));
             m_pEntryScene->addRect(
-            (ui.graphicsPreview->width() - 5)  / m_pResources->width*col,
-            (ui.graphicsPreview->height() - 5) / m_pResources->height*row,
-            ui.graphicsPreview->width()        / m_pResources->width,
-            ui.graphicsPreview->height()       / m_pResources->height,
+            (ui.graphicsPreview->width() - 5)  / m_pResources->imageWidth*col,
+            (ui.graphicsPreview->height() - 5) / m_pResources->imageHeight*row,
+            ui.graphicsPreview->width()        / m_pResources->imageWidth,
+            ui.graphicsPreview->height()       / m_pResources->imageHeight,
             outlinePen,
             brush
             );
@@ -60,7 +60,6 @@ namespace SOM
 				m_settings.m_nDimInputVector = 3;
 			}
 
-			m_settings.m_bDefaultResource = m_bDefaultResource;
 			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
 			drawInput();
@@ -78,7 +77,7 @@ namespace SOM
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
-				for (uint i = 0; i < m_pResources->size; ++i)
+				for (uint i = 0; i < m_pResources->byteSize; ++i)
                 {
 					updateGraphic();
                     m_pNetwork->AlgoSOM(it, i);

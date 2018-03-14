@@ -6,21 +6,18 @@
 #include <iostream>
 #include <vector>
 #include <qimage.h>
+#include <qdir.h>
 
 namespace SOM
 {
 	class Resources
 	{
 	public:
-		//std::vector<QImage> vector;
-		uint size;
-		uint height;
-		uint width;
-		QImage image;
+		std::vector<QImage> images;
+		uint byteSize;
+		uint imageHeight;
+		uint imageWidth;
 
-		Resources(uint size);
-		Resources(uint height, uint width);
-		Resources(std::string filePath);
-
+		Resources(QDir directory);
 	};
 }

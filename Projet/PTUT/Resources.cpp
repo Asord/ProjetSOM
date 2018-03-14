@@ -1,39 +1,38 @@
 #include "Resources.h"
-#include <algorithm>
 
 namespace SOM // Resources
 {
-	//Resources::Resources(uint size)
-	//{
-	//	this->size = size;
 
-	//	int sqrt_size = isqrt(size);
-	//	if (sqrt_size * sqrt_size != size)
-	//	{
-	//		std::cerr << "La taille des ressources assignées à sa construction n'est pas un carré.";
-	//		exit(EXIT_FAILURE);
-	//	}
-
-	//	srand((uint)time(NULL));
-
-	//	for (uint i = 0; i < size; ++i)
-	//		vector.push_back(SomElement(3));
-
-	//}
-
-	Resources::Resources(std::string filePath)
+	Resources::Resources(QDir directory)
 	{
-		image = QImage(QString::fromStdString(filePath));
-		
-		// TODO: handle not found issue
+		imageHeight = 0;
+		imageWidth = 0;
 
-		uchar* ptr = image.bits();
+		QStringList ressources_list = directory.entryList(QStringList() << "*.bmp" << "*.BMP", QDir::Files);
 
-		QSize qsize = image.size();
+		foreach(QString files, ressources_list)
+		{
+			QImage image = QImage(files);
+			QSize imageSize = image.size();
 
-		this->size = qsize.height() * qsize.width() * image.pixelFormat().bitsPerPixel();
-		this->height = qsize.height();
-		this->width = qsize.width();
+			if (imageHeight == 0 && imageWidth == 0)
+			{
+				imageWidth = imageSize.width;
+				imageHeight = imageSize.height;
+
+				byteSize = imageSize.height() * imageSize.width() * image.pixelFormat().bitsPerPixel();
+			}
+			
+			if (imageHeight != imageSize.height || imageWidth != imageSize.width)
+			{
+				// TODO: handle error
+				exit(-1);
+			}
+			else
+			{
+				images.push_back(image);
+			}
+		}
 
 	}
 }

@@ -48,7 +48,7 @@ namespace SOM {
 		ui.AlphaSlider->setSliderPosition((int)(m_pNetwork->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
 		ui.AlphaValue->setText(QString::number(m_pNetwork->getAlpha() + 0.006)); // TODO: slider pour BETA
 
-		//beta
+																				 //beta
 		ui.BetaSlider->setSliderPosition((int)(m_pNetwork->getBeta()));
 		ui.BetaValue->setText(QString::number(m_pNetwork->getBeta()));
 
@@ -59,11 +59,11 @@ namespace SOM {
 	}
 
 	void PTUT::updateGraphic()
-	{	
+	{
 		DYN_FREE(m_pScene)
-		
-		m_pScene = new QGraphicsScene(this);
-		
+
+			m_pScene = new QGraphicsScene(this);
+
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -93,23 +93,23 @@ namespace SOM {
 				else //lettre
 				{
 					int idPoids = 0;
-					for (uint innerRow = 0; innerRow < m_pResources->height; innerRow++) 
+					for (uint innerRow = 0; innerRow < m_pResources->imageHeight; innerRow++)
 					{
-						for (uint innerCol = 0; innerCol < m_pResources->width; innerCol++)
+						for (uint innerCol = 0; innerCol < m_pResources->imageWidth; innerCol++)
 						{
-							QPen outlineInnerPen(QColor(120,120,120));
+							QPen outlineInnerPen(QColor(120, 120, 120));
 							outlineInnerPen.setWidth(0);
-							
+
 							uint color = m_pNetwork->getNeuron(row, col).GetWeight(idPoids);
 							idPoids++;
 
 							QBrush brush(QColor(color, color, color));
 
 							m_pScene->addRect(
-								((ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col)/ m_pResources->width,
-								((ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row)/ m_pResources->height,
-								(ui.graphicsView->width() / m_settings.m_nNbCols)/ m_pResources->width,
-								(ui.graphicsView->height() / m_settings.m_nNbRows)/ m_pResources->height,
+								((ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col) / m_pResources->imageWidth,
+								((ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row) / m_pResources->imageHeight,
+								(ui.graphicsView->width() / m_settings.m_nNbCols) / m_pResources->imageWidth,
+								(ui.graphicsView->height() / m_settings.m_nNbRows) / m_pResources->imageHeight,
 								outlineInnerPen,
 								brush);
 
@@ -131,15 +131,15 @@ namespace SOM {
 
 		QPen outlinePen(Qt::red);
 		outlinePen.setWidth(2);
-		
-		for (int i = 0; i < size-1; i++) {
+
+		for (int i = 0; i < size - 1; i++) {
 			m_pAlphaCurveScene->addLine(i * ui.AlphaCurve->width() / size,
-										ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
-										(i + 1) * ui.AlphaCurve->width() / size,
-										ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
-										outlinePen);
+				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+				(i + 1) * ui.AlphaCurve->width() / size,
+				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+				outlinePen);
 		}
-		
+
 		ui.AlphaCurve->setScene(m_pAlphaCurveScene);
 
 		//Courbe Beta
@@ -148,11 +148,11 @@ namespace SOM {
 		double beta = m_settings.m_nInitialBeta;
 		double beta2 = beta - beta * m_settings.m_dBetaRate;
 		for (int i = 0; i < size - 1; i++) {
-			
+
 			m_pBetaCurveScene->addLine(i * ui.BetaCurve->width() / size,
-				ui.BetaCurve->height() - (beta * (ui.BetaCurve->height()-30) / m_settings.m_nInitialBeta),
+				ui.BetaCurve->height() - (beta * (ui.BetaCurve->height() - 30) / m_settings.m_nInitialBeta),
 				(i + 1) * ui.BetaCurve->width() / size,
-				ui.BetaCurve->height() - (beta2 * (ui.BetaCurve->height()-30) / m_settings.m_nInitialBeta),
+				ui.BetaCurve->height() - (beta2 * (ui.BetaCurve->height() - 30) / m_settings.m_nInitialBeta),
 				outlinePen);
 
 			beta -= beta * m_settings.m_dBetaRate;
@@ -167,7 +167,7 @@ namespace SOM {
 		//met la valeur du slider dans la variable m_dAlpha
 		ui.AlphaValue->setText(QString::number(ui.AlphaSlider->value() / 1000.0 + 0.006));
 	}
-	
+
 	void PTUT::alphaRateConstraint()
 	{
 		//empeche le taux de alpha d'etre supérieur au taux de beta
@@ -242,20 +242,17 @@ namespace SOM {
 	void PTUT::openFile()
 	{
 		//choix du fichier
-		QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "%userdata%", tr("SOM Data Files (*.sdt)"));
-
-		//récupération du chemin du fichier
-		QFileInfo fileInfo(filename);
-		QString dirPath(fileInfo.filePath());
+		QDir directory = QFileDialog::getExistingDirectory(this, tr("select directory"));
+		//QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "%userdata%", tr("SOM Data Files (*.sdt)"));
 
 		//stoquage des couleur dans un tableau
 		DYN_FREE(m_pResources);
-		m_pResources = new Resources(dirPath.toStdString());
+		m_pResources = new Resources(directory);
 
 		m_bDefaultResource = false;
 	}
 
-	#ifndef _SOM_DEBUG
+#ifndef _SOM_DEBUG
 
 	void PTUT::restart()
 	{
@@ -281,12 +278,12 @@ namespace SOM {
 		initValues();//initialisation des parametres
 		checkIfReady();//verification des parametres
 
-		
+
 		if (m_bReady)
 		{
 			disabledEverything();//desactive l'interface inutile
-		
-			// Creation du réseau
+
+								 // Creation du réseau
 			SOM::Vector vDimNetwork(2);
 			vDimNetwork[0] = settings.m_nNbRows;
 			vDimNetwork[1] = settings.m_nNbCols;
@@ -306,24 +303,24 @@ namespace SOM {
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
 				for (uint i = 0; i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
-                {
+				{
 					updateGraphic();
-                    network->AlgoSOM(it, i);
-                    updateValuesUI(it);
-                }
-				
+					network->AlgoSOM(it, i);
+					updateValuesUI(it);
+				}
+
 				network->UpdateAlpha();
 				network->UpdateBeta();
 			}
 		}
 	}
-	#endif
+#endif
 
 	void PTUT::pause()
 	{
 		//TODO: Implémenter handler de pause dans l'algorithme SOM depuis l'interface
 		//changement du texte en fonction de m_bIsPaused
-		m_bIsPaused = ! m_bIsPaused;
+		m_bIsPaused = !m_bIsPaused;
 		if (m_bIsPaused)
 			ui.PauseBtn->setText("Reprendre");
 		else
