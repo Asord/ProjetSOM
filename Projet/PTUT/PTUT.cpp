@@ -72,25 +72,50 @@ namespace SOM {
 
 		//dessine chaque neurone du reseau
 		uint red, green, blue;
-		//Neuron neuron(3);
 		for (uint row = 0; row < m_settings.m_nNbRows; row++)
 		{
 			for (uint col = 0; col < m_settings.m_nNbCols; col++) {
-				
-				red = m_pNetwork->getNeuron(row, col).GetWeight(0);
-				green = m_pNetwork->getNeuron(row, col).GetWeight(1);
-				blue = m_pNetwork->getNeuron(row, col).GetWeight(2);
+				if (m_settings->m_bDefaultResource)//couleur
+				{
+					red = m_pNetwork->getNeuron(row, col).GetWeight(0);
+					green = m_pNetwork->getNeuron(row, col).GetWeight(1);
+					blue = m_pNetwork->getNeuron(row, col).GetWeight(2);
 
-				QBrush brush(QColor(red, green, blue));
-				m_pScene->addRect(
+					QBrush brush(QColor(red, green, blue));
+					m_pScene->addRect(
 						(ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col,
 						(ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row,
 						ui.graphicsView->width() / m_settings.m_nNbCols,
 						ui.graphicsView->height() / m_settings.m_nNbRows,
 						outlinePen,
-						brush
-				);
+						brush);
+				}
+				else //lettre
+				{
+					int idPoids = 0;
+					for (uint innerRow = 0; innerRow < m_pResources->height; innerRow++) 
+					{
+						for (uint innerCol = 0; innerCol < m_pResources->width; innerCol++)
+						{
+							QPen outlineInnerPen(QColor(120,120,120));
+							outlineInnerPen.setWidth(0);
+							
+							uint color = m_pNetwork->getNeuron(row, col).GetWeight(idPoids);
+							idPoids++;
 
+							QBrush brush(QColor(color, color, color));
+
+							m_pScene->addRect(
+								((ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col)/ m_pResources->width,
+								((ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row)/ m_pResources->height,
+								(ui.graphicsView->width() / m_settings.m_nNbCols)/ m_pResources->width,
+								(ui.graphicsView->height() / m_settings.m_nNbRows)/ m_pResources->height,
+								outlineInnerPen,
+								brush);
+
+						}
+					}
+				}
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
@@ -142,7 +167,7 @@ namespace SOM {
 		//met la valeur du slider dans la variable m_dAlpha
 		ui.AlphaValue->setText(QString::number(ui.AlphaSlider->value() / 1000.0 + 0.006));
 	}
-
+	
 	void PTUT::alphaRateConstraint()
 	{
 		//empeche le taux de alpha d'etre supérieur au taux de beta
