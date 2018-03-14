@@ -97,5 +97,13 @@
     <ClInclude Include="bitmapHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cuda.cuh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="cuda.cu">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
   </ItemGroup>
 </Project>
