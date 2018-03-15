@@ -20,9 +20,12 @@ namespace SOM {
 
 	public:
 		PTUT(QWidget *parent = Q_NULLPTR);
+		PTUT(QApplication* master);
 
 	private:
 		Ui::Window ui;
+
+		QApplication* masterPtr;
 
 		bool m_bIsPaused = false; // programme en pause ?
 		bool m_bReady = true; // tous les parametres sont correcte?
@@ -41,7 +44,7 @@ namespace SOM {
 		//verifie que toutes les parametres sont correctes
 		void checkIfReady();
 		//actualise la valeur de alpha et beta au cours de l'algo
-		void updateValuesUI(int currentIteration);
+		void updateValuesUI(int& currentIteration);
 		//desactive tout l'interface inutile lorsque l'apprentissageest lancé
 		void disabledEverything();
 		//initialisation de la visualisation
@@ -65,7 +68,6 @@ namespace SOM {
 
 	private:
 		std::chrono::time_point < std::chrono::system_clock > begin, end;
-		QGraphicsScene *m_pEntryScene; // Scene d'entrée
 	public:
 		//void drawInput();
 
