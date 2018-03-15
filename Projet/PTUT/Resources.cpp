@@ -11,7 +11,9 @@ namespace SOM
 
 		foreach(QString files, ressources_list)
 		{
-			QImage image = QImage(files);
+			QString imagePath = directory.absolutePath() + "/" + files;
+			QImage image = QImage(imagePath);
+
 			QSize imageSize = image.size();
 
 			if (imageHeight == 0 && imageWidth == 0)
