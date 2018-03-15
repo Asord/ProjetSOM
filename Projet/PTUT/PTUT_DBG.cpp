@@ -3,44 +3,47 @@
 #ifdef _SOM_DEBUG
 namespace SOM
 {
-    void PTUT::drawInput()
-    {
-        m_pEntryScene = new QGraphicsScene(this);
-        ui.graphicsPreview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        ui.graphicsPreview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   // void PTUT::drawInput()
+   // {
+   //     m_pEntryScene = new QGraphicsScene(this);
+   //     ui.graphicsPreview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   //     ui.graphicsPreview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-        QPen outlinePen(Qt::black);
-        outlinePen.setWidth(0);
+   //     QPen outlinePen(Qt::black);
+   //     outlinePen.setWidth(0);
 
-        for (uint i = 0;  i < m_pResources->byteSize; ++i)
-        {
-            uint col = i % m_pResources->imageWidth;
-            uint row = i / m_pResources->imageWidth;
+   //     for (uint i = 0;  i < m_pResources->byteSize; ++i)
+   //     {
+   //         uint col = i % m_pResources->imageWidth;
+   //         uint row = i / m_pResources->imageWidth;
 
-            uchar red = m_pResources->images[i][0];
-            uchar gre = m_pResources->images[i][1];
-            uchar blu = m_pResources->images[i][2];
+			//QImage& image = m_pResources->images[i];
 
-            QBrush brush(QColor(red, gre, blu));
-            m_pEntryScene->addRect(
-            (ui.graphicsPreview->width() - 5)  / m_pResources->imageWidth*col,
-            (ui.graphicsPreview->height() - 5) / m_pResources->imageHeight*row,
-            ui.graphicsPreview->width()        / m_pResources->imageWidth,
-            ui.graphicsPreview->height()       / m_pResources->imageHeight,
-            outlinePen,
-            brush
-            );
-        }
-        ui.graphicsPreview->setScene(m_pEntryScene);
-        ui.graphicsPreview->update();
+   //         /*uchar red = m_pResources->images[i][0];
+   //         uchar gre = m_pResources->images[i][1];
+   //         uchar blu = m_pResources->images[i][2];*/
 
-    }
+   //         QBrush brush(QColor(red, gre, blu));
+   //         m_pEntryScene->addRect(
+   //         (ui.graphicsPreview->width() - 5)  / m_pResources->imageWidth*col,
+   //         (ui.graphicsPreview->height() - 5) / m_pResources->imageHeight*row,
+   //         ui.graphicsPreview->width()        / m_pResources->imageWidth,
+   //         ui.graphicsPreview->height()       / m_pResources->imageHeight,
+   //         outlinePen,
+   //         brush
+   //         );
+   //     }
+   //     ui.graphicsPreview->setScene(m_pEntryScene);
+   //     ui.graphicsPreview->update();
+
+   // }
 
     void PTUT::start()
 	{
 		initValues();//initialisation des parametres
 		checkIfReady();//verification des parametres
 
+		srand(time(NULL));
 
 		if (m_bReady)
 		{
@@ -53,19 +56,14 @@ namespace SOM
 			vDimNetwork[0] = m_settings.m_nNbRows;
 			vDimNetwork[1] = m_settings.m_nNbCols;
 
-			if (m_bDefaultResource)
-			{
-				DYN_FREE(m_pResources);
-				m_pResources = new Resources(m_settings.m_nNbCols / 5, m_settings.m_nNbRows / 5);
-				m_settings.m_nDimInputVector = 3;
-			}
-
 			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
-			drawInput();
+			m_settings.m_nDimInputVector = m_pResources->imageHeight*m_pResources->imageWidth;
+
+			//drawInput();
 
 			//calcul du nombre maximum d'iterations
-			m_pNetwork->calcNbMaxIterations();
+			//m_pNetwork->calcNbMaxIterations();
 
 			uint maxIteration = m_pNetwork->getMaxIteration();
 
@@ -113,8 +111,6 @@ namespace SOM
 		ui.ProgressBar->setValue(0);
 		ui.StartBtn->setEnabled(true);
 		ui.NbrIterations->setText("");
-
-		m_bDefaultResource = true;
 
 		delete m_pNetwork;
 	}

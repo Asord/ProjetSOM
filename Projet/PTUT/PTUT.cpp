@@ -4,6 +4,8 @@
 #include <QtAlgorithms>
 #include <qtextcodec.h>
 #include <QFileDialog>
+#include <qerrormessage.h>
+#include <QGraphicsPixmapItem>
 
 namespace SOM {
 
@@ -62,63 +64,29 @@ namespace SOM {
 	{
 		DYN_FREE(m_pScene)
 
-			m_pScene = new QGraphicsScene(this);
+		m_pScene = new QGraphicsScene(this);
+		m_pScene->setSceneRect(0, 0, ui.graphicsView->width(), ui.graphicsView->height());
 
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-		QPen outlinePen(Qt::black);
-		outlinePen.setWidth(0);
-
-		//dessine chaque neurone du reseau
-		uint red, green, blue;
 		for (uint row = 0; row < m_settings.m_nNbRows; row++)
 		{
 			for (uint col = 0; col < m_settings.m_nNbCols; col++) {
-				if (m_settings->m_bDefaultResource)//couleur
-				{
-					red = m_pNetwork->getNeuron(row, col).GetWeight(0);
-					green = m_pNetwork->getNeuron(row, col).GetWeight(1);
-					blue = m_pNetwork->getNeuron(row, col).GetWeight(2);
 
-					QBrush brush(QColor(red, green, blue));
-					m_pScene->addRect(
-						(ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col,
-						(ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row,
-						ui.graphicsView->width() / m_settings.m_nNbCols,
-						ui.graphicsView->height() / m_settings.m_nNbRows,
-						outlinePen,
-						brush);
-				}
-				else //lettre
-				{
-					int idPoids = 0;
-					for (uint innerRow = 0; innerRow < m_pResources->imageHeight; innerRow++)
-					{
-						for (uint innerCol = 0; innerCol < m_pResources->imageWidth; innerCol++)
-						{
-							QPen outlineInnerPen(QColor(120, 120, 120));
-							outlineInnerPen.setWidth(0);
+				QImage image = QImage(
+					m_pNetwork->getNeuron(row, col).GetWeight(),
+					m_pResources->imageHeight,
+					m_pResources->imageWidth,
+					QImage::Format_Grayscale8
+				);
 
-							uint color = m_pNetwork->getNeuron(row, col).GetWeight(idPoids);
-							idPoids++;
-
-							QBrush brush(QColor(color, color, color));
-
-							m_pScene->addRect(
-								((ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col) / m_pResources->imageWidth,
-								((ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row) / m_pResources->imageHeight,
-								(ui.graphicsView->width() / m_settings.m_nNbCols) / m_pResources->imageWidth,
-								(ui.graphicsView->height() / m_settings.m_nNbRows) / m_pResources->imageHeight,
-								outlineInnerPen,
-								brush);
-
-						}
-					}
-				}
+				QGraphicsPixmapItem* pixmapItem = m_pScene->addPixmap(QPixmap::fromImage(image).scaled(this->width() + (ui.graphicsView->width() / m_settings.m_nNbRows - this->width()), this->height() + (ui.graphicsView->height() / m_settings.m_nNbRows) - this->height()));
+				pixmapItem->setPos(col *ui.graphicsView->width()/ m_settings.m_nNbRows, row*ui.graphicsView->height()/ m_settings.m_nNbRows);
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
+
 		ui.ProgressBar->setValue(1);
 
 	}
@@ -243,13 +211,12 @@ namespace SOM {
 	{
 		//choix du fichier
 		QDir directory = QFileDialog::getExistingDirectory(this, tr("select directory"));
+		QString str = directory.absolutePath();
 		//QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "%userdata%", tr("SOM Data Files (*.sdt)"));
 
 		//stoquage des couleur dans un tableau
 		DYN_FREE(m_pResources);
 		m_pResources = new Resources(directory);
-
-		m_bDefaultResource = false;
 	}
 
 #ifndef _SOM_DEBUG

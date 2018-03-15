@@ -1,6 +1,5 @@
 #pragma once
 #include "Utility.h"
-#include "bitmapHeader.h"
 
 #include <time.h>
 #include <iostream>
@@ -10,6 +9,8 @@
 
 namespace SOM
 {
+	const unsigned long fColorMinAct = 0xffffffff;
+
 	class Resources
 	{
 	public:

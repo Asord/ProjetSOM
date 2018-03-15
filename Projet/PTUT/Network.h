@@ -53,7 +53,7 @@ namespace SOM
 		std::vector<double> getAlphaValues() { return m_vAlphaValues; }
 
 		//Calcul l'activit� d'un neurone
-		double GetActivity(uint row, uint col, SomElement &color);
+		double GetActivity(uint row, uint col, QImage &color);
 
 		// Retourne la distance entre un neurone et le neurone vainqueur
 		double GetDistance(Vector& coordinate);
@@ -72,10 +72,10 @@ namespace SOM
 		void UpdatePhi(Vector& vNeuron);
 
 		//Retourne le neurone avec l'activit� la plus minime
-		void SetWinner(SomElement& color);
+		void SetWinner(QImage& color);
 
 		// Modification du tableau de poids
-		void UpdateWeight(SomElement& color);
+		void UpdateWeight(QImage& color);
 
 		void UpdateCurrentIteration(uint currentIteration) { m_nCurrentIteration = currentIteration; }
 

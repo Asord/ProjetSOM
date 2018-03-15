@@ -10,12 +10,7 @@ namespace SOM
 		m_nID = Neuron::m_nCounter;
 		Neuron::m_nCounter++;
 		m_nWeightDim = 0;
-		//m_fWeight = nullptr;
-		m_fWeight = new uchar[m_nWeightDim];
-		for (uint i = 0; i < m_nWeightDim; ++i) {
-			m_fWeight[i] = (uchar)(rand() % 255);
-			qDebug() << m_fWeight[i];
-		}
+		m_fWeight = nullptr;
 	}
 
 	Neuron::~Neuron()
@@ -26,7 +21,7 @@ namespace SOM
 	uchar& Neuron::GetWeight(uint idWeight)
 	{
 		//TODO : Verifier si m_fweight = nullptr
-		if (m_fWeight == nullptr)
+		if (m_fWeight != nullptr)
 		{
 			uchar& weight = m_fWeight[idWeight];
 			return weight;
@@ -38,10 +33,15 @@ namespace SOM
 		}
 	}
 
+	const uchar * Neuron::GetWeight()
+	{
+		return m_fWeight;
+	}
+
 	void Neuron::SetWeight(uint idWeight, double alpha, const uchar input)
 	{
 		//TODO : Verifier si m_fweight = nullptr
-		if (m_fWeight == nullptr)
+		if (m_fWeight != nullptr)
 		{
 			uint old_weight = m_fWeight[idWeight];
 			uint input_weight = input;
@@ -61,8 +61,10 @@ namespace SOM
 		m_fPhi = phi;
 	}
 
-	void Neuron::InitiateWeight(uint WeightDim, uint resourceType)
+	void Neuron::InitiateWeight(uint WeightDim, uint height, uint width)
 	{
-
+		m_fWeight = new uchar[height*width];
+		for (int i = 0; i < width*height; ++i)
+			m_fWeight[i] = rand() % 255;
 	}
 }

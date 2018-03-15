@@ -26,7 +26,6 @@ namespace SOM {
 
 		bool m_bIsPaused = false; // programme en pause ?
 		bool m_bReady = true; // tous les parametres sont correcte?
-		bool m_bDefaultResource = true;
 
 		Network* m_pNetwork = nullptr;
 		Resources* m_pResources = nullptr;
@@ -68,7 +67,7 @@ namespace SOM {
 		std::chrono::time_point < std::chrono::system_clock > begin, end;
 		QGraphicsScene *m_pEntryScene; // Scene d'entrée
 	public:
-		void drawInput();
+		//void drawInput();
 
 		#endif
 	};
