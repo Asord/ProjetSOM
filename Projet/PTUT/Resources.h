@@ -1,6 +1,5 @@
 #pragma once
 #include "Utility.h"
-#include "bitmapHeader.h"
 
 #include <time.h>
 #include <iostream>
