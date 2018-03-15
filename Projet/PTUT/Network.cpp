@@ -16,7 +16,7 @@ namespace SOM
 		m_fBeta = m_pSettings->m_nInitialBeta;
 
 		m_nCurrentIteration = 1;
-		//calcNbMaxIterations();
+		calcNbMaxIterations();
 
 		// Aléatoire fait par rapport au temps
 		srand((uint)time(NULL));
@@ -63,6 +63,9 @@ namespace SOM
 	{
 		double alpha = m_fAlpha;
 		m_nNbIterationMax = 0;
+		if (m_pSettings->m_dEndAlpha == 0)
+			m_pSettings->m_dEndAlpha = 0.03;
+
 		while (alpha > m_pSettings->m_dEndAlpha)
 		{
 			alpha -= alpha * m_pSettings->m_dAlphaRate;
@@ -94,13 +97,14 @@ namespace SOM
 		switch (distanceType)
 		{
 		case EUCL:
-			for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
-			{
-				neuronWeight = this->getNeuron(row, col).GetWeight(idWeight);
+			for(uint x = 0; x < m_pResources->imageWidth; ++x)
+				for(uint y = 0; y < m_pResources->imageHeight; ++y)
+				{
+					neuronWeight = this->getNeuron(row, col).GetWeight(y*m_pResources->imageWidth+x);
+					colorWeight = qGray(image.pixel(x, y));
+					activity += pow((colorWeight - neuronWeight), 2);
+				}
 
-				colorWeight = qGray(image.color(idWeight));
-				activity += pow((colorWeight - neuronWeight), 2);
-			}
 			activity = sqrt(activity);
 		}
 		return activity;
@@ -171,8 +175,15 @@ namespace SOM
 				vNeuron[1] = col;
 
 				UpdatePhi(vNeuron);
-				for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
-					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, qGray(image.color(idWeight)));
+				for (uint x = 0; x < m_pResources->imageWidth; ++x)
+					for (uint y = 0; y < m_pResources->imageHeight; ++y)
+					{
+						this->getNeuron(row, col).SetWeight(
+							y * m_pResources->imageWidth + x,
+							m_fAlpha,
+							qGray(image.pixel(x, y))
+						);
+					}
 			}
 	}
 
