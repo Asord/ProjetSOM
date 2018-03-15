@@ -29,7 +29,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>180</y>
+      <y>140</y>
       <width>291</width>
       <height>441</height>
      </rect>
@@ -524,9 +524,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>620</y>
+      <y>580</y>
       <width>291</width>
-      <height>251</height>
+      <height>291</height>
      </rect>
     </property>
     <property name="title">
@@ -622,31 +622,12 @@
       <x>10</x>
       <y>20</y>
       <width>291</width>
-      <height>161</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QPushButton" name="OpenFile">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>80</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Choisir un vecteur d'entree</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="Restart">
      <property name="enabled">
       <bool>false</bool>
@@ -1340,28 +1321,12 @@
   <connection>
    <sender>NouveauRes</sender>
    <signal>clicked(bool)</signal>
-   <receiver>OpenFile</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>73</x>
-     <y>28</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>134</x>
-     <y>65</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>OpenFile</sender>
-   <signal>clicked(bool)</signal>
    <receiver>Window</receiver>
    <slot>openFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>134</x>
-     <y>65</y>
+     <x>73</x>
+     <y>48</y>
     </hint>
     <hint type="destinationlabel">
      <x>654</x>
