@@ -43,6 +43,7 @@ namespace SOM
 		initValues();//initialisation des parametres
 		checkIfReady();//verification des parametres
 
+		srand(time(NULL));
 
 		if (m_bReady)
 		{
