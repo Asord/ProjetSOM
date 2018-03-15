@@ -23,7 +23,7 @@ namespace SOM
 		{
 			m_nNbRows = 0;
 			m_nNbCols = 0;
-			m_nDimInputVector = 3;
+			m_nDimInputVector = 0;
 			m_dInitialAlpha = 0;
 			m_dEndAlpha = 0.03;
 			m_dAlphaRate = 0;
