@@ -1,14 +1,13 @@
 #include "Resources.h"
 
-namespace SOM // Resources
+namespace SOM
 {
-
 	Resources::Resources(QDir directory)
 	{
 		imageHeight = 0;
 		imageWidth = 0;
 
-		QStringList ressources_list = directory.entryList(QStringList() << "*.bmp" << "*.BMP", QDir::Files);
+		QStringList ressources_list = directory.entryList(QStringList() << "*.jpg" << "*.JPG", QDir::Files);
 
 		foreach(QString files, ressources_list)
 		{
@@ -17,13 +16,14 @@ namespace SOM // Resources
 
 			if (imageHeight == 0 && imageWidth == 0)
 			{
-				imageWidth = imageSize.width;
-				imageHeight = imageSize.height;
+				imageWidth = imageSize.width();
+				imageHeight = imageSize.height();
 
 				byteSize = imageSize.height() * imageSize.width() * image.pixelFormat().bitsPerPixel();
+
 			}
-			
-			if (imageHeight != imageSize.height || imageWidth != imageSize.width)
+
+			if (imageHeight != imageSize.height() || imageWidth != imageSize.width())
 			{
 				// TODO: handle error
 				exit(-1);
@@ -33,6 +33,5 @@ namespace SOM // Resources
 				images.push_back(image);
 			}
 		}
-
 	}
 }

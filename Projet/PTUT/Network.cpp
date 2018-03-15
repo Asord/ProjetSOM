@@ -29,7 +29,7 @@ namespace SOM
 
 		for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
 			for (int j = 0; j < m_pSettings->m_nNbRows; ++j)
-				m_vvNetwork[i][j].InitiateWeight(m_pSettings->m_nDimInputVector, m_pSettings->m_bDefaultResource);
+				m_vvNetwork[i][j].InitiateWeight(m_pSettings->m_nDimInputVector, m_pResources->imageHeight, m_pResources->imageWidth);
 		//TODO : pb ici
 		//m_vvNetwork.resize(m_pSettings->m_nNbCols);
 		//for (int i = 0; i < m_pSettings->m_nNbCols; ++i)
@@ -85,7 +85,7 @@ namespace SOM
 			m_fBeta -= m_fBeta * m_pSettings->m_dBetaRate;
 	}
 
-	double Network::GetActivity(uint row, uint col, SomElement& color)
+	double Network::GetActivity(uint row, uint col, QImage& image)
 	{
 		auto distanceType = DistanceMetric::EUCL; //TODO: ajouter d'autres methodes de calcules de distances
 		double activity = 0;
@@ -97,7 +97,8 @@ namespace SOM
 			for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
 			{
 				neuronWeight = this->getNeuron(row, col).GetWeight(idWeight);
-				colorWeight = color[idWeight];
+
+				colorWeight = qGray(image.color(idWeight));
 				activity += pow((colorWeight - neuronWeight), 2);
 			}
 			activity = sqrt(activity);
@@ -125,8 +126,8 @@ namespace SOM
 
 	void Network::AlgoSOM(uint currentIteration, uint i)
 	{
-		SetWinner(m_pResources->vector[i]);
-		UpdateWeight(m_pResources->vector[i]);
+		SetWinner(m_pResources->images[i]);
+		UpdateWeight(m_pResources->images[i]);
 		UpdateCurrentIteration(currentIteration);
 
 	}
@@ -138,7 +139,7 @@ namespace SOM
 
 	}
 
-	void Network::SetWinner(SomElement& color)
+	void Network::SetWinner(QImage& color)
 	{
 		double alphaTest = m_fAlpha;
 		m_fMinAct = fColorMinAct;
@@ -160,7 +161,7 @@ namespace SOM
 			}
 	}
 
-	void Network::UpdateWeight(SomElement &color)
+	void Network::UpdateWeight(QImage &image)
 	{
 		Vector vNeuron(2);
 		for (uint row = 0; row < m_pSettings->m_nNbRows; ++row)
@@ -171,7 +172,7 @@ namespace SOM
 
 				UpdatePhi(vNeuron);
 				for (uint idWeight = 0; idWeight < m_pSettings->m_nDimInputVector; ++idWeight)
-					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, color[idWeight]);
+					this->getNeuron(row, col).SetWeight(idWeight, m_fAlpha, qGray(image.color(idWeight)));
 			}
 	}
 

@@ -10,12 +10,7 @@ namespace SOM
 		m_nID = Neuron::m_nCounter;
 		Neuron::m_nCounter++;
 		m_nWeightDim = 0;
-		//m_fWeight = nullptr;
-		m_fWeight = new uchar[m_nWeightDim];
-		for (uint i = 0; i < m_nWeightDim; ++i) {
-			m_fWeight[i] = (uchar)(rand() % 255);
-			qDebug() << m_fWeight[i];
-		}
+		m_fWeight = nullptr;
 	}
 
 	Neuron::~Neuron()
@@ -61,8 +56,10 @@ namespace SOM
 		m_fPhi = phi;
 	}
 
-	void Neuron::InitiateWeight(uint WeightDim, uint resourceType)
+	void Neuron::InitiateWeight(uint WeightDim, uint height, uint width)
 	{
-
+		m_fWeight = new uchar[height*width];
+		for (int i = 0; i < width*height; ++i)
+			m_fWeight[i] = qGray(rand() % 255);
 	}
 }

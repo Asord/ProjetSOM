@@ -10,6 +10,8 @@
 
 namespace SOM
 {
+	const unsigned long fColorMinAct = 0xffffffff;
+
 	class Resources
 	{
 	public:

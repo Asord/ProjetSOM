@@ -75,23 +75,23 @@ namespace SOM {
 		for (uint row = 0; row < m_settings.m_nNbRows; row++)
 		{
 			for (uint col = 0; col < m_settings.m_nNbCols; col++) {
-				if (m_settings->m_bDefaultResource)//couleur
-				{
-					red = m_pNetwork->getNeuron(row, col).GetWeight(0);
-					green = m_pNetwork->getNeuron(row, col).GetWeight(1);
-					blue = m_pNetwork->getNeuron(row, col).GetWeight(2);
+				//if (m_settings->m_bDefaultResource)//couleur
+				//{
+				//	red = m_pNetwork->getNeuron(row, col).GetWeight(0);
+				//	green = m_pNetwork->getNeuron(row, col).GetWeight(1);
+				//	blue = m_pNetwork->getNeuron(row, col).GetWeight(2);
 
-					QBrush brush(QColor(red, green, blue));
-					m_pScene->addRect(
-						(ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col,
-						(ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row,
-						ui.graphicsView->width() / m_settings.m_nNbCols,
-						ui.graphicsView->height() / m_settings.m_nNbRows,
-						outlinePen,
-						brush);
-				}
-				else //lettre
-				{
+				//	QBrush brush(QColor(red, green, blue));
+				//	m_pScene->addRect(
+				//		(ui.graphicsView->width() - 5) / m_settings.m_nNbCols*col,
+				//		(ui.graphicsView->height() - 5) / m_settings.m_nNbRows*row,
+				//		ui.graphicsView->width() / m_settings.m_nNbCols,
+				//		ui.graphicsView->height() / m_settings.m_nNbRows,
+				//		outlinePen,
+				//		brush);
+				//}
+				//else //lettre
+				//{
 					int idPoids = 0;
 					for (uint innerRow = 0; innerRow < m_pResources->imageHeight; innerRow++)
 					{
@@ -114,7 +114,7 @@ namespace SOM {
 								brush);
 
 						}
-					}
+					//}
 				}
 			}
 		}
@@ -248,8 +248,6 @@ namespace SOM {
 		//stoquage des couleur dans un tableau
 		DYN_FREE(m_pResources);
 		m_pResources = new Resources(directory);
-
-		m_bDefaultResource = false;
 	}
 
 #ifndef _SOM_DEBUG
