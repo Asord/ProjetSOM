@@ -25,22 +25,6 @@
    <property name="title">
     <string>GroupBox</string>
    </property>
-   <widget class="QPushButton" name="NouveauRes">
-    <property name="geometry">
-     <rect>
-      <x>19</x>
-      <y>30</y>
-      <width>130</width>
-      <height>37</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Nouveau réseau</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="ExecutionGrp">
     <property name="geometry">
      <rect>
@@ -626,7 +610,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>30</y>
+      <y>50</y>
       <width>130</width>
       <height>37</height>
      </rect>
@@ -644,17 +628,17 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>65</x>
-      <y>70</y>
-      <width>181</width>
-      <height>31</height>
+      <x>20</x>
+      <y>50</y>
+      <width>130</width>
+      <height>37</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Choisir un vecteur d'entree</string>
+     <string>Nouveau Reseau</string>
     </property>
    </widget>
   </widget>
@@ -681,7 +665,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>NouveauRes</tabstop>
   <tabstop>LigneValue</tabstop>
   <tabstop>ColValue</tabstop>
   <tabstop>AlphaSlider</tabstop>
@@ -765,342 +748,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Titre1</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>135</x>
-     <y>117</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Line1</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>145</x>
-     <y>127</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Lignes</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>35</x>
-     <y>150</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>LigneValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>90</x>
-     <y>150</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Colonnes</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>35</x>
-     <y>180</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ColValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>90</x>
-     <y>180</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Titre2</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>145</x>
-     <y>207</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Alpha</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>33</x>
-     <y>250</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Beta</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>33</x>
-     <y>290</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>BetaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>85</x>
-     <y>290</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>StartBtn</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>70</x>
-     <y>535</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>AlphaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>247</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>TauxAlpha</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>45</x>
-     <y>281</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>TauxAlphaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>110</x>
-     <y>281</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>PeriodeAlpha</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>200</x>
-     <y>280</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>PeriodeAlphaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>280</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>TauxBeta</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>45</x>
-     <y>350</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>TauxBetaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>110</x>
-     <y>350</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>PeriodeBeta</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>200</x>
-     <y>350</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>PeriodeBetaValue</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>350</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>AlphaSlider</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>150</x>
-     <y>250</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>TauxAlphaValue</sender>
    <signal>valueChanged(double)</signal>
    <receiver>Window</receiver>
@@ -1177,38 +824,6 @@
     <hint type="destinationlabel">
      <x>95</x>
      <y>596</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>NouveauRes</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>OpenFile</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>73</x>
-     <y>28</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>134</x>
-     <y>65</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>OpenFile</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Window</receiver>
-   <slot>openFile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>134</x>
-     <y>65</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>654</x>
-     <y>308</y>
     </hint>
    </hints>
   </connection>
