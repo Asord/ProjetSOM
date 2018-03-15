@@ -11,6 +11,9 @@ namespace SOM
 
 		m_pResources = resources_ptr;
 
+		if (m_pResources == nullptr)
+			exit(0xa); 
+
 		//initialisation alpha et beta
 		m_fAlpha = m_pSettings->m_dInitialAlpha;
 		m_fBeta = m_pSettings->m_nInitialBeta;
