@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PTUT", "Projet\PTUT\PTUT.vcxproj", "{F5C1289F-74E6-42F9-90AF-0255DFCF5952}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SOM_DATA_Formater", "Projet\SOM_DATA_Formater\SOM_DATA_Formater.vcxproj", "{66FDED94-F95B-4987-9F87-DAFA65DF7677}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,14 +19,6 @@ Global
 		{F5C1289F-74E6-42F9-90AF-0255DFCF5952}.Release|x64.ActiveCfg = Release|x64
 		{F5C1289F-74E6-42F9-90AF-0255DFCF5952}.Release|x64.Build.0 = Release|x64
 		{F5C1289F-74E6-42F9-90AF-0255DFCF5952}.Release|x86.ActiveCfg = Release|x64
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Debug|x64.ActiveCfg = Debug|x64
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Debug|x64.Build.0 = Debug|x64
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Debug|x86.ActiveCfg = Debug|Win32
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Debug|x86.Build.0 = Debug|Win32
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Release|x64.ActiveCfg = Release|x64
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Release|x64.Build.0 = Release|x64
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Release|x86.ActiveCfg = Release|Win32
-		{66FDED94-F95B-4987-9F87-DAFA65DF7677}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
