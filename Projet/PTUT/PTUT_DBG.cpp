@@ -75,8 +75,9 @@ namespace SOM
 
 			//boucle a déplacer pour optimiser
 			for (uint it = 1; it <= maxIteration; ++it) {
-				for (uint i = 0; i < m_pResources->byteSize; ++i)
+				for (uint i = 0; i < m_pResources->images.size(); ++i)
                 {
+					masterPtr->processEvents();
 					updateGraphic();
                     m_pNetwork->AlgoSOM(it, i);
                     updateValuesUI(it);
@@ -105,7 +106,6 @@ namespace SOM
 		ui.TauxBetaValue->setValue(1);
 		ui.PeriodeBetaValue->setValue(0);
 		m_pScene->clear();
-		m_pEntryScene->clear();
 		ui.graphicsView->setScene(m_pScene);
 		ui.graphicsPreview->setScene(m_pScene);
 		ui.ProgressBar->setValue(0);
