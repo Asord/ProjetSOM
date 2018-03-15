@@ -57,9 +57,6 @@
     <ClCompile Include="PTUT_DBG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bitmapHeader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -92,9 +89,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bitmapHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
