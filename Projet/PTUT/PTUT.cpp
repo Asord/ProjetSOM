@@ -5,6 +5,7 @@
 #include <qtextcodec.h>
 #include <QFileDialog>
 #include <qerrormessage.h>
+#include <QGraphicsPixmapItem>
 
 namespace SOM {
 
@@ -63,16 +64,12 @@ namespace SOM {
 	{
 		DYN_FREE(m_pScene)
 
-			m_pScene = new QGraphicsScene(this);
+		m_pScene = new QGraphicsScene(this);
+		m_pScene->setSceneRect(0, 0, ui.graphicsView->width(), ui.graphicsView->height());
 
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-		QPen outlinePen(Qt::black);
-		outlinePen.setWidth(0);
-
-		//dessine chaque neurone du reseau
-		uint red, green, blue;
 		for (uint row = 0; row < m_settings.m_nNbRows; row++)
 		{
 			for (uint col = 0; col < m_settings.m_nNbCols; col++) {
@@ -84,15 +81,12 @@ namespace SOM {
 					QImage::Format_Grayscale8
 				);
 
-				QPen outlineInnerPen(QColor(120, 120, 120));
-				outlineInnerPen.setWidth(0);
-
-				QPixmap pixmap = QPixmap::fromImage(image);
-				m_pScene->addPixmap(pixmap);
-
+				QGraphicsPixmapItem* pixmapItem = m_pScene->addPixmap(QPixmap::fromImage(image).scaled(this->width() + (ui.graphicsView->width() / m_settings.m_nNbRows - this->width()), this->height() + (ui.graphicsView->height() / m_settings.m_nNbRows) - this->height()));
+				pixmapItem->setPos(col *ui.graphicsView->width()/ m_settings.m_nNbRows, row*ui.graphicsView->height()/ m_settings.m_nNbRows);
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
+
 		ui.ProgressBar->setValue(1);
 
 	}
