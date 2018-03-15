@@ -16,6 +16,14 @@ namespace SOM {
 		setWindowTitle(QString(CURRENT_VER_TITLE));
 	}
 
+	PTUT::PTUT(QApplication* master) : QWidget(Q_NULLPTR)
+	{
+		ui.setupUi(this);
+		setWindowTitle(QString(CURRENT_VER_TITLE));
+
+		masterPtr = master;
+	}
+
 	void PTUT::setRows()
 	{
 		//met la valeur du compteur dans la variable m_nNbRows
@@ -44,7 +52,7 @@ namespace SOM {
 		}
 	}
 
-	void PTUT::updateValuesUI(int currentIteration)
+	void PTUT::updateValuesUI(int& currentIteration)
 	{
 		//alpha
 		ui.AlphaSlider->setSliderPosition((int)(m_pNetwork->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
@@ -72,8 +80,8 @@ namespace SOM {
 
 		for (uint row = 0; row < m_settings.m_nNbRows; row++)
 		{
-			for (uint col = 0; col < m_settings.m_nNbCols; col++) {
-
+			for (uint col = 0; col < m_settings.m_nNbCols; col++) 
+			{
 				QImage image = QImage(
 					m_pNetwork->getNeuron(row, col).GetWeight(),
 					m_pResources->imageHeight,
@@ -155,6 +163,7 @@ namespace SOM {
 		ui.BetaSlider->setMaximum(std::max(ui.LigneValue->value(), ui.ColValue->value()));
 		ui.BetaValue->setText(QString::number(ui.BetaSlider->value()));
 	}
+
 
 	void PTUT::initValues() {
 
