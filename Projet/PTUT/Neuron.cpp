@@ -21,7 +21,7 @@ namespace SOM
 	uchar& Neuron::GetWeight(uint idWeight)
 	{
 		//TODO : Verifier si m_fweight = nullptr
-		if (m_fWeight == nullptr)
+		if (m_fWeight != nullptr)
 		{
 			uchar& weight = m_fWeight[idWeight];
 			return weight;
@@ -33,10 +33,15 @@ namespace SOM
 		}
 	}
 
+	const uchar * Neuron::GetWeight()
+	{
+		return m_fWeight;
+	}
+
 	void Neuron::SetWeight(uint idWeight, double alpha, const uchar input)
 	{
 		//TODO : Verifier si m_fweight = nullptr
-		if (m_fWeight == nullptr)
+		if (m_fWeight != nullptr)
 		{
 			uint old_weight = m_fWeight[idWeight];
 			uint input_weight = input;
@@ -60,6 +65,6 @@ namespace SOM
 	{
 		m_fWeight = new uchar[height*width];
 		for (int i = 0; i < width*height; ++i)
-			m_fWeight[i] = qGray(rand() % 255);
+			m_fWeight[i] = rand() % 255;
 	}
 }

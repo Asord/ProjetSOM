@@ -47,6 +47,8 @@ namespace SOM
 
 		// R�cup�re un poids du vecteur de poids
 		uchar& GetWeight(uint idWeight);
+		const uchar* GetWeight();
+
 		uint getID() { return m_nID; }
 		//double getPhi() { return m_fPhi; }
 	};
