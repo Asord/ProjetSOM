@@ -58,10 +58,12 @@ namespace SOM
 
 			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
 
+			m_settings.m_nDimInputVector = m_pResources->imageHeight*m_pResources->imageWidth;
+
 			//drawInput();
 
 			//calcul du nombre maximum d'iterations
-			m_pNetwork->calcNbMaxIterations();
+			//m_pNetwork->calcNbMaxIterations();
 
 			uint maxIteration = m_pNetwork->getMaxIteration();
 
