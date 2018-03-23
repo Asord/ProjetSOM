@@ -28,7 +28,6 @@ namespace SOM {
 		QApplication* masterPtr;
 
 		bool m_bIsPaused = false; // programme en pause ?
-		bool m_bReady = true; // tous les parametres sont correcte?
 
 		Network* m_pNetwork = nullptr;
 		Resources* m_pResources = nullptr;
@@ -42,9 +41,9 @@ namespace SOM {
 		//initialise les variables avec les valeurs des parametres
 		void initValues();
 		//verifie que toutes les parametres sont correctes
-		void checkIfReady();
+		bool checkIfReady();
 		//actualise la valeur de alpha et beta au cours de l'algo
-		void updateValuesUI(int& currentIteration);
+		void updateValuesUI(const int& currentIteration);
 		//desactive tout l'interface inutile lorsque l'apprentissageest lancé
 		void disabledEverything();
 		//initialisation de la visualisation
@@ -63,14 +62,5 @@ namespace SOM {
 		void setBetaValueText();
 		void restart();
 		void openFile();
-
-		#ifdef _SOM_DEBUG  // TODO: Mettre les methodes debug ici et définir dans PTUT_DBG.cpp
-
-	private:
-		std::chrono::time_point < std::chrono::system_clock > begin, end;
-	public:
-		//void drawInput();
-
-		#endif
 	};
 }

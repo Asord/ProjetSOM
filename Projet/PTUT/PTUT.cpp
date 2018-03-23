@@ -52,13 +52,14 @@ namespace SOM {
 		}
 	}
 
-	void PTUT::updateValuesUI(int& currentIteration)
+	void PTUT::updateValuesUI(const int& currentIteration)
 	{
+		masterPtr->processEvents();
 		//alpha
 		ui.AlphaSlider->setSliderPosition((int)(m_pNetwork->getAlpha() * 1000.0)); //TODO: Corriger problème interface du slider
 		ui.AlphaValue->setText(QString::number(m_pNetwork->getAlpha() + 0.006)); // TODO: slider pour BETA
 
-																				 //beta
+		//beta
 		ui.BetaSlider->setSliderPosition((int)(m_pNetwork->getBeta()));
 		ui.BetaValue->setText(QString::number(m_pNetwork->getBeta()));
 
@@ -108,7 +109,8 @@ namespace SOM {
 		QPen outlinePen(Qt::red);
 		outlinePen.setWidth(2);
 
-		for (int i = 0; i < size - 1; i++) {
+		for (int i = 0; i < size - 1; i++) 
+		{
 			m_pAlphaCurveScene->addLine(i * ui.AlphaCurve->width() / size,
 				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
 				(i + 1) * ui.AlphaCurve->width() / size,
@@ -183,27 +185,30 @@ namespace SOM {
 		ui.NbrIterations->setText("Calculs preparatoires en cours.");
 	}
 
-	void PTUT::checkIfReady()
+	bool PTUT::checkIfReady()
 	{
+
 		//verifie que le taux alpha n'est pas egal au taux beta
 		if (m_settings.m_dAlphaRate == m_settings.m_dBetaRate)
-			m_bReady = false;
+			return false;
 
 		//verifie que le nombre de ligne est correct
 		if (m_settings.m_nNbRows == 0)
 		{
 			ui.ErreurLignes->setText("Veuillez saisir une valeur valide.");
-			m_bReady = false;
+			return false;
 		}
 		//verifie que le nombre de colonnes est correct
 		if (m_settings.m_nNbCols == 0)
 		{
 			ui.ErreurColonnes->setText("Veuillez saisir une valeur valide.");
-			m_bReady = false;
+			return false;
 		}
 
 		if (m_settings.m_nInitialBeta == 0)
-			m_bReady = false;
+			return false;
+
+		return true;
 	}
 
 	void PTUT::disabledEverything()
@@ -228,7 +233,54 @@ namespace SOM {
 		m_pResources = new Resources(directory);
 	}
 
-#ifndef _SOM_DEBUG
+	void PTUT::start()
+	{
+		initValues();//initialisation des parametres
+
+		// Si tous les paramètres entrées sont valides
+		if (checkIfReady())
+		{
+			disabledEverything();//desactive l'interface inutile
+
+			// Creation du réseau
+			SOM::Vector vDimNetwork(2);
+			vDimNetwork[0] = m_settings.m_nNbRows;
+			vDimNetwork[1] = m_settings.m_nNbCols;
+
+			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
+
+			m_settings.m_nDimInputVector = m_pResources->imageHeight*m_pResources->imageWidth;
+
+			//drawInput();
+
+			//calcul du nombre maximum d'iterations
+			//m_pNetwork->calcNbMaxIterations();
+
+			uint maxIteration = m_pNetwork->getMaxIteration();
+
+			//initialisation de la progressBar
+			ui.ProgressBar->setMaximum(maxIteration);
+
+			//affichage des courbes de alpha et beta
+			drawCurves();
+
+			//boucle a déplacer pour optimiser
+			for (int it = 1; it <= maxIteration; ++it) {
+				for (int i = 0; i < m_pResources->images.size(); ++i)
+				{
+					masterPtr->processEvents();
+					updateGraphic();
+					m_pNetwork->AlgoSOM(it, i);
+					updateValuesUI(it);
+				}
+
+				m_pNetwork->UpdateAlpha();
+				m_pNetwork->UpdateBeta();
+			}
+
+			ui.NbrIterations->setText("Apprentissage fini.");
+		}
+	}
 
 	void PTUT::restart()
 	{
@@ -236,61 +288,19 @@ namespace SOM {
 		ui.AlphaValue->setText("0");
 		ui.TauxAlphaValue->setValue(0);
 		ui.PeriodeAlphaValue->setValue(0);
+		ui.BetaSlider->setValue(0);
+		ui.BetaValue->setText("0");
 		ui.TauxBetaValue->setValue(1);
 		ui.PeriodeBetaValue->setValue(0);
 		m_pScene->clear();
 		ui.graphicsView->setScene(m_pScene);
+		ui.graphicsPreview->setScene(m_pScene);
 		ui.ProgressBar->setValue(0);
 		ui.StartBtn->setEnabled(true);
 		ui.NbrIterations->setText("");
 
-		delete network;
-
-		//TODO: réinitialiser le reseau (MaxIterations)
+		delete m_pNetwork;
 	}
-
-	void PTUT::start()
-	{
-		initValues();//initialisation des parametres
-		checkIfReady();//verification des parametres
-
-
-		if (m_bReady)
-		{
-			disabledEverything();//desactive l'interface inutile
-
-								 // Creation du réseau
-			SOM::Vector vDimNetwork(2);
-			vDimNetwork[0] = settings.m_nNbRows;
-			vDimNetwork[1] = settings.m_nNbCols;
-			network = SOM::Network::GetInstance(settings);
-
-			drawInput();
-
-			//calcul du nombre maximum d'iterations
-			network->calcNbMaxIterations();
-
-			uint maxIteration = network->getMaxIteration();
-
-			//initialisation de la progressBar
-			ui.ProgressBar->setMaximum(maxIteration);
-
-
-			//boucle a déplacer pour optimiser
-			for (uint it = 1; it <= maxIteration; ++it) {
-				for (uint i = 0; i < network->m_resources.m_nHeight * network->m_resources.m_nWidth; ++i)
-				{
-					updateGraphic();
-					network->AlgoSOM(it, i);
-					updateValuesUI(it);
-				}
-
-				network->UpdateAlpha();
-				network->UpdateBeta();
-			}
-		}
-	}
-#endif
 
 	void PTUT::pause()
 	{
@@ -298,8 +308,8 @@ namespace SOM {
 		//changement du texte en fonction de m_bIsPaused
 		m_bIsPaused = !m_bIsPaused;
 		if (m_bIsPaused)
-			ui.PauseBtn->setText("Reprendre");
+			ui.PauseBtn->setText("Reprendre...");
 		else
-			ui.PauseBtn->setText("Pause apprentissage");
+			ui.PauseBtn->setText("Mettre en pause");
 	}
 }
