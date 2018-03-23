@@ -6,8 +6,3 @@ typedef unsigned long ulong; // 8 octet
 
 #define DYN_FREE(dynamic_obj) if(dynamic_obj != nullptr) { delete dynamic_obj; dynamic_obj = nullptr; }
 #define DYN_FREE_A(dynamic_lst) if(dynamic_lst != nullptr) { delete[] dynamic_lst; dynamic_lst = nullptr; }
-
-namespace SOM
-{
-	ulong isqrt(ulong x);
-}
