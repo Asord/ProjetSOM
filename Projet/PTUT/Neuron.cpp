@@ -51,7 +51,7 @@ namespace SOM
 		}
 		else
 		{
-			std::cerr << "Vecteur de poids null";
+			qDebug() << "Vecteur de poids null";
 			exit(EXIT_FAILURE);
 		}
 	}
