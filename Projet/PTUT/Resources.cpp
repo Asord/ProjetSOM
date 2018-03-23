@@ -1,4 +1,5 @@
 #include "Resources.h"
+#include <qdebug.h>
 
 namespace SOM
 {
@@ -8,6 +9,9 @@ namespace SOM
 		imageWidth = 0;
 
 		QStringList ressources_list = directory.entryList(QStringList() << "*.jpg" << "*.JPG", QDir::Files);
+
+		if (ressources_list.length() == 0)
+			printf("Le dossier spécifier ne contiens pas d'images utilisables...");
 
 		foreach(QString files, ressources_list)
 		{
@@ -27,7 +31,7 @@ namespace SOM
 
 			if (imageHeight != imageSize.height() || imageWidth != imageSize.width())
 			{
-				// TODO: handle error
+				printf("Une image du dossier n'est pas de même dimention que les autres ! Arrêt");
 				exit(-1);
 			}
 			else
