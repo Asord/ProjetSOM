@@ -54,13 +54,7 @@
     <ClCompile Include="PTUT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PTUT_DBG.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Resources.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

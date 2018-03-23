@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F5C1289F-74E6-42F9-90AF-0255DFCF5952}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
     <ProjectName>PTUT</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -158,10 +158,8 @@
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="PTUT.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PTUT_DBG.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Resources.h" />
-    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PTUT.h">
