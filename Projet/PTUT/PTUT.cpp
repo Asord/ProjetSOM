@@ -121,7 +121,7 @@ namespace SOM {
 				outlinePen);
 		}
 
-		m_pAlphaCurveScene->addLine(x, 0, x, ui.AlphaCurve->height(), outlinePen);
+		m_pAlphaCurveScene->addLine(m_pNetwork->getAlphaValues()[x], 0, m_pNetwork->getAlphaValues()[x], ui.AlphaCurve->height(), outlinePen);
 
 		ui.AlphaCurve->setScene(m_pAlphaCurveScene);
 
@@ -142,7 +142,7 @@ namespace SOM {
 			beta2 -= beta2 * m_settings.m_dBetaRate;
 		}
 
-		m_pBetaCurveScene->addLine(x, 0, x, ui.BetaCurve->height(), outlinePen);
+		m_pBetaCurveScene->addLine(m_pNetwork->getAlphaValues()[x], 0, m_pNetwork->getAlphaValues()[x], ui.BetaCurve->height(), outlinePen);
 		
 		ui.BetaCurve->setScene(m_pBetaCurveScene);
 
