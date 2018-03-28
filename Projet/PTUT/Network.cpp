@@ -5,7 +5,7 @@
 namespace SOM
 {
 	//Constructeur
-	Network::Network(Settings* settings_ptr, Resources* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
+	Network::Network(Settings* settings_ptr, Elements* resources_ptr) : m_vWinner(settings_ptr->m_nNetworkDim)
 	{
 		m_pSettings = settings_ptr;
 
