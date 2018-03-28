@@ -1,7 +1,5 @@
 #pragma once
 
-// Défini l'instance débug
-#define _SOM_DEBUG
 
 #include "ui_PTUT.h"
 
@@ -30,10 +28,9 @@ namespace SOM {
 		bool m_bIsPaused = false; // programme en pause ?
 
 		Network* m_pNetwork = nullptr;
-		Resources* m_pResources = nullptr;
+		Elements* m_pResources = nullptr;
 
-		Settings m_settings;
-
+		Settings m_Settings;
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView
 

@@ -1,11 +1,15 @@
 #define CURRENT_VER_TITLE "Algorithme de SOM | Beta 1.1"
 
 #include "PTUT.h"
+#include "ThreadedCalcs.h"
+
 #include <QtAlgorithms>
 #include <qtextcodec.h>
 #include <QFileDialog>
 #include <qerrormessage.h>
 #include <QGraphicsPixmapItem>
+#include <qthread.h>
+
 
 namespace SOM {
 
@@ -27,28 +31,28 @@ namespace SOM {
 	void PTUT::setRows()
 	{
 		//met la valeur du compteur dans la variable m_nNbRows
-		m_settings.m_nNbRows = (uint)ui.LigneValue->value();
-		if (m_settings.m_nNbRows > ui.BetaSlider->maximum())
-			ui.BetaSlider->setMaximum(m_settings.m_nNbRows);
+		m_Settings.m_nNbRows = (uint)ui.LigneValue->value();
+		if (m_Settings.m_nNbRows > ui.BetaSlider->maximum())
+			ui.BetaSlider->setMaximum(m_Settings.m_nNbRows);
 
-		if (ui.BetaSlider->value() > std::max(m_settings.m_nNbRows, m_settings.m_nNbCols))
+		if (ui.BetaSlider->value() > std::max(m_Settings.m_nNbRows, m_Settings.m_nNbCols))
 		{
-			ui.BetaSlider->setValue(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols));
-			ui.BetaValue->setText(QString::number(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols)));
+			ui.BetaSlider->setValue(std::max(m_Settings.m_nNbRows, m_Settings.m_nNbCols));
+			ui.BetaValue->setText(QString::number(std::max(m_Settings.m_nNbRows, m_Settings.m_nNbCols)));
 		}
 	}
 
 	void PTUT::setColumns()
 	{
 		//met la valeur du compteur dans la variable m_nNbCols
-		m_settings.m_nNbCols = (uint)ui.ColValue->value();
-		if (m_settings.m_nNbCols > ui.BetaSlider->maximum())
-			ui.BetaSlider->setMaximum(m_settings.m_nNbCols);
+		m_Settings.m_nNbCols = (uint)ui.ColValue->value();
+		if (m_Settings.m_nNbCols > ui.BetaSlider->maximum())
+			ui.BetaSlider->setMaximum(m_Settings.m_nNbCols);
 
-		if (ui.BetaSlider->value() > std::max(m_settings.m_nNbRows, m_settings.m_nNbCols))
+		if (ui.BetaSlider->value() > std::max(m_Settings.m_nNbRows, m_Settings.m_nNbCols))
 		{
-			ui.BetaSlider->setValue(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols));
-			ui.BetaValue->setText(QString::number(std::max(m_settings.m_nNbRows, m_settings.m_nNbCols)));
+			ui.BetaSlider->setValue(std::max(m_Settings.m_nNbRows, m_Settings.m_nNbCols));
+			ui.BetaValue->setText(QString::number(std::max(m_Settings.m_nNbRows, m_Settings.m_nNbCols)));
 		}
 	}
 
@@ -79,9 +83,9 @@ namespace SOM {
 		ui.graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 		ui.graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-		for (uint row = 0; row < m_settings.m_nNbRows; row++)
+		for (uint row = 0; row < m_Settings.m_nNbRows; row++)
 		{
-			for (uint col = 0; col < m_settings.m_nNbCols; col++) 
+			for (uint col = 0; col < m_Settings.m_nNbCols; col++) 
 			{
 				QImage image = QImage(
 					m_pNetwork->getNeuron(row, col).GetWeight(),
@@ -90,8 +94,8 @@ namespace SOM {
 					QImage::Format_Grayscale8
 				);
 
-				QGraphicsPixmapItem* pixmapItem = m_pScene->addPixmap(QPixmap::fromImage(image).scaled(this->width() + (ui.graphicsView->width() / m_settings.m_nNbRows - this->width()), this->height() + (ui.graphicsView->height() / m_settings.m_nNbRows) - this->height()));
-				pixmapItem->setPos(col *ui.graphicsView->width()/ m_settings.m_nNbRows, row*ui.graphicsView->height()/ m_settings.m_nNbRows);
+				QGraphicsPixmapItem* pixmapItem = m_pScene->addPixmap(QPixmap::fromImage(image).scaled(this->width() + (ui.graphicsView->width() / m_Settings.m_nNbRows - this->width()), this->height() + (ui.graphicsView->height() / m_Settings.m_nNbRows) - this->height()));
+				pixmapItem->setPos(col *ui.graphicsView->width()/ m_Settings.m_nNbRows, row*ui.graphicsView->height()/ m_Settings.m_nNbRows);
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
@@ -112,9 +116,9 @@ namespace SOM {
 		for (int i = 0; i < size - 1; i++) 
 		{
 			m_pAlphaCurveScene->addLine(i * ui.AlphaCurve->width() / size,
-				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_Settings.m_dInitialAlpha),
 				(i + 1) * ui.AlphaCurve->width() / size,
-				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_Settings.m_dInitialAlpha),
 				outlinePen);
 		}
 
@@ -123,18 +127,18 @@ namespace SOM {
 		//Courbe Beta
 		QGraphicsScene* m_pBetaCurveScene = new QGraphicsScene(this);
 
-		double beta = m_settings.m_nInitialBeta;
-		double beta2 = beta - beta * m_settings.m_dBetaRate;
+		double beta = m_Settings.m_nInitialBeta;
+		double beta2 = beta - beta * m_Settings.m_dBetaRate;
 		for (int i = 0; i < size - 1; i++) {
 
 			m_pBetaCurveScene->addLine(i * ui.BetaCurve->width() / size,
-				ui.BetaCurve->height() - (beta * (ui.BetaCurve->height() - 30) / m_settings.m_nInitialBeta),
+				ui.BetaCurve->height() - (beta * (ui.BetaCurve->height() - 30) / m_Settings.m_nInitialBeta),
 				(i + 1) * ui.BetaCurve->width() / size,
-				ui.BetaCurve->height() - (beta2 * (ui.BetaCurve->height() - 30) / m_settings.m_nInitialBeta),
+				ui.BetaCurve->height() - (beta2 * (ui.BetaCurve->height() - 30) / m_Settings.m_nInitialBeta),
 				outlinePen);
 
-			beta -= beta * m_settings.m_dBetaRate;
-			beta2 -= beta2 * m_settings.m_dBetaRate;
+			beta -= beta * m_Settings.m_dBetaRate;
+			beta2 -= beta2 * m_Settings.m_dBetaRate;
 		}
 
 		ui.BetaCurve->setScene(m_pBetaCurveScene);
@@ -170,13 +174,13 @@ namespace SOM {
 	void PTUT::initValues() {
 
 		//initialisation des parametres
-		m_settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
-		m_settings.m_dEndAlpha = ui.AlphaEndValue->value();
-		m_settings.m_dAlphaRate = ui.TauxAlphaValue->value();
-		m_settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
-		m_settings.m_nInitialBeta = ui.BetaSlider->value();
-		m_settings.m_dBetaRate = ui.TauxBetaValue->value();
-		m_settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
+		m_Settings.m_dInitialAlpha = ui.AlphaSlider->value() / 1000.0;
+		m_Settings.m_dEndAlpha = ui.AlphaEndValue->value();
+		m_Settings.m_dAlphaRate = ui.TauxAlphaValue->value();
+		m_Settings.m_nAlphaPeriod = (uint)ui.PeriodeAlphaValue->value();
+		m_Settings.m_nInitialBeta = ui.BetaSlider->value();
+		m_Settings.m_dBetaRate = ui.TauxBetaValue->value();
+		m_Settings.m_nBetaPeriod = (uint)ui.PeriodeBetaValue->value();
 
 
 		//initialisation des messages d'erreur
@@ -189,23 +193,23 @@ namespace SOM {
 	{
 
 		//verifie que le taux alpha n'est pas egal au taux beta
-		if (m_settings.m_dAlphaRate == m_settings.m_dBetaRate)
+		if (m_Settings.m_dAlphaRate == m_Settings.m_dBetaRate)
 			return false;
 
 		//verifie que le nombre de ligne est correct
-		if (m_settings.m_nNbRows == 0)
+		if (m_Settings.m_nNbRows == 0)
 		{
 			ui.ErreurLignes->setText("Veuillez saisir une valeur valide.");
 			return false;
 		}
 		//verifie que le nombre de colonnes est correct
-		if (m_settings.m_nNbCols == 0)
+		if (m_Settings.m_nNbCols == 0)
 		{
 			ui.ErreurColonnes->setText("Veuillez saisir une valeur valide.");
 			return false;
 		}
 
-		if (m_settings.m_nInitialBeta == 0)
+		if (m_Settings.m_nInitialBeta == 0)
 			return false;
 
 		return true;
@@ -230,7 +234,7 @@ namespace SOM {
 
 		//stoquage des couleur dans un tableau
 		DYN_FREE(m_pResources);
-		m_pResources = new Resources(directory);
+		m_pResources = new Elements(directory);
 	}
 
 	void PTUT::start()
@@ -244,12 +248,12 @@ namespace SOM {
 
 			// Creation du réseau
 			SOM::Vector vDimNetwork(2);
-			vDimNetwork[0] = m_settings.m_nNbRows;
-			vDimNetwork[1] = m_settings.m_nNbCols;
+			vDimNetwork[0] = m_Settings.m_nNbRows;
+			vDimNetwork[1] = m_Settings.m_nNbCols;
 
-			m_pNetwork = new SOM::Network(&m_settings, m_pResources);
+			m_pNetwork = new SOM::Network(&m_Settings, m_pResources);
 
-			m_settings.m_nDimInputVector = m_pResources->imageHeight*m_pResources->imageWidth;
+			m_Settings.m_nDimInputVector = m_pResources->imageHeight*m_pResources->imageWidth;
 
 			//drawInput();
 
@@ -264,18 +268,26 @@ namespace SOM {
 			//affichage des courbes de alpha et beta
 			drawCurves();
 
-			//boucle a déplacer pour optimiser
-			for (int it = 1; it <= maxIteration; ++it) {
-				for (int i = 0; i < m_pResources->images.size(); ++i)
-				{
-					masterPtr->processEvents();
-					updateGraphic();
-					m_pNetwork->AlgoSOM(it, i);
-					updateValuesUI(it);
-				}
+			ThreadedCalcsParam param{ m_pNetwork, m_pResources, &m_Settings };
 
-				m_pNetwork->UpdateAlpha();
-				m_pNetwork->UpdateBeta();
+			QThread* thread = new QThread;
+			ThreadedCalcs* worker = new ThreadedCalcs(param);
+
+			worker->moveToThread(thread);
+
+			connect(thread, SIGNAL(started()), worker, SLOT(process()));
+			connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+			connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+			connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+			thread->start();
+
+			while(thread->isRunning())
+			{
+				masterPtr->processEvents();
+				updateGraphic();
+				updateValuesUI(worker->GetCurrentIteration());
+				_sleep(200);
 			}
 
 			ui.NbrIterations->setText("Apprentissage fini.");
