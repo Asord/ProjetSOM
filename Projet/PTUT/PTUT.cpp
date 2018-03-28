@@ -90,43 +90,44 @@ namespace SOM {
 					QImage::Format_Grayscale8
 				);
 
-				QGraphicsPixmapItem* pixmapItem = m_pScene->addPixmap(QPixmap::fromImage(image).scaled(this->width() + (ui.graphicsView->width() / m_settings.m_nNbRows - this->width()), this->height() + (ui.graphicsView->height() / m_settings.m_nNbRows) - this->height()));
-				pixmapItem->setPos(col *ui.graphicsView->width()/ m_settings.m_nNbRows, row*ui.graphicsView->height()/ m_settings.m_nNbRows);
+				QGraphicsPixmapItem* pixmapItem = m_pScene->addPixmap(QPixmap::fromImage(image).scaled(this->width() + (ui.graphicsView->width() / m_settings.m_nNbRows - this->width()),
+																									   this->height() + (ui.graphicsView->height() / m_settings.m_nNbRows) - this->height()));
 				
-				drawCurves();
+				pixmapItem->setPos(col *ui.graphicsView->width()/ m_settings.m_nNbRows, row*ui.graphicsView->height()/ m_settings.m_nNbRows);
 			}
 		}
 		ui.graphicsView->setScene(m_pScene);
 
-		ui.ProgressBar->setValue(1);
-
+		drawCurves();
 	}
 
 	void PTUT::drawCurves()
 	{
 		//Courbe Alpha
-		m_pAlphaCurveScene = new QGraphicsScene(this);
+		QGraphicsScene* m_pAlphaCurveScene = new QGraphicsScene(this);
 		int size = m_pNetwork->getAlphaValues().size();
-		
-
+		int width = ui.AlphaCurve->width();
 		QPen outlinePen(Qt::red);
 		outlinePen.setWidth(2);	
 			
 		for (int i = 0; i < size - 1; i++) 
 		{
 			m_pAlphaCurveScene->addLine(i * ui.AlphaCurve->width() / size,
-				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
-				(i + 1) * ui.AlphaCurve->width() / size,
-				ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
-				outlinePen);
+										ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+										(i + 1) * ui.AlphaCurve->width() / size,
+										ui.AlphaCurve->height() - (m_pNetwork->getAlphaValues()[i + 1] * ui.AlphaCurve->height() / m_settings.m_dInitialAlpha),
+										outlinePen);
+		
+			
 		}
 
-		m_pAlphaCurveScene->addLine(m_pNetwork->getAlphaValues()[x], 0, m_pNetwork->getAlphaValues()[x], ui.AlphaCurve->height(), outlinePen);
+		if (x < ui.BetaCurve->width())
+			m_pAlphaCurveScene->addLine(x, 0, x, ui.AlphaCurve->height(), outlinePen);
 
 		ui.AlphaCurve->setScene(m_pAlphaCurveScene);
 
 		//Courbe Beta
-		m_pBetaCurveScene = new QGraphicsScene(this);
+		QGraphicsScene* m_pBetaCurveScene = new QGraphicsScene(this);
 
 		double beta = m_settings.m_nInitialBeta;
 		double beta2 = beta - beta * m_settings.m_dBetaRate;
@@ -140,13 +141,16 @@ namespace SOM {
 
 			beta -= beta * m_settings.m_dBetaRate;
 			beta2 -= beta2 * m_settings.m_dBetaRate;
+
+				
 		}
 
-		m_pBetaCurveScene->addLine(m_pNetwork->getAlphaValues()[x], 0, m_pNetwork->getAlphaValues()[x], ui.BetaCurve->height(), outlinePen);
-		
+		if(x < ui.BetaCurve->width())
+			m_pBetaCurveScene->addLine(x , 0, x , ui.BetaCurve->height(), outlinePen);
+
 		ui.BetaCurve->setScene(m_pBetaCurveScene);
 
-		x++;
+		x += (double)size / (double)width;
 	}
 
 	void PTUT::setAlphaValueText()

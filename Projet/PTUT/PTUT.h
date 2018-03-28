@@ -36,9 +36,7 @@ namespace SOM {
 
 		//visualisation
 		QGraphicsScene *m_pScene = Q_NULLPTR;//Scene du QGraphicView
-		QGraphicsScene* m_pAlphaCurveScene;//Scene courbe Alpha
-		QGraphicsScene* m_pBetaCurveScene;//Scene courbe Beta
-		int x = 0; // abscisse de la ligne verticales
+		double x = 0; // abscisse de la ligne verticales
 
 	public:
 		//initialise les variables avec les valeurs des parametres
