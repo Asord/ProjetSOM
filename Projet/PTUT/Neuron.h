@@ -4,7 +4,7 @@
 #include "Vector.h"
 #include "Utility.h"
 #include <cstdlib>
-#include "Resources.h"
+#include "Elements.h"
 #include <qcolor.h>
 
 namespace SOM

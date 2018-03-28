@@ -1,9 +1,8 @@
-#include "Resources.h"
-#include <qdebug.h>
+#include "Elements.h"
 
 namespace SOM
 {
-	Resources::Resources(QDir directory)
+	Elements::Elements(QDir directory)
 	{
 		imageHeight = 0;
 		imageWidth = 0;
@@ -26,7 +25,6 @@ namespace SOM
 				imageHeight = imageSize.height();
 
 				byteSize = imageSize.height() * imageSize.width() * image.pixelFormat().bitsPerPixel();
-
 			}
 
 			if (imageHeight != imageSize.height() || imageWidth != imageSize.width())

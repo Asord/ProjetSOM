@@ -33,9 +33,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Resources.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,8 +51,20 @@
     <ClCompile Include="PTUT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Resources.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_ThreadedCalcs.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ThreadedCalcs.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadedCalcs.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +75,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="PTUT.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ThreadedCalcs.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
